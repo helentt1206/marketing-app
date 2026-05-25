@@ -1,0 +1,396 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>第十章 营销战略规划、执行与职业发展 — 思维导图</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{
+  font-family:"Microsoft YaHei","PingFang SC",sans-serif;
+  background:#f0f2f5;
+  overflow:hidden;height:100vh;width:100vw;
+  user-select:none;-webkit-user-select:none;
+}
+svg{width:100%;height:100%;position:absolute;top:0;left:0}
+#toolbar{position:fixed;top:16px;right:16px;z-index:100;display:flex;gap:8px}
+#toolbar button{
+  padding:8px 16px;border:1px solid #d9d9d9;background:#fff;
+  border-radius:6px;cursor:pointer;font-size:13px;font-family:inherit;
+  box-shadow:0 1px 4px rgba(0,0,0,.08);transition:all .2s;
+}
+#toolbar button:hover{background:#1677ff;color:#fff;border-color:#1677ff}
+#search{position:fixed;top:16px;left:16px;z-index:100}
+#search input{
+  padding:8px 14px;border:1px solid #d9d9d9;border-radius:20px;
+  width:240px;font-size:13px;font-family:inherit;outline:none;
+  box-shadow:0 1px 4px rgba(0,0,0,.08);transition:border-color .2s;
+}
+#search input:focus{border-color:#1677ff}
+#info{
+  position:fixed;bottom:16px;right:16px;z-index:100;
+  background:#fff;padding:6px 12px;border-radius:6px;
+  box-shadow:0 1px 6px rgba(0,0,0,.1);font-size:11px;color:#888;
+}
+#legend{
+  position:fixed;bottom:16px;left:16px;z-index:100;
+  background:#fff;padding:10px 16px;border-radius:8px;
+  box-shadow:0 1px 6px rgba(0,0,0,.1);font-size:12px;
+  display:flex;gap:14px;flex-wrap:wrap;
+}
+.li{display:flex;align-items:center;gap:6px}
+.ld{width:12px;height:12px;border-radius:50%}
+#status{
+  position:fixed;top:50%;left:50%;transform:translate(-50%,-50%);
+  background:#fff;padding:20px 40px;border-radius:12px;z-index:200;
+  box-shadow:0 4px 20px rgba(0,0,0,.15);font-size:16px;text-align:center;
+}
+#status.ok{color:#52c41a}
+#status.err{color:#f5222d}
+#status.loading{color:#1677ff}
+</style>
+</head>
+<body>
+
+<div id="status" class="loading">正在加载思维导图...</div>
+
+<div id="toolbar">
+  <button id="btnFit">适应画面</button>
+  <button id="btnExpand">全部展开</button>
+  <button id="btnCollapse">全部收起</button>
+</div>
+<div id="search">
+  <input type="text" id="searchInput" placeholder="搜索节点...">
+</div>
+<div id="legend">
+  <span class="li"><span class="ld" style="background:#1677ff"></span>核心概念</span>
+  <span class="li"><span class="ld" style="background:#52c41a"></span>观念演变</span>
+  <span class="li"><span class="ld" style="background:#fa8c16"></span>案例分析</span>
+  <span class="li"><span class="ld" style="background:#722ed1"></span>国际化趋势</span>
+  <span class="li"><span class="ld" style="background:#eb2f96"></span>跨文化营销</span>
+  <span class="li"><span class="ld" style="background:#13c2c2"></span>实训/练习</span>
+</div>
+<div id="info">拖拽平移 · 滚轮缩放 · 点击节点展开/收起</div>
+
+<svg id="svg"></svg>
+
+<script>
+(function(){
+var statusEl = document.getElementById('status');
+function showStatus(msg, cls){
+  statusEl.textContent = msg;
+  statusEl.className = cls;
+}
+try {
+
+// ============ TREE DATA ============
+var treeData = {name:'第十章 营销战略规划、执行与\n职业发展', color:'#f5222d', children:[              {name:'本章导读', color:'#1677ff', collapsed:true, children:[                {name:'作为全书的收束与升华章节，本\n章承担着将你从"理论学习者"转...', color:'#d6e4ff', children:[]                },                {name:'本章将以苏州工业园区的真实产\n业生态为宏大背景，以科沃斯机...', color:'#d6e4ff', children:[]                },                {name:'- 第一节（10.1）：建立战略思\n维——理解营销战略规划的本质...', color:'#d6e4ff', children:[]                },                {name:'- 第二节（10.2）：掌握战略工\n具——七步法系统构建营销战略...', color:'#d6e4ff', children:[]                },                {name:'- 第三节（10.3）：沉浸真实案\n例——通过苏州园区企业深度案...', color:'#d6e4ff', children:[]                },                {name:'- 第四节（10.4）：综合实战演\n练——完成一份从分析到执行的...', color:'#d6e4ff', children:[]                },                {name:'- 第五节（10.5）：绘制职业蓝\n图——理解行业需求、构建核心...', color:'#d6e4ff', children:[]                }              ]              },              {name:'学习目标 ', color:'#1677ff', children:[                {name:'知识目标', color:'#91caff', collapsed:true, children:[                  {name:'系统掌握营销战略规划的核心概\n念、层次结构（公司层、业务层...', color:'#d6e4ff', children:[]                  },                  {name:'深入理解并能够运用营销战略规\n划的完整七步法流程：环境扫描...', color:'#d6e4ff', children:[]                  },                  {name:'掌握安索夫增长矩阵、波士顿咨\n询集团矩阵、通用电气矩阵等经...', color:'#d6e4ff', children:[]                  },                  {name:'理解营销战略与营销战术（4P执\n行）之间的层级关系与衔接逻辑...', color:'#d6e4ff', children:[]                  },                  {name:'熟悉苏州工业园区重点产业集群\n（高端制造、人工智能、生物医...', color:'#d6e4ff', children:[]                  },                  {name:'掌握市场营销核心能力"黄金三\n角"模型（专业能力+数字素养+...', color:'#d6e4ff', children:[]                  }                ]                },                {name:'能力目标', color:'#4096ff', collapsed:true, children:[                  {name:'1. 能够独立运用PESTEL、波特\n五力、SWOT等分析工具，为苏州...', color:'#d6e4ff', children:[]                  },                  {name:'2. 能够基于SMART原则为企业设\n定清晰的营销战略目标，并完成...', color:'#d6e4ff', children:[]                  },                  {name:'3. 能够独立撰写一份结构完整、\n逻辑自洽、数据支撑、可执行的...', color:'#d6e4ff', children:[]                  },                  {name:'4. 能够运用安索夫矩阵、BCG矩\n阵等工具进行业务组合分析与增...', color:'#d6e4ff', children:[]                  },                  {name:'5. 能够用STAR法则撰写专业简\n历，用业务思维进行面试应答，...', color:'#d6e4ff', children:[]                  }                ]                },                {name:'素养目标', color:'#4096ff', collapsed:true, children:[                  {name:'1. 树立正确的战略伦理观——\n战略追求的不只是竞争优势，更...', color:'#d6e4ff', children:[]                  },                  {name:'2. 强化诚信合规的职业底线—\n—在制定营销战略和执行计划时...', color:'#d6e4ff', children:[]                  },                  {name:'3. 培养全局思维与系统思考能\n力——理解企业战略与国家战略...', color:'#d6e4ff', children:[]                  },                  {name:'4. 建立文化自信与产业报国情\n怀——在苏州工业园区这片中国...', color:'#d6e4ff', children:[]                  },                  {name:'5. 践行"正道成功"的职业信念\n——在职业发展道路上坚守底线...', color:'#d6e4ff', children:[]                  }                ]                }              ]              },              {name:'10.1 战略制胜——理解营销战\n略规划', color:'#1677ff', children:[                {name:'10.1.1 战略与营销战略：从军\n事到市场的思想迁移', color:'#4096ff', collapsed:true, children:[                  {name:'"战略"一词源于古希腊语"\nstrategos"，原意为"将军的艺...', color:'#d6e4ff', children:[]                  },                  {name:'核心定义：营销战略规划是企业\n为实现其总体经营目标，针对市...', color:'#d6e4ff', children:[]                  }                ]                },                {name:'10.1.2 营销战略规划的层次结\n构', color:'#4096ff', collapsed:true, children:[                  {name:'企业的战略规划是一个自上而下、\n层层传导的体系，如同俄罗斯套...', color:'#d6e4ff', children:[]                  },                  {name:'第一层：公司层战略', color:'#d6e4ff', children:[]                  },                  {name:'这是企业最高决策层制定的总体\n战略，决定了"我们要做什么业...', color:'#d6e4ff', children:[]                  },                  {name:'- 核心任务：定义企业的使命、\n愿景与核心价值观；决定业务组...', color:'#d6e4ff', children:[]                  },                  {name:'- 典型决策：科沃斯从吸尘器代\n工全面转向自主品牌的决策；阿...', color:'#d6e4ff', children:[]                  },                  {name:'- 核心工具：BCG矩阵、GE矩阵、\n安索夫增长矩阵。', color:'#d6e4ff', children:[]                  },                  {name:'第二层：业务层/事业部层战略', color:'#d6e4ff', children:[]                  },                  {name:'在每个战略业务单元内部，确定\n"我们如何在所选的业务领域中...', color:'#d6e4ff', children:[]                  },                  {name:'- 核心任务：选择竞争战略（成\n本领先/差异化/集中化）；确定...', color:'#d6e4ff', children:[]                  },                  {name:'- 典型决策：科沃斯机器人在扫\n地机器人业务中选择"差异化战...', color:'#d6e4ff', children:[]                  },                  {name:'- 核心工具：波特五力模型、波\n特三大通用竞争战略、SWOT分析...', color:'#d6e4ff', children:[]                  },                  {name:'第三层：职能层战略', color:'#d6e4ff', children:[]                  },                  {name:'各职能部门为支持业务战略而制\n定的具体策略。营销战略即属于...', color:'#d6e4ff', children:[]                  },                  {name:'- 核心任务：将业务战略转化为\n营销、研发、生产、财务、人力...', color:'#d6e4ff', children:[]                  },                  {name:'- 典型决策：营销部门制定STP\n策略与4P组合；研发部门规划技...', color:'#d6e4ff', children:[]                  },                  {name:'- 核心工具：STP、4P/4C/4R、\n整合营销传播规划、营销预算与...', color:'#d6e4ff', children:[]                  },                  {name:'上层的战略决策为下层提供方向\n与约束，下层的执行效果反馈给...', color:'#d6e4ff', children:[]                  }                ]                },                {name:'10.1.3 营销战略的重要性：为\n何战略先行？', color:'#4096ff', collapsed:true, children:[                  {name:'在苏州工业园区这片高度竞争、\n技术快速迭代的产业高地上，营...', color:'#d6e4ff', children:[]                  },                  {name:'1. 方向聚焦（Direction & \nFocus）', color:'#d6e4ff', children:[]                  },                  {name:'没有战略的企业如同没有导航的\n航船——什么市场都想做，什么...', color:'#d6e4ff', children:[]                  },                  {name:'2. 资源配置', color:'#d6e4ff', children:[]                  },                  {name:'任何企业的资源——资金、人才、\n时间、技术——都是有限的。战...', color:'#d6e4ff', children:[]                  },                  {name:'3. 风险预警', color:'#d6e4ff', children:[]                  },                  {name:'战略规划过程中的系统性环境分\n析（PESTEL、波特五力等），帮...', color:'#d6e4ff', children:[]                  },                  {name:'4. 竞争壁垒', color:'#d6e4ff', children:[]                  },                  {name:'战略的终极目标是构建可持续的\n竞争优势——即股神巴菲特所称...', color:'#d6e4ff', children:[]                  },                  {name:'5. 协同增效', color:'#d6e4ff', children:[]                  },                  {name:'当企业有了清晰的战略，研发、\n生产、销售、服务等所有部门才...', color:'#d6e4ff', children:[]                  }                ]                }              ]              },              {name:'10.2 构建规划蓝图——营销战\n略规划七步法', color:'#1677ff', collapsed:true, children:[                {name:'营销战略规划是一个严谨、系统、\n动态的管理流程。本节将以七步...', color:'#d6e4ff', children:[]                },                {name:'步骤一：深度环境扫描与分析', color:'#d6e4ff', children:[]                },                {name:'环境扫描是战略规划的起点。企\n业需要同时审视外部环境（宏观...', color:'#d6e4ff', children:[]                },                {name:'宏观环境分析：PESTEL框架', color:'#d6e4ff', children:[]                },                {name:'PESTEL框架帮助营销者系统性地\n扫描可能影响企业的六大宏观力...', color:'#d6e4ff', children:[]                },                {name:'行业与竞争分析：波特五力模型', color:'#d6e4ff', children:[]                },                {name:'波特五力模型是分析行业竞争结\n构与盈利潜力的经典工具：', color:'#d6e4ff', children:[]                },                {name:'力量一：同业竞争者的竞争强度', color:'#d6e4ff', children:[]                },                {name:'这是五力中通常最为直接和激烈\n的一种力量。评估内容包括：竞...', color:'#d6e4ff', children:[]                },                {name:'苏州园区实例：扫地机器人市场\n——科沃斯、石头科技、追觅科...', color:'#d6e4ff', children:[]                },                {name:'力量二：潜在进入者的威胁', color:'#d6e4ff', children:[]                },                {name:'新进入者带来新增产能与市场份\n额争夺。威胁大小取决于进入壁...', color:'#d6e4ff', children:[]                },                {name:'苏州园区实例：小米凭借其强大\n的品牌影响力和IoT生态优势跨...', color:'#d6e4ff', children:[]                },                {name:'力量三：替代品的威胁', color:'#d6e4ff', children:[]                },                {name:'替代品来自不同行业但能满足相\n同需求的产品或服务。关键问题...', color:'#d6e4ff', children:[]                },                {name:'苏州园区实例：对于扫地机器人\n品牌而言，替代品不仅来自其他...', color:'#d6e4ff', children:[]                },                {name:'力量四：供应商的议价能力', color:'#d6e4ff', children:[]                },                {name:'供应商集中度高、转换供应商成\n本大、供应商有可能前向整合时...', color:'#d6e4ff', children:[]                },                {name:'苏州园区实例：扫地机器人核心\n零部件——激光雷达、AI芯片、...', color:'#d6e4ff', children:[]                },                {name:'力量五：购买者的议价能力', color:'#d6e4ff', children:[]                },                {name:'购买者集中度高、产品标准化程\n度高、转换成本低时，其议价能...', color:'#d6e4ff', children:[]                },                {name:'苏州园区实例：对于B2B工业自\n动化企业，大客户（如苹果、富...', color:'#d6e4ff', children:[]                },                {name:'内部环境分析：资源与能力评估', color:'#d6e4ff', children:[]                },                {name:'在分析外部环境的同时，企业需\n要审视自身的资源与能力禀赋。...', color:'#d6e4ff', children:[]                },                {name:'- 我们拥有哪些独特的、难以被\n复制的资源？（技术专利、品牌...', color:'#d6e4ff', children:[]                },                {name:'- 我们在哪些方面做得比竞争对\n手更好？（核心技术、成本控制...', color:'#d6e4ff', children:[]                },                {name:'- 我们在哪些方面存在明显的短\n板？（品牌认知度不足、渠道覆...', color:'#d6e4ff', children:[]                },                {name:'步骤二：SWOT整合分析与战略构\n想（SWOT & Strategy ...', color:'#d6e4ff', children:[]                },                {name:'SWOT分析是连接环境扫描与战略\n制定的核心桥梁。它将外部环境...', color:'#d6e4ff', children:[]                },                {name:'案例一：科沃斯机器人的SWOT分\n析', color:'#d6e4ff', children:[]                }              ]              },              {name:'10.3 产教融合——苏州园区企\n业营销实战案例深度解析', color:'#1677ff', children:[                {name:'本节将通过两个经典的苏州工业\n园区企业深度案例，将前文所有...', color:'#d6e4ff', children:[]                },                {name:'10.3.1 案例分析（一）：科沃\n斯机器人——从中国制造到全球...', color:'#4096ff', collapsed:true, children:[                  {name:'一、企业背景与战略起点', color:'#91caff', collapsed:true, children:[                    {name:'科沃斯机器人总部位于苏州工业\n园区，其发展史是中国制造从"...', color:'#d6e4ff', children:[]                    }                  ]                  },                  {name:'二、公司层战略转型：从OEM到\nOBM的战略决断', color:'#91caff', collapsed:true, children:[                    {name:'面对代工模式的增长天花板与战\n略脆弱性，科沃斯创始人做出了...', color:'#d6e4ff', children:[]                    },                    {name:'这一决策无疑是冒险的——放弃\n稳定的代工收入，进入一个尚未...', color:'#d6e4ff', children:[]                    }                  ]                  },                  {name:'三、业务层战略：差异化竞争的\n全面实践', color:'#91caff', collapsed:true, children:[                    {name:'在扫地机器人市场竞争日益激烈\n的格局下，科沃斯选择了差异化...', color:'#d6e4ff', children:[]                    },                    {name:'- 技术差异化：持续多年大比例\n研发投入，在激光导航、AI视觉...', color:'#d6e4ff', children:[]                    },                    {name:'- 产品差异化：从单一扫地功能\n向"扫拖一体→自清洁→全能基...', color:'#d6e4ff', children:[]                    },                    {name:'- 品牌差异化：建立"高端国货\n科技品牌"的心智定位——不是...', color:'#d6e4ff', children:[]                    },                    {name:'- 渠道差异化：国内构建"线上\n做流量与转化+线下做体验与服...', color:'#d6e4ff', children:[]                    },                    {name:'- 服务差异化：建立覆盖全国的\n线下服务网络与会员体系，将"...', color:'#d6e4ff', children:[]                    }                  ]                  },                  {name:'四、营销战略层层落地的启示', color:'#91caff', collapsed:true, children:[                    {name:'1. 战略方向决定资源配置：从\n代工到品牌的转型首先是一个资...', color:'#d6e4ff', children:[]                    },                    {name:'2. 差异化不可以"既要又要"：\n科沃斯选择了"高端科技"这一清...', color:'#d6e4ff', children:[]                    },                    {name:'3. 全球化不是"把中文广告翻译\n成英文"：科沃斯在海外市场的...', color:'#d6e4ff', children:[]                    },                    {name:'4. 战略是动态的，不是一劳永\n逸的：科沃斯的战略在持续进化...', color:'#d6e4ff', children:[]                    }                  ]                  }                ]                },                {name:'10.3.2 案例分析（二）：科达\n科技——传统安防企业的数字化...', color:'#4096ff', collapsed:true, children:[                  {name:'一、企业背景与战略挑战', color:'#91caff', children:[]                  },                  {name:'二、环境扫描与战略识别', color:'#91caff', collapsed:true, children:[                    {name:'- 宏观机会：远程办公、在线教\n育、智慧医疗、数字政务等领域...', color:'#d6e4ff', children:[]                    },                    {name:'- 宏观威胁：互联网巨头以"免\n费+增值"模式进入视频会议市场...', color:'#d6e4ff', children:[]                    },                    {name:'- 内部优势：科达拥有深厚的视\n频编解码技术积累、对政企客户...', color:'#d6e4ff', children:[]                    },                    {name:'- 内部劣势：在互联网用户群体\n中品牌认知度极低；传统的直销...', color:'#d6e4ff', children:[]                    }                  ]                  },                  {name:'三、战略选择与转型路径（SO战\n略）', color:'#91caff', collapsed:true, children:[                    {name:'科达科技的战略选择是经典的SO\n战略：利用自身在视频技术和政...', color:'#d6e4ff', children:[]                    }                  ]                  },                  {name:'四、营销战略与执行层面的关键\n变革', color:'#91caff', collapsed:true, children:[                    {name:'产品策略变革：从销售单一硬件\n设备转向提供"云+端+行业解决...', color:'#d6e4ff', children:[]                    },                    {name:'渠道与销售模式变革：大力发展\n线上直销与数字营销能力——建...', color:'#d6e4ff', children:[]                    },                    {name:'品牌与传播变革：从行业展会+\n客户关系的传统B2B营销方式，...', color:'#d6e4ff', children:[]                    }                  ]                  },                  {name:'五、转型成果与战略启示', color:'#91caff', collapsed:true, children:[                    {name:'科达科技的数字化转型取得了显\n著成效——线上销售线索占比大...', color:'#d6e4ff', children:[]                    },                    {name:'科达科技案例的核心启示：在颠\n覆性变化面前，战略的本质不是...', color:'#d6e4ff', children:[]                    }                  ]                  }                ]                }              ]              },              {name:'10.4 学以致用——市场营销综\n合实训：全案策划实战', color:'#1677ff', children:[                {name:'本章节旨在为你提供一个将全书\n理论知识整合运用的实战框架。...', color:'#d6e4ff', children:[]                },                {name:'10.4.1 实训项目设置', color:'#4096ff', collapsed:true, children:[                  {name:'项目名称：苏州工业园区企业市\n场营销策划全案', color:'#d6e4ff', children:[]                  },                  {name:'可选企业/品牌（任选其一或自\n拟，均需结合苏州园区产业特色...', color:'#d6e4ff', children:[]                  },                  {name:'1. 为科沃斯规划其下一代高端\n旗舰扫地机器人（或商用清洁机...', color:'#d6e4ff', children:[]                  },                  {name:'2. 为园区某生物医药/医疗器械\n公司的家用健康监测设备制定...', color:'#d6e4ff', children:[]                  },                  {name:'3. 为一家主打国潮文创的苏州\n本土品牌制定全渠道品牌升级与...', color:'#d6e4ff', children:[]                  },                  {name:'4. 为一家AIoT方向的园区科创\n企业设计一套面向中小制造企业...', color:'#d6e4ff', children:[]                  },                  {name:'5. 自拟一项创新产品或服务的\n商业构想，并进行完整的市场营...', color:'#d6e4ff', children:[]                  }                ]                },                {name:'10.4.2 营销策划全案结构模板', color:'#4096ff', collapsed:true, children:[                  {name:'第一部分：执行摘要', color:'#d6e4ff', children:[]                  },                  {name:'用1-2页篇幅精炼呈现全案的核\n心要点——项目背景、核心目标...', color:'#d6e4ff', children:[]                  },                  {name:'第二部分：市场环境与情境分析', color:'#d6e4ff', children:[]                  },                  {name:'1. 宏观环境分析：识别与项目\n相关的关键宏观趋势及其影响', color:'#d6e4ff', children:[]                  },                  {name:'2. 行业与竞争分析：市场规模\n与增长率、技术趋势、波特五力...', color:'#d6e4ff', children:[]                  },                  {name:'3. 目标消费者/客户分析：人群\n画像（人口统计+行为+心理）、...', color:'#d6e4ff', children:[]                  },                  {name:'4. 企业自身SWOT分析：内外部\n关键因素提炼与战略推导', color:'#d6e4ff', children:[]                  },                  {name:'第三部分：营销战略', color:'#d6e4ff', children:[]                  },                  {name:'2. 基于SMART原则的战略目标设\n定（财务/市场/客户/创新四维...', color:'#d6e4ff', children:[]                  },                  {name:'- 目标市场选择与覆盖策略（无\n差异/差异化/集中化）', color:'#d6e4ff', children:[]                  },                  {name:'- 定位陈述（使用标准定位陈述\n模板）', color:'#d6e4ff', children:[]                  },                  {name:'4. 竞争战略选择（成本领先/差\n异化/集中化）', color:'#d6e4ff', children:[]                  },                  {name:'第四部分：营销组合策略（\nMarketing Mix: The 4Ps）', color:'#d6e4ff', children:[]                  },                  {name:'1. 产品策略：产品组合规划、\n核心功能与差异化特性、品牌名...', color:'#d6e4ff', children:[]                  },                  {name:'2. 价格策略：定价目标、定价\n方法（成本导向/价值导向/竞争...', color:'#d6e4ff', children:[]                  },                  {name:'3. 渠道策略（Place/\nDistribution）：渠道结构设计...', color:'#d6e4ff', children:[]                  },                  {name:'4. 促销/传播策略：整合营销传\n播方案（广告+公关+促销+人员...', color:'#d6e4ff', children:[]                  },                  {name:'第五部分：行动计划、预算与效\n果评估（Action Plan, Budget ...', color:'#d6e4ff', children:[]                  },                  {name:'1. 甘特图/行动计划时间表：按\n月度或周度分解关键任务与负责...', color:'#d6e4ff', children:[]                  },                  {name:'2. 营销预算表：各项目（广告\n投放、KOL合作、活动举办、内...', color:'#d6e4ff', children:[]                  },                  {name:'3. 风险识别与应对预案：识别3\n-5个关键风险并设计应对方案', color:'#d6e4ff', children:[]                  },                  {name:'4. KPI仪表盘：财务指标+市场\n指标+客户指标+运营指标的完整...', color:'#d6e4ff', children:[]                  }                ]                },                {name:'10.4.3 Mini Project 评分标准\n ', color:'#4096ff', children:[]                }              ]              },              {name:'10.5 绘制未来——市场营销职\n业发展蓝图', color:'#1677ff', children:[                {name:'作为全书的最后一节，我们将目\n光从企业战略转向你的个人发展...', color:'#d6e4ff', children:[]                },                {name:'10.5.1 解读市场信号：苏州工\n业园区的产业生态与人才需求密...', color:'#4096ff', collapsed:true, children:[                  {name:'在制定个人职业蓝图之前，必须\n深刻理解你的"主战场"——苏州...', color:'#d6e4ff', children:[]                  },                  {name:'一、聚焦核心产业集群，锚定职\n业主航道', color:'#91caff', collapsed:true, children:[                    {name:'苏州工业园区的产业图谱决定了\n市场岗位的构成。以下几大核心...', color:'#d6e4ff', children:[]                    },                    {name:'集群一：高端制造与智能制造（\n汇川技术、博世汽车、天准科技...', color:'#d6e4ff', children:[]                    },                    {name:'- 人才需求特征：对B2B工业品\n营销、解决方案营销、产品市场...', color:'#d6e4ff', children:[]                    },                    {name:'- 核心工作内容：定义并传递复\n杂工业产品的技术价值与商业价...', color:'#d6e4ff', children:[]                    },                    {name:'- 适合人群：对技术与商业的结\n合感兴趣的理工科背景同学，或...', color:'#d6e4ff', children:[]                    },                    {name:'集群二：人工智能、机器人与数\n字经济（科沃斯、思必驰、微软...', color:'#d6e4ff', children:[]                    },                    {name:'- 人才需求特征：人才光谱最宽。\n从C端消费者市场的品牌经理、...', color:'#d6e4ff', children:[]                    },                    {name:'- 核心工作内容：讲好科技故事\n——在C端，让普通消费者理解...', color:'#d6e4ff', children:[]                    },                    {name:'- 适合人群：对科技产品和新消\n费趋势有热情，善于将复杂概念...', color:'#d6e4ff', children:[]                    },                    {name:'集群三：生物医药与医疗器械（\n百济神州、信达生物及众多创新...', color:'#d6e4ff', children:[]                    },                    {name:'- 人才需求特征：高度强调合规、\n专业、学术和渠道管理。需要医...', color:'#d6e4ff', children:[]                    },                    {name:'- 核心工作内容：基于临床证据\n的产品价值传递、学术会议与...', color:'#d6e4ff', children:[]                    },                    {name:'- 适合人群：医药/生物/化学等\n相关专业背景同学，或英语好、...', color:'#d6e4ff', children:[]                    },                    {name:'集群四：跨境电商、新零售与现\n代服务业', color:'#d6e4ff', children:[]                    },                    {name:'- 人才需求特征：岗位最前沿、\n最密集、对新生代人才最"友好"...', color:'#d6e4ff', children:[]                    },                    {name:'- 核心工作内容：操盘一个品牌\n或品类在跨境电商平台上的全流...', color:'#d6e4ff', children:[]                    },                    {name:'- 适合人群：英语好、对海外市\n场和文化有兴趣、善于从数据中...', color:'#d6e4ff', children:[]                    }                  ]                  },                  {name:'二、解码招聘关键词，实现精准\n匹配', color:'#91caff', collapsed:true, children:[                    {name:'苏州园区企业HR和业务部门在筛\n选应届生和新人的简历时，除了...', color:'#d6e4ff', children:[]                    },                    {name:'- "有从0到1的项目经验"：一段\n在实习、社团或竞赛中全程主导...', color:'#d6e4ff', children:[]                    },                    {name:'- "能用数据说话"：不仅做了某\n件事，更能用数据结果证明这件...', color:'#d6e4ff', children:[]                    },                    {name:'- "熟悉平台玩法"：这不是口号，\n而是对平台算法逻辑、内容生态...', color:'#d6e4ff', children:[]                    },                    {name:'- "英语可作为工作语言"：在高\n度国际化的苏州园区，这是通向...', color:'#d6e4ff', children:[]                    },                    {name:'- "诚信、合规、靠谱"：这是所\n有优秀企业的共同底线。在B2B...', color:'#d6e4ff', children:[]                    }                  ]                  }                ]                },                {name:'10.5.2 构建个人资产：市场营\n销人才核心能力"黄金三角"模型', color:'#4096ff', collapsed:true, children:[                  {name:'成为一名抢手的市场营销人才，\n需要构建一个稳固的能力"金字...', color:'#d6e4ff', children:[]                  },                  {name:'支柱一：专业能力——底层逻辑', color:'#d6e4ff', children:[]                  },                  {name:'支柱二：数字素养——时代引擎', color:'#d6e4ff', children:[]                  },                  {name:'支柱三：职业素养——立身之本', color:'#d6e4ff', children:[]                  }                ]                },                {name:'10.5.3 设计发展路径：从新人\n到专家的职业阶梯', color:'#4096ff', collapsed:true, children:[                  {name:'你的市场营销职业生涯通常遵循\n以下演进路径。理解每个阶段的...', color:'#d6e4ff', children:[]                  },                  {name:'阶段一：营销新兵（0-2年）—\n—"执行与吸收"', color:'#d6e4ff', children:[]                  },                  {name:'- 典型岗位：市场专员、新媒体\n运营助理、电商运营助理、销售...', color:'#d6e4ff', children:[]                  },                  {name:'- 核心职责：高效、准确地完成\n上级分配的具体的、明确的执行...', color:'#d6e4ff', children:[]                  },                  {name:'- 发展重点：夯实专业基本功，\n熟悉公司业务流程与工作标准，...', color:'#d6e4ff', children:[]                  },                  {name:'- 核心评价标准："靠谱"——事\n事有着落、件件有回音', color:'#d6e4ff', children:[]                  },                  {name:'阶段二：营销骨干（3-5年）—\n—"独当一面与项目管理"', color:'#d6e4ff', children:[]                  },                  {name:'- 典型岗位：市场营销主管、新\n媒体运营经理、品牌推广专员、...', color:'#d6e4ff', children:[]                  },                  {name:'- 核心职责：能独立负责一个中\n小型项目的全流程——独立策划...', color:'#d6e4ff', children:[]                  },                  {name:'- 发展重点：锻炼全局思维，学\n习资源分配、内外部协调、预算...', color:'#d6e4ff', children:[]                  },                  {name:'- 核心评价标准："有项目成果"\n——能完整呈现你独立负责的项...', color:'#d6e4ff', children:[]                  },                  {name:'阶段三：营销专家/经理（5-10\n年）——"策略与领导"', color:'#d6e4ff', children:[]                  },                  {name:'- 典型岗位：品牌经理、市场经\n理、数字营销经理、大区销售总...', color:'#d6e4ff', children:[]                  },                  {name:'- 核心职责：负责一条产品线、\n一个品牌或一个核心渠道/区域...', color:'#d6e4ff', children:[]                  },                  {name:'- 发展重点：从战术执行升维至\n战略思考，建立行业人脉与个人...', color:'#d6e4ff', children:[]                  },                  {name:'- 核心评价标准：成为某一营销\n领域的专家——社交媒体专家、...', color:'#d6e4ff', children:[]                  },                  {name:'阶段四：营销领袖（10年以上）\n——"战略与组织"', color:'#d6e4ff', children:[]                  },                  {name:'- 典型岗位：市场营销总监、营\n销副总裁、首席营销官', color:'#d6e4ff', children:[]                  },                  {name:'- 核心职责：站在公司整体战略\n的高度，为公司的增长和品牌建...', color:'#d6e4ff', children:[]                  },                  {name:'- 发展重点：拥有商业全局观、\n掌握财务分析能力（读懂三张报...', color:'#d6e4ff', children:[]                  },                  {name:'- 核心评价标准：你的个人价值\n与企业的长期增长深度绑定', color:'#d6e4ff', children:[]                  }                ]                },                {name:'10.5.4 行动指南：求职、面试\n与职场成长的实用策略', color:'#4096ff', collapsed:true, children:[                  {name:'一、简历的黄金法则：项目制呈\n现，量化你的价值', color:'#91caff', collapsed:true, children:[                    {name:'- 结构化展示：基本信息→教育\n背景→相关经历→技能证书', color:'#d6e4ff', children:[]                    },                    {name:'- STAR法则描述每一项经历：情\n境—任务—行动—结果', color:'#d6e4ff', children:[]                    },                    {name:'- 结果务必量化：错误示范："\n负责公众号运营，撰写文章。" ...', color:'#d6e4ff', children:[]                    },                    {name:'- 技能点明确：列出与目标岗位\n直接相关的硬技能——...', color:'#d6e4ff', children:[]                    }                  ]                  },                  {name:'二、面试的实战准备：用"业务\n思维"回答问题', color:'#91caff', collapsed:true, children:[                    {name:'- 提前做功课：深入了解目标公\n司及其竞品，能说出对其品牌、...', color:'#d6e4ff', children:[]                    },                    {name:'- STAR法则口头表达：与简历写\n作同理，面试回答时用情景-任...', color:'#d6e4ff', children:[]                    },                    {name:'- "你为什么选择我们公司？"—\n—从行业前景、公司战略与发展...', color:'#d6e4ff', children:[]                    },                    {name:'- "讲一个你最有成就感的案例。\n"——务必提前准备好一个结构...', color:'#d6e4ff', children:[]                    },                    {name:'- "你对XX平台（抖音/小红书/B\n站/TikTok）怎么看？"——展现...', color:'#d6e4ff', children:[]                    },                    {name:'- "遇到渠道价格冲突或客户重\n大投诉，你会如何处理？"——...', color:'#d6e4ff', children:[]                    },                    {name:'- 准备你想问的问题：这体现了\n你的思考深度。如"这个岗位接...', color:'#d6e4ff', children:[]                    }                  ]                  },                  {name:'三、职场成长的黄金法则', color:'#91caff', collapsed:true, children:[                    {name:'- 永远用数据说话：无论做汇报\n还是提建议，用数据支撑你的观...', color:'#d6e4ff', children:[]                    },                    {name:'- 闭环沟通，及时同步：接到任\n务主动同步进展，遇到困难及时...', color:'#d6e4ff', children:[]                    },                    {name:'- 主动思考，向上管理：不仅提\n出问题，更要带着解决方案去沟...', color:'#d6e4ff', children:[]                    },                    {name:'- 建立持续学习的习惯：每天花\n15分钟阅读行业新闻，每周拆解...', color:'#d6e4ff', children:[]                    }                  ]                  }                ]                }              ]              },              {name:'课程思政融入要点', color:'#1677ff', children:[                {name:'市场营销是一份关于"连接"与"\n影响"的工作。你将连接产品与...', color:'#d6e4ff', children:[]                },                {name:'坚守职业底线，恪守"君子之道"。\n 永远将诚信置于首位——不做...', color:'#d6e4ff', children:[]                },                {name:'追求价值创造，而非流量泡沫。\n 真正的营销不是制造焦虑、刺...', color:'#d6e4ff', children:[]                },                {name:'践行长期主义。 职业生涯是一\n场马拉松，而非百米冲刺。不为...', color:'#d6e4ff', children:[]                },                {name:'未来的市场营销人——愿你以扎\n实的专业能力为舟，以敏锐的数...', color:'#d6e4ff', children:[]                }              ]              },              {name:'本章小结', color:'#1677ff', children:[                {name:'在理论层面，本章系统构建了"\n营销战略规划七步法"的完整流...', color:'#d6e4ff', children:[]                },                {name:'在实战层面，科沃斯机器人与科\n达科技两个苏州工业园区深度案...', color:'#d6e4ff', children:[]                },                {name:'在职业层面，"黄金三角"能力模\n型、四阶段职业阶梯、STAR简历...', color:'#d6e4ff', children:[]                },                {name:'战略决定高度，执行决定深度，\n伦理决定长度。 祝你以本章为...', color:'#d6e4ff', children:[]                }              ]              },              {name:'关键术语（中英双语）', color:'#1677ff', children:[]              },              {name:'思考与练习', color:'#1677ff', children:[                {name:'基础知识题', color:'#91caff', collapsed:true, children:[                  {name:'简述营销战略规划在企业战略层\n次结构中的位置，以及它与公司...', color:'#d6e4ff', children:[]                  },                  {name:'用PESTEL框架分析当前苏州工业\n园区某一家企业（自选）面临的...', color:'#d6e4ff', children:[]                  },                  {name:'SWOT分析中，SO、WO、ST、WT四\n种战略分别适用于什么情境？请...', color:'#d6e4ff', children:[]                  },                  {name:'简述波特三大通用竞争战略的核\n心内容。为什么"夹在中间"是危...', color:'#d6e4ff', children:[]                  },                  {name:'营销战略规划七步法的每一步分\n别使用哪些核心分析工具？请以...', color:'#d6e4ff', children:[]                  }                ]                },                {name:'案例分析题', color:'#91caff', collapsed:true, children:[                  {name:'科沃斯从OEM代工转型为OBM自主\n品牌的战略决策中，最关键的环...', color:'#d6e4ff', children:[]                  },                  {name:'科达科技的数字化转型案例中，\n其SO战略选择为何优于其他三种...', color:'#d6e4ff', children:[]                  },                  {name:'选择苏州工业园区内任意一家你\n感兴趣的企业，运用五力模型分...', color:'#d6e4ff', children:[]                  }                ]                },                {name:'职业发展思考题', color:'#91caff', collapsed:true, children:[                  {name:'根据"黄金三角"能力模型，对你\n当前的三项核心能力进行自我评...', color:'#d6e4ff', children:[]                  },                  {name:'使用STAR法则撰写一段你最有成\n就感的校园/实习/项目经历，请...', color:'#d6e4ff', children:[]                  },                  {name:'选择本章描述的四个产业集群（\n高端制造/AI与机器人/生物医药...', color:'#d6e4ff', children:[]                  }                ]                },                {name:'战略实战模拟题', color:'#91caff', collapsed:true, children:[                  {name:'创业营销战略设计：假设你与团\n队在苏州工业园区创立了一家AI...', color:'#d6e4ff', children:[]                  },                  {name:'- a) PESTEL宏观环境分析（识\n别3-5个关键趋势）', color:'#d6e4ff', children:[]                  },                  {name:'- c) SWOT分析与战略推导', color:'#d6e4ff', children:[]                  },                  {name:'- d) STP战略（市场细分→目标\n市场→定位陈述）', color:'#d6e4ff', children:[]                  },                  {name:'营销策划全案：选择本章10.4.1\n中的任意一个实训项目，按照10...', color:'#d6e4ff', children:[]                  }                ]                }              ]              }            ]            };
+
+showStatus('正在渲染节点...', 'loading');
+
+// ============ CONSTANTS ============
+var NODE_W = 200, NODE_H = 44, H_GAP = 32, V_GAP = 16, CORNER_R = 8;
+var svgEl = document.getElementById('svg');
+var NS = 'http://www.w3.org/2000/svg';
+
+// ============ HELPERS ============
+function isLight(hex){
+  var r=parseInt(hex.slice(1,3),16),g=parseInt(hex.slice(3,5),16),b=parseInt(hex.slice(5,7),16);
+  return(r*299+g*587+b*114)/1000>160;
+}
+function darken(hex,amt){
+  var r=Math.max(0,parseInt(hex.slice(1,3),16)*(1-amt));
+  var g=Math.max(0,parseInt(hex.slice(3,5),16)*(1-amt));
+  var b=Math.max(0,parseInt(hex.slice(5,7),16)*(1-amt));
+  return '#'+[r,g,b].map(function(v){return Math.round(v).toString(16).padStart(2,'0')}).join('');
+}
+
+// ============ LAYOUT ============
+var flatNodes=[], flatLinks=[];
+
+function initCollapsed(d){
+  if(d.collapsed!==undefined)d._collapsed=d.collapsed;
+  else d._collapsed=false;
+  if(d.children)d.children.forEach(initCollapsed);
+}
+
+function layout(){
+  flatNodes=[];flatLinks=[];
+  initCollapsed(treeData);
+  var W=window.innerWidth, H=window.innerHeight;
+  var rootX=120;
+
+  function place(d,depth,yStart,ySpan){
+    var x=rootX+depth*(NODE_W+H_GAP);
+    var nKids=(d.children&&!d._collapsed)?d.children.length:1;
+    var leafSpan=ySpan/nKids;
+    var y=yStart+ySpan/2;
+    var node={
+      id:flatNodes.length, name:d.name, color:d.color||'#595959',
+      emph:!!d.emph, x:x, y:y, w:NODE_W, h:NODE_H, depth:depth,
+      hasKids:!!(d.children&&d.children.length>0), collapsed:!!d._collapsed
+    };
+    d._node=node;
+    flatNodes.push(node);
+    if(d.children&&!d._collapsed){
+      for(var i=0;i<d.children.length;i++){
+        var child=d.children[i];
+        place(child,depth+1,yStart+i*leafSpan,leafSpan);
+        flatLinks.push({s:node.id,t:child._node.id});
+      }
+    }
+  }
+  place(treeData,0,80,H-160);
+
+  // Fix overlaps
+  var byDepth={};
+  flatNodes.forEach(function(n){
+    if(!byDepth[n.depth])byDepth[n.depth]=[];
+    byDepth[n.depth].push(n);
+  });
+  for(var key in byDepth){
+    var arr=byDepth[key];
+    arr.sort(function(a,b){return a.y-b.y});
+    for(var i=1;i<arr.length;i++){
+      if(arr[i].y-arr[i-1].y<NODE_H+V_GAP) arr[i].y=arr[i-1].y+NODE_H+V_GAP;
+    }
+  }
+}
+
+// ============ RENDER ============
+var mainG, linkG, nodeG;
+
+function render(){
+  while(svgEl.firstChild)svgEl.removeChild(svgEl.firstChild);
+
+  var defs=document.createElementNS(NS,'defs');
+  var filter=document.createElementNS(NS,'filter');
+  filter.setAttribute('id','sd');
+  filter.setAttribute('x','-10%');filter.setAttribute('y','-10%');
+  filter.setAttribute('width','130%');filter.setAttribute('height','130%');
+  var fe=document.createElementNS(NS,'feDropShadow');
+  fe.setAttribute('dx','1');fe.setAttribute('dy','2');
+  fe.setAttribute('stdDeviation','3');fe.setAttribute('flood-opacity','0.12');
+  filter.appendChild(fe);defs.appendChild(filter);
+  svgEl.appendChild(defs);
+
+  mainG=document.createElementNS(NS,'g');
+  svgEl.appendChild(mainG);
+
+  linkG=document.createElementNS(NS,'g');
+  linkG.setAttribute('class','links');
+  mainG.appendChild(linkG);
+
+  nodeG=document.createElementNS(NS,'g');
+  nodeG.setAttribute('class','nodes');
+  mainG.appendChild(nodeG);
+
+  // Links
+  var linkSet={};
+  flatLinks.forEach(function(l){linkSet[l.s+'-'+l.t]={s:l.s,t:l.t}});
+  for(var k in linkSet){
+    var l=linkSet[k];
+    var s=flatNodes[l.s], t=flatNodes[l.t];
+    var sx=s.x+NODE_W, sy=s.y+NODE_H/2, ex=t.x, ey=t.y+NODE_H/2;
+    var mx=(sx+ex)/2;
+    var d='M'+sx+','+sy+' C'+mx+','+sy+' '+mx+','+ey+' '+ex+','+ey;
+    var p=document.createElementNS(NS,'path');
+    p.setAttribute('d',d);
+    p.setAttribute('fill','none');
+    p.setAttribute('stroke','#c0c0c0');
+    p.setAttribute('stroke-width','1.5');
+    p.setAttribute('stroke-opacity','0.6');
+    p.setAttribute('data-s',l.s);
+    p.setAttribute('data-t',l.t);
+    linkG.appendChild(p);
+  }
+
+  // Nodes
+  flatNodes.forEach(function(n){
+    var g=document.createElementNS(NS,'g');
+    g.setAttribute('transform','translate('+n.x+','+n.y+')');
+    g.setAttribute('class','node');
+    g.style.cursor=n.hasKids?'pointer':'default';
+    g.setAttribute('data-id',n.id);
+    g.addEventListener('click',function(ev){ev.stopPropagation();toggleNode(n);});
+
+    var rect=document.createElementNS(NS,'rect');
+    rect.setAttribute('width',n.w);
+    rect.setAttribute('height',n.h);
+    rect.setAttribute('rx',CORNER_R);
+    rect.setAttribute('ry',CORNER_R);
+    rect.setAttribute('fill',n.emph?darken(n.color,0.08):n.color);
+    rect.setAttribute('stroke',n.emph?darken(n.color,0.2):'rgba(0,0,0,0.08)');
+    rect.setAttribute('stroke-width',n.emph?'2.5':'1');
+    rect.setAttribute('filter','url(#sd)');
+    g.appendChild(rect);
+
+    // Collapse indicator
+    if(n.hasKids){
+      var cx=n.w-14, cy=n.h/2;
+      var circle=document.createElementNS(NS,'circle');
+      circle.setAttribute('cx',cx);circle.setAttribute('cy',cy);circle.setAttribute('r','8');
+      circle.setAttribute('fill','rgba(255,255,255,0.35)');
+      circle.setAttribute('stroke','rgba(255,255,255,0.6)');
+      circle.setAttribute('stroke-width','1');
+      g.appendChild(circle);
+      var txt=document.createElementNS(NS,'text');
+      txt.setAttribute('x',cx);txt.setAttribute('y',cy);
+      txt.setAttribute('dy','0.35em');
+      txt.setAttribute('text-anchor','middle');
+      txt.setAttribute('fill','#fff');
+      txt.setAttribute('font-size','11');
+      txt.setAttribute('font-weight','bold');
+      txt.textContent=n.collapsed?'+':'−';
+      g.appendChild(txt);
+    }
+
+    // Text
+    var lines=n.name.split('\n');
+    var fs=lines.length>3?10:lines.length>2?11:12;
+    var tc=isLight(n.color)?'#1a1a1a':'#fff';
+    var totalH=lines.length*(fs+3)-3;
+    lines.forEach(function(line,i){
+      var ty=n.h/2-totalH/2+i*(fs+3)+fs*0.35;
+      var txt=document.createElementNS(NS,'text');
+      txt.setAttribute('x',n.hasKids?'14':n.w/2);
+      txt.setAttribute('y',ty);
+      txt.setAttribute('text-anchor',n.hasKids?'start':'middle');
+      txt.setAttribute('fill',tc);
+      txt.setAttribute('font-size',fs);
+      txt.setAttribute('font-weight',n.emph?'bold':'normal');
+      txt.setAttribute('font-family','Microsoft YaHei,PingFang SC,sans-serif');
+      txt.textContent=line;
+      g.appendChild(txt);
+    });
+
+    nodeG.appendChild(g);
+  });
+}
+
+// ============ TREE OPS ============
+function findData(d,id){
+  if(d._node&&d._node.id===id)return d;
+  if(d.children)for(var i=0;i<d.children.length;i++){var r=findData(d.children[i],id);if(r)return r;}
+  return null;
+}
+
+function toggleNode(node){
+  var d=findData(treeData,node.id);
+  if(d&&d.children&&d.children.length>0){
+    d._collapsed=!d._collapsed;
+    layout();render();applyTransform();
+    var q=document.getElementById('searchInput').value.trim();
+    if(q)highlight(q);
+  }
+}
+
+function expandAll(){
+  (function e(d){d._collapsed=false;if(d.children)d.children.forEach(e);})(treeData);
+  layout();render();applyTransform();
+}
+function collapseAll(){
+  (function c(d,dp){if(dp>=2)d._collapsed=true;if(d.children)d.children.forEach(function(ch){c(ch,dp+1)});})(treeData,0);
+  layout();render();applyTransform();
+}
+
+// ============ SEARCH ============
+function highlight(q){
+  q=q.toLowerCase();
+  var match=[];
+  flatNodes.forEach(function(n){if(n.name.toLowerCase().indexOf(q)>=0)match[n.id]=true;});
+  var ng=nodeG.querySelectorAll('.node');
+  for(var i=0;i<ng.length;i++){
+    var id=parseInt(ng[i].getAttribute('data-id'));
+    ng[i].style.opacity=match[id]?'1':'0.15';
+  }
+  var lp=linkG.querySelectorAll('path');
+  for(var i=0;i<lp.length;i++){
+    var s=parseInt(lp[i].getAttribute('data-s'));
+    var t=parseInt(lp[i].getAttribute('data-t'));
+    lp[i].setAttribute('stroke-opacity',(match[s]||match[t])?'0.6':'0.06');
+  }
+}
+function clearHighlight(){
+  var ng=nodeG.querySelectorAll('.node');
+  for(var i=0;i<ng.length;i++)ng[i].style.opacity='1';
+  var lp=linkG.querySelectorAll('path');
+  for(var i=0;i<lp.length;i++)lp[i].setAttribute('stroke-opacity','0.6');
+}
+
+// ============ ZOOM & PAN ============
+var tx=0, ty=0, scale=1;
+
+function applyTransform(){
+  mainG.setAttribute('transform','translate('+tx+','+ty+') scale('+scale+')');
+}
+
+var panning=false, panSX=0, panSY=0, panTX=0, panTY=0;
+
+svgEl.addEventListener('mousedown',function(ev){
+  if(ev.target===svgEl||ev.target.tagName==='svg'||ev.target===mainG){
+    panning=true;panSX=ev.clientX;panSY=ev.clientY;panTX=tx;panTY=ty;
+    svgEl.style.cursor='grabbing';
+  }
+});
+window.addEventListener('mousemove',function(ev){
+  if(!panning)return;
+  tx=panTX+(ev.clientX-panSX);ty=panTY+(ev.clientY-panSY);
+  applyTransform();
+});
+window.addEventListener('mouseup',function(){panning=false;svgEl.style.cursor='';});
+svgEl.addEventListener('wheel',function(ev){
+  ev.preventDefault();
+  var ds=ev.deltaY>0?0.9:1.1;
+  var ns=Math.min(3,Math.max(0.15,scale*ds));
+  var mx=ev.clientX,my=ev.clientY;
+  tx=mx-(mx-tx)*(ns/scale);
+  ty=my-(my-ty)*(ns/scale);
+  scale=ns;
+  applyTransform();
+},{passive:false});
+
+function fitView(){
+  var bb=mainG.getBBox();
+  var W=window.innerWidth,H=window.innerHeight,pad=80;
+  scale=Math.min(W/(bb.width+pad*2),H/(bb.height+pad*2),1.2);
+  tx=(W-bb.width*scale)/2-bb.x*scale;
+  ty=(H-bb.height*scale)/2-bb.y*scale;
+  applyTransform();
+}
+
+// ============ INIT ============
+layout();
+render();
+applyTransform();
+setTimeout(function(){
+  fitView();
+  showStatus('✅ 思维导图已就绪', 'ok');
+  setTimeout(function(){statusEl.style.display='none';},1500);
+},200);
+
+document.getElementById('btnFit').addEventListener('click',fitView);
+document.getElementById('btnExpand').addEventListener('click',expandAll);
+document.getElementById('btnCollapse').addEventListener('click',collapseAll);
+document.getElementById('searchInput').addEventListener('input',function(){
+  var q=this.value.trim();
+  if(q)highlight(q);else clearHighlight();
+});
+
+var rt;
+window.addEventListener('resize',function(){
+  clearTimeout(rt);
+  rt=setTimeout(function(){layout();render();applyTransform();},200);
+});
+
+// Success
+console.log('MindMap: rendered '+flatNodes.length+' nodes, '+flatLinks.length+' links');
+
+}catch(e){
+  showStatus('⚠️ 加载失败: '+e.message, 'err');
+  console.error(e);
+}
+})();
+</script>
+</body>
+</html>

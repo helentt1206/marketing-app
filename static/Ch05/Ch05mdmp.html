@@ -1,0 +1,396 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>第五章 产品策略（Product Strategy） — 思维导图</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{
+  font-family:"Microsoft YaHei","PingFang SC",sans-serif;
+  background:#f0f2f5;
+  overflow:hidden;height:100vh;width:100vw;
+  user-select:none;-webkit-user-select:none;
+}
+svg{width:100%;height:100%;position:absolute;top:0;left:0}
+#toolbar{position:fixed;top:16px;right:16px;z-index:100;display:flex;gap:8px}
+#toolbar button{
+  padding:8px 16px;border:1px solid #d9d9d9;background:#fff;
+  border-radius:6px;cursor:pointer;font-size:13px;font-family:inherit;
+  box-shadow:0 1px 4px rgba(0,0,0,.08);transition:all .2s;
+}
+#toolbar button:hover{background:#1677ff;color:#fff;border-color:#1677ff}
+#search{position:fixed;top:16px;left:16px;z-index:100}
+#search input{
+  padding:8px 14px;border:1px solid #d9d9d9;border-radius:20px;
+  width:240px;font-size:13px;font-family:inherit;outline:none;
+  box-shadow:0 1px 4px rgba(0,0,0,.08);transition:border-color .2s;
+}
+#search input:focus{border-color:#1677ff}
+#info{
+  position:fixed;bottom:16px;right:16px;z-index:100;
+  background:#fff;padding:6px 12px;border-radius:6px;
+  box-shadow:0 1px 6px rgba(0,0,0,.1);font-size:11px;color:#888;
+}
+#legend{
+  position:fixed;bottom:16px;left:16px;z-index:100;
+  background:#fff;padding:10px 16px;border-radius:8px;
+  box-shadow:0 1px 6px rgba(0,0,0,.1);font-size:12px;
+  display:flex;gap:14px;flex-wrap:wrap;
+}
+.li{display:flex;align-items:center;gap:6px}
+.ld{width:12px;height:12px;border-radius:50%}
+#status{
+  position:fixed;top:50%;left:50%;transform:translate(-50%,-50%);
+  background:#fff;padding:20px 40px;border-radius:12px;z-index:200;
+  box-shadow:0 4px 20px rgba(0,0,0,.15);font-size:16px;text-align:center;
+}
+#status.ok{color:#52c41a}
+#status.err{color:#f5222d}
+#status.loading{color:#1677ff}
+</style>
+</head>
+<body>
+
+<div id="status" class="loading">正在加载思维导图...</div>
+
+<div id="toolbar">
+  <button id="btnFit">适应画面</button>
+  <button id="btnExpand">全部展开</button>
+  <button id="btnCollapse">全部收起</button>
+</div>
+<div id="search">
+  <input type="text" id="searchInput" placeholder="搜索节点...">
+</div>
+<div id="legend">
+  <span class="li"><span class="ld" style="background:#1677ff"></span>核心概念</span>
+  <span class="li"><span class="ld" style="background:#52c41a"></span>观念演变</span>
+  <span class="li"><span class="ld" style="background:#fa8c16"></span>案例分析</span>
+  <span class="li"><span class="ld" style="background:#722ed1"></span>国际化趋势</span>
+  <span class="li"><span class="ld" style="background:#eb2f96"></span>跨文化营销</span>
+  <span class="li"><span class="ld" style="background:#13c2c2"></span>实训/练习</span>
+</div>
+<div id="info">拖拽平移 · 滚轮缩放 · 点击节点展开/收起</div>
+
+<svg id="svg"></svg>
+
+<script>
+(function(){
+var statusEl = document.getElementById('status');
+function showStatus(msg, cls){
+  statusEl.textContent = msg;
+  statusEl.className = cls;
+}
+try {
+
+// ============ TREE DATA ============
+var treeData = {name:'第五章 产品策略', color:'#f5222d', children:[              {name:'第五章 产品策略：从开发到生\n命周期管理（完整版・约 10000...', color:'#d6e4ff', children:[]              },              {name:'（适用：苏州百年职业学院 市\n场营销专业 | 校本教材 | 双语...', color:'#d6e4ff', children:[]              },              {name:'学习目标 ', color:'#1677ff', children:[                {name:'知识目标', color:'#4096ff', collapsed:true, children:[                  {name:'熟练掌握产品整体概念五层次理\n论的内涵与应用场景，能够结合...', color:'#d6e4ff', children:[]                  },                  {name:'精准理解产品生命周期四个阶段\n的市场特征、竞争格局与对应营...', color:'#d6e4ff', children:[]                  },                  {name:'完整掌握新产品开发的八大标准\n化流程，理解各环节核心任务与...', color:'#d6e4ff', children:[]                  },                  {name:'熟悉产品分类逻辑、产品组合管\n理、品牌管理与包装策略的核心...', color:'#d6e4ff', children:[]                  },                  {name:'了解大数据、C2M、AI 等数字化\n技术在产品开发与全生命周期管...', color:'#d6e4ff', children:[]                  }                ]                },                {name:'能力目标', color:'#4096ff', collapsed:true, children:[                  {name:'能够运用产品整体概念工具，对\n园区科技、零售、服务类企业产...', color:'#d6e4ff', children:[]                  },                  {name:'能够精准判断产品所处生命周期\n阶段，并制定针对性的营销组合...', color:'#d6e4ff', children:[]                  },                  {name:'能够运用品牌资产理论完成品牌\n定位、品牌命名与品牌延伸方案...', color:'#d6e4ff', children:[]                  },                  {name:'能够结合大数据用户洞察，完成\n新产品概念开发与简单商业可行...', color:'#d6e4ff', children:[]                  },                  {name:'能够为苏州工业园区本土企业提\n供产品策略优化建议。', color:'#d6e4ff', children:[]                  }                ]                },                {name:'素养目标', color:'#4096ff', collapsed:true, children:[                  {name:'树立品质至上、精益求精的工匠\n精神，强化高质量发展意识。', color:'#d6e4ff', children:[]                  },                  {name:'增强自主创新、知识产权保护意\n识，拒绝仿冒与低质内卷。', color:'#d6e4ff', children:[]                  },                  {name:'建立绿色产品、可持续发展理念，\n践行 ESG 社会责任。', color:'#d6e4ff', children:[]                  },                  {name:'增强国货自信与品牌自信，助力\n中国品牌走向全球。', color:'#d6e4ff', children:[]                  },                  {name:'立足苏州工业园区产业发展，树\n立服务地方经济、赋能实体经济...', color:'#d6e4ff', children:[]                  }                ]                }              ]              },              {name:'5.1 产品整体概念与分类', color:'#1677ff', children:[                {name:'5.1.1 产品整体概念 ', color:'#4096ff', collapsed:true, children:[                  {name:'在现代市场营销体系中，产品早\n已不再局限于有形实物，而是消...', color:'#d6e4ff', children:[]                  },                  {name:'现代营销学之父菲利普·科特勒\n提出的产品整体概念五层次模型...', color:'#d6e4ff', children:[]                  },                  {name:'核心产品', color:'#69b1ff', collapsed:true, children:[                    {name:'第一个层次是核心产品。 核心\n产品是产品整体概念中最基础、...', color:'#d6e4ff', children:[]                    },                    {name:'核心产品是产品整体概念中最基\n础、最根本的层次，回答了一个...', color:'#d6e4ff', children:[]                    },                    {name:'它不是产品的具体形态，而是消\n费者追求的核心利益、使用价值...', color:'#d6e4ff', children:[]                    },                    {name:'理论要点：消费者购买产品，本\n质上是购买某种需求的满足或问...', color:'#d6e4ff', children:[]                    },                    {name:'消费者购买钻头，核心需求不是\n钻头本身，而是 “墙上的洞”...', color:'#d6e4ff', children:[]                    },                    {name:'消费者购买酒店房间，核心需求\n不是床铺，而是 “休息与睡眠...', color:'#d6e4ff', children:[]                    },                    {name:'消费者购买扫地机器人，核心需\n求不是机器，而是 “清洁、省...', color:'#d6e4ff', children:[]                    },                    {name:'营销启示：企业必须首先明确自\n身提供的核心价值，否则所有形...', color:'#d6e4ff', children:[]                    },                    {name:'【课堂思考】 请思考并回答：\n以下产品的“核心产品”分别是...', color:'#d6e4ff', children:[]                    },                    {name:'a) 一支口红的核心产品不是“\n颜料棒”或“金属管”，而是“...', color:'#d6e4ff', children:[]                    },                    {name:'b) 一本《市场营销学》教材的\n核心产品不是“纸张印刷品”，...', color:'#d6e4ff', children:[]                    },                    {name:'c) 一张苏州园林年卡的核心产\n品不是“一张IC卡”，而是“一...', color:'#d6e4ff', children:[]                    },                    {name:'d) 一次心理咨询服务的核心产\n品不是“一次对话”，而是“情...', color:'#d6e4ff', children:[]                    },                    {name:'形式产品', color:'#d6e4ff', children:[]                    },                    {name:'形式产品是核心产品借以实现、\n呈现在市场上的具体形态，是消...', color:'#d6e4ff', children:[]                    },                    {name:'它包括五个核心要素：品质、特\n征、款式、品牌、包装。', color:'#d6e4ff', children:[]                    },                    {name:'以苹果公司iPhone手机为例，其\n形式产品的五要素具体表现为：', color:'#d6e4ff', children:[]                    },                    {name:'【苏州园区本土案例】科沃斯扫\n地机器人', color:'#d6e4ff', children:[]                    },                    {name:'这些形式层面的精心设计，使得\n消费者在第一次看到科沃斯产品...', color:'#d6e4ff', children:[]                    },                    {name:'形式产品是消费者接触产品的第\n一道界面。任何企业在资源有限...', color:'#d6e4ff', children:[]                    },                    {name:'但需要注意的是，形式产品也是\n最容易被竞争对手模仿的层次—...', color:'#d6e4ff', children:[]                    },                    {name:'【课堂思考】 请分组讨论：对\n比华为Mate系列手机与苹果...', color:'#d6e4ff', children:[]                    },                    {name:'华为Mate系列与苹果iPhone在形\n式产品五大要素上的差异如下表...', color:'#d6e4ff', children:[]                    },                    {name:'品质：华为Mate系列搭载麒麟芯\n片（或骁龙芯片）和鸿蒙系统，...', color:'#d6e4ff', children:[]                    },                    {name:'特征：华为Mate系列强调超长变\n焦（如100倍数字变焦）、卫星...', color:'#d6e4ff', children:[]                    },                    {name:'款式：华为Mate系列通常采用大\n尺寸曲面屏、圆环摄像头模组设...', color:'#d6e4ff', children:[]                    },                    {name:'品牌：华为在中国市场有强烈的\n“国货科技标杆”形象；苹果有...', color:'#d6e4ff', children:[]                    },                    {name:'包装：两者均为简约白色纸盒，\n但华为附赠充电器和数据线，苹...', color:'#d6e4ff', children:[]                    },                    {name:'对于中老年消费者而言，影响最\n大的要素通常是品质中的续航和...', color:'#d6e4ff', children:[]                    },                    {name:'对于大学生消费者而言，影响最\n大的要素通常是品牌和特征中的...', color:'#d6e4ff', children:[]                    }                  ]                  },                  {name:'延伸产品', color:'#69b1ff', collapsed:true, children:[                    {name:'售后服务（After‑sales \nService）', color:'#d6e4ff', children:[]                    },                    {name:'增值服务（Value‑added \nService）', color:'#d6e4ff', children:[]                    },                    {name:'差异化优势。', color:'#d6e4ff', children:[]                    },                    {name:'潜在产品', color:'#d6e4ff', children:[]                    },                    {name:'潜在产品是指产品未来可能实现\n的全部升级、迭代与新增价值，...', color:'#d6e4ff', children:[]                    },                    {name:'潜在产品决定了企业能否持续留\n住用户、持续创造重复性收入，...', color:'#d6e4ff', children:[]                    },                    {name:'在智能汽车行业，潜在产品思维\n得到了最佳实践。以蔚来、小鹏...', color:'#d6e4ff', children:[]                    },                    {name:'苏州工业园区的许多科技企业已\n经将潜在产品思维融入到研发规...', color:'#d6e4ff', children:[]                    },                    {name:'宝时得旗下的智能割草机器人，\n通过持续的固件更新不断优化路...', color:'#d6e4ff', children:[]                    },                    {name:'营销启示：企业必须具备前瞻性\n思维，通过持续的产品迭代和功...', color:'#d6e4ff', children:[]                    },                    {name:'【课堂思考】 请选择一款自己\n正在使用的电子产品（如手机、...', color:'#d6e4ff', children:[]                    },                    {name:'这些改进显著提升了我对苹果品\n牌的忠诚度。因为我知道即使不...', color:'#d6e4ff', children:[]                    },                    {name:'如果苹果公司突然停止了所有潜\n在产品更新（不再有iOS新功能...', color:'#d6e4ff', children:[]                    },                    {name:'Core Product 核心产品：核心\n利益', color:'#d6e4ff', children:[]                    },                    {name:'Actual Product 形式产品：形\n态与特征', color:'#d6e4ff', children:[]                    },                    {name:'Expected Product 期望产品：\n基本预期', color:'#d6e4ff', children:[]                    },                    {name:'Augmented Product 延伸产品：\n附加服务', color:'#d6e4ff', children:[]                    },                    {name:'Potential Product 潜在产品：\n未来升级', color:'#d6e4ff', children:[]                    },                    {name:'产品五层次理论提醒企业：真正\n的竞争力来自对消费者需求的深...', color:'#d6e4ff', children:[]                    }                  ]                  }                ]                }              ]              },              {name:'课程思政融入要点', color:'#1677ff', children:[                {name:'产品五层次理论给我们带来的不\n仅仅是营销工具，更是一种价值...', color:'#d6e4ff', children:[]                },                {name:'过去，很多中国消费者迷信国际\n品牌，是因为国际品牌在延伸产...', color:'#d6e4ff', children:[]                },                {name:'5.1.2 产品分类 ', color:'#4096ff', collapsed:true, children:[                  {name:'根据购买目的、购买习惯、产品\n特性，现代营销将产品分为两大...', color:'#d6e4ff', children:[]                  },                  {name:'第一类：消费品，面向个人或家\n庭生活消费。 消费品又可以细...', color:'#d6e4ff', children:[]                  },                  {name:'消费品（面向个人 / 家庭生活\n消费）', color:'#d6e4ff', children:[]                  },                  {name:'① 便利品', color:'#d6e4ff', children:[]                  },                  {name:'便利品是指那些购买频率非常高、\n单价较低、消费者几乎不需要花...', color:'#d6e4ff', children:[]                  },                  {name:'例如，苏州工业园区内的罗森、\n全家、便利蜂等便利店品牌，在...', color:'#d6e4ff', children:[]                  },                  {name:'特点：高频购买、价格低、无需\n比较、就近购买。', color:'#d6e4ff', children:[]                  },                  {name:'例子：牙膏、矿泉水、零食、纸\n巾。', color:'#d6e4ff', children:[]                  },                  {name:'策略：广泛铺货、密集分销、强\n调曝光与习惯养成。', color:'#d6e4ff', children:[]                  },                  {name:'② 选购品', color:'#d6e4ff', children:[]                  },                  {name:'选购品是指购买频率较低、单价\n相对较高、消费者在购买前会主...', color:'#d6e4ff', children:[]                  },                  {name:'例如，苏州工业园区内的苏州中\n心商场，聚集了华为、小米、苹...', color:'#d6e4ff', children:[]                  },                  {name:'特点：购买频率低、单价较高、\n消费者会对比质量、价格、品牌...', color:'#d6e4ff', children:[]                  },                  {name:'策略：终端体验、导购讲解、品\n质展示、品牌口碑。', color:'#d6e4ff', children:[]                  },                  {name:'③ 特殊品', color:'#d6e4ff', children:[]                  },                  {name:'例如，苏州工业园区内的苏州中\n心商场一层的奢侈品牌专柜（如...', color:'#d6e4ff', children:[]                  },                  {name:'特点：独特品牌识别、高价值、\n消费者愿意付出特殊努力购买。', color:'#d6e4ff', children:[]                  },                  {name:'例子：奢侈品、高端汽车、专业\n相机、名牌腕表。', color:'#d6e4ff', children:[]                  },                  {name:'策略：高端形象、稀缺性、专属\n渠道、品牌故事。', color:'#d6e4ff', children:[]                  },                  {name:'④ 非渴求品', color:'#d6e4ff', children:[]                  },                  {name:'例如，苏州工业园区内的一些初\n创科技企业曾经推出“智能防丢...', color:'#d6e4ff', children:[]                  },                  {name:'特点：消费者不主动了解、甚至\n不想购买，多为预防性或被动需...', color:'#d6e4ff', children:[]                  },                  {name:'例子：人寿保险、墓地、急救设\n备、全新科技产品。', color:'#d6e4ff', children:[]                  },                  {name:'策略：教育市场、体验营销、场\n景唤醒、专业推销。', color:'#d6e4ff', children:[]                  },                  {name:'产业用品又分为三种子类型：材\n料和部件、资本项目、供应品和...', color:'#d6e4ff', children:[]                  },                  {name:'材料和部件包括原材料和零部件，\n它们会直接进入最终产品。例如...', color:'#d6e4ff', children:[]                  },                  {name:'这类产品的营销重点在于技术参\n数、质量稳定性、供货可靠性以...', color:'#d6e4ff', children:[]                  },                  {name:'① 材料和部件', color:'#d6e4ff', children:[]                  },                  {name:'原材料、零部件，直接进入最终\n产品。', color:'#d6e4ff', children:[]                  },                  {name:'例子：芯片、钢材、显示屏、线\n束。', color:'#d6e4ff', children:[]                  }                ]                }              ]              },              {name:'5.2 产品组合策略', color:'#1677ff', children:[                {name:'5.2.1 产品组合的基本概念', color:'#4096ff', collapsed:true, children:[                  {name:'产品组合：一个企业销售的所有\n产品线和产品项目的集合。', color:'#d6e4ff', children:[]                  },                  {name:'产品线：满足同类需求、使用同\n类渠道、属于同一价格区间的一...', color:'#d6e4ff', children:[]                  },                  {name:'例：科沃斯的 “扫地机器人产\n品线”“擦窗机器人产品线”。', color:'#d6e4ff', children:[]                  },                  {name:'产品项目：产品线中具体规格、\n型号、款式的单个产品。', color:'#d6e4ff', children:[]                  }                ]                },                {name:'5.2.2 产品组合的四个维度', color:'#4096ff', collapsed:true, children:[                  {name:'产品组合可以从宽度、长度、深\n度和关联度四个维度进行分析。', color:'#d6e4ff', children:[]                  },                  {name:'宽度是指企业拥有多少条不同的\n产品线。例如，宝洁公司的产品...', color:'#d6e4ff', children:[]                  },                  {name:'长度是指所有产品线中产品项目\n的总数。如果宝洁将所有品牌（...', color:'#d6e4ff', children:[]                  },                  {name:'深度是指一条产品线内部包含的\n具体款式或规格的数量。以海飞...', color:'#d6e4ff', children:[]                  },                  {name:'关联度则是指各产品线在生产、\n渠道、使用、消费场景上的相关...', color:'#d6e4ff', children:[]                  },                  {name:'宽度：企业拥有多少条不同的产\n品线。', color:'#d6e4ff', children:[]                  },                  {name:'长度：所有产品线中产品项目的\n总数。', color:'#d6e4ff', children:[]                  },                  {name:'深度：一条产品线内部包含的具\n体款式 / 规格数量。', color:'#d6e4ff', children:[]                  },                  {name:'关联度：各产品线在生产、渠道、\n使用、消费场景上的相关程度。', color:'#d6e4ff', children:[]                  }                ]                },                {name:'5.2.3 产品组合优化策略', color:'#4096ff', collapsed:true, children:[                  {name:'增加宽度或长度，分散风险，满\n足更多细分市场。即增加新的产...', color:'#d6e4ff', children:[]                  },                  {name:'例如，科沃斯从单一的扫地机器\n人产品线，逐步延伸到擦窗机器...', color:'#d6e4ff', children:[]                  },                  {name:'淘汰亏损、低利润、低销量产品，\n集中资源做优势项目。即淘汰那...', color:'#d6e4ff', children:[]                  },                  {name:'例如，IBM公司在21世纪初将个\n人电脑业务出售给联想，就是为...', color:'#d6e4ff', children:[]                  },                  {name:'具体又分为向上延伸、向下延伸\n和双向延伸。向上延伸是指企业...', color:'#d6e4ff', children:[]                  },                  {name:'例如，小米公司推出小米汽车\nSU7，定价二十万元以上，就是...', color:'#d6e4ff', children:[]                  },                  {name:'向下延伸则是指企业进入大众市\n场，即原本定位高端的企业推出...', color:'#d6e4ff', children:[]                  },                  {name:'双向延伸是指企业同时覆盖高端\n和大众市场，例如丰田汽车既有...', color:'#d6e4ff', children:[]                  },                  {name:'对老化的产品线进行技术、设计、\n功能的全面升级，以适应新时代...', color:'#d6e4ff', children:[]                  },                  {name:'例如，苏州工业园区的友达光电，\n不断升级其液晶面板产品线，从...', color:'#d6e4ff', children:[]                  },                  {name:'另一案例是园区内的金龙联合汽\n车（海格客车），将传统燃油客...', color:'#d6e4ff', children:[]                  },                  {name:'以苏州工业园区某一家企业为例\n（如：旭创科技（光模块）、宝...', color:'#d6e4ff', children:[]                  },                  {name:'以宝时得为例进行分析。宝时得\n总部位于苏州工业园区，是全球...', color:'#d6e4ff', children:[]                  },                  {name:'宽度：宝时得的产品组合宽度包\n括家用电动工具（电钻、电锤、...', color:'#d6e4ff', children:[]                  },                  {name:'长度：所有产品线下具体产品项\n目的总数非常大。例如仅WORX品...', color:'#d6e4ff', children:[]                  },                  {name:'深度：以“20V锂电电钻”这一\n产品项目为例，宝时得提供了不...', color:'#d6e4ff', children:[]                  },                  {name:'关联度：宝时得各产品线之间的\n关联度较高。它们共享同一套...', color:'#d6e4ff', children:[]                  }                ]                }              ]              },              {name:'5.3 产品生命周期', color:'#1677ff', children:[                {name:'5.3.1 产品生命周期定义', color:'#4096ff', collapsed:true, children:[                  {name:'产品生命周期（Product Life \nCycle，PLC）指产品从正式进入...', color:'#d6e4ff', children:[]                  },                  {name:'产品生命周期是由技术进步、消\n费趋势变化以及竞争格局演变共...', color:'#d6e4ff', children:[]                  },                  {name:'例如，柯达公司的品牌至今仍存\n在，但其传统胶卷产品早已进入...', color:'#d6e4ff', children:[]                  },                  {name:'导入期 → 成长期 → 成熟期 \n→ 衰退期', color:'#69b1ff', children:[]                  }                ]                },                {name:'5.3.2 产品生命周期四阶段特征\n与策略', color:'#4096ff', collapsed:true, children:[                  {name:'导入期', color:'#d6e4ff', children:[]                  },                  {name:'导入期的核心特点是：销量非常\n低且增长缓慢；由于产量小、分...', color:'#d6e4ff', children:[]                  },                  {name:'导入期的营销目标是提高产品知\n名度、吸引首批用户（即创新者...', color:'#d6e4ff', children:[]                  },                  {name:'快速撇脂策略是指高价格加上高\n促销投入。这一策略适用于技术...', color:'#d6e4ff', children:[]                  },                  {name:'缓慢撇脂策略是指高价格加上低\n促销投入。这一策略适用于小众...', color:'#d6e4ff', children:[]                  },                  {name:'快速渗透策略是指低价格加上高\n促销投入。这一策略的目的是快...', color:'#d6e4ff', children:[]                  },                  {name:'缓慢渗透策略是指低价格加上低\n促销投入。这一策略适用于价格...', color:'#d6e4ff', children:[]                  },                  {name:'成长期', color:'#d6e4ff', children:[]                  },                  {name:'成长期的核心特点是：销量开始\n快速增长；随着生产规模扩大、...', color:'#d6e4ff', children:[]                  },                  {name:'成长期的营销目标是尽可能扩大\n市场份额、树立品牌形象、建立...', color:'#69b1ff', collapsed:true, children:[                    {name:'具体的营销策略包括：改进产品\n质量、增加新功能或新款式，以...', color:'#d6e4ff', children:[]                    }                  ]                  },                  {name:'成熟期', color:'#69b1ff', collapsed:true, children:[                    {name:'第二类是产品改良，即对产品本\n身进行升级。包括品质升级（更...', color:'#d6e4ff', children:[]                    },                    {name:'第三类是营销组合改良，即调整\n价格、渠道、促销等要素。例如...', color:'#d6e4ff', children:[]                    }                  ]                  },                  {name:'衰退期', color:'#69b1ff', collapsed:true, children:[                    {name:'衰退期的核心特点是：销量持续\n下降（年降幅可能超过20%）；...', color:'#d6e4ff', children:[]                    },                    {name:'衰退期的营销目标是减少成本、\n收割剩余利润，或者有序退出市...', color:'#d6e4ff', children:[]                    },                    {name:'继续策略是指维持原有运营模式，\n不主动退出，等待产品自然消亡...', color:'#d6e4ff', children:[]                    },                    {name:'集中策略是指将资源收缩到最有\n利的细分市场或特定区域，放弃...', color:'#d6e4ff', children:[]                    },                    {name:'榨取策略是指大幅削减营销费用\n（如停止所有广告、缩减销售团...', color:'#d6e4ff', children:[]                    },                    {name:'放弃策略是指立即停止生产、清\n理库存、出售相关资产（如模具...', color:'#d6e4ff', children:[]                    }                  ]                  }                ]                },                {name:'5.3.3 产品生命周期的特殊形态', color:'#4096ff', collapsed:true, children:[                  {name:'风格型生命周期表现为产品长期\n流行、衰退过程非常缓慢。例如...', color:'#d6e4ff', children:[]                  },                  {name:'时尚型生命周期则是快速兴起、\n快速衰退的形态。典型的代表是...', color:'#d6e4ff', children:[]                  },                  {name:'热潮型生命周期呈现爆发式增长，\n但衰退也极其迅速，有时像一场...', color:'#d6e4ff', children:[]                  },                  {name:'可持续型生命周期则通过不断的\n技术迭代和产品升级，使得产品...', color:'#d6e4ff', children:[]                  },                  {name:'每一次升级都让产品重新回到成\n长期，整体呈现“波浪式”的可...', color:'#d6e4ff', children:[]                  },                  {name:'【课堂思考】 请任选一款你熟\n悉的电子产品（如Kindle电子书...', color:'#d6e4ff', children:[]                  },                  {name:'以任天堂Switch游戏机为例（截\n至2025年的市场状况）。Switch...', color:'#d6e4ff', children:[]                  },                  {name:'产品改良：推出加强版机型（如\n传闻中的Switch 2），向后兼容...', color:'#d6e4ff', children:[]                  },                  {name:'市场改良：挖掘新的用户群体。\n例如，进一步针对轻度玩家和家...', color:'#d6e4ff', children:[]                  },                  {name:'营销组合改良：将部分热门第一\n方游戏（如《超级马里奥奥德赛...', color:'#d6e4ff', children:[]                  }                ]                }              ]              },              {name:'5.4 新产品开发', color:'#1677ff', children:[                {name:'5.4.1 新产品的类型', color:'#4096ff', collapsed:true, children:[                  {name:'新产品可以划分为五种类型，企\n业根据自身战略和技术能力选择...', color:'#d6e4ff', children:[]                  },                  {name:'第一种是全新产品，即应用全新\n技术、满足全新需求的产品，市...', color:'#d6e4ff', children:[]                  },                  {name:'第二种是换代新产品，即在原有\n技术基础上进行代际升级，例如...', color:'#d6e4ff', children:[]                  },                  {name:'第三种是改良新产品，即在功能、\n外观或使用体验上做优化，例如...', color:'#d6e4ff', children:[]                  },                  {name:'第四种是仿制新产品，即市场上\n已有该产品，但某企业首次进入...', color:'#d6e4ff', children:[]                  },                  {name:'第五种是新定位产品，即产品本\n身没有变化，但将其定位到不同...', color:'#d6e4ff', children:[]                  }                ]                },                {name:'5.4.2 新产品开发八大流程（标\n准化）', color:'#4096ff', collapsed:true, children:[                  {name:'新产品开发通常遵循八个标准化\n的流程步骤，任何跳过其中某一...', color:'#d6e4ff', children:[]                  },                  {name:'第四步是营销战略制定。 在概\n念测试通过后，企业需要明确：...', color:'#d6e4ff', children:[]                  },                  {name:'第五步是商业分析。 企业需要\n对销量进行预测（可采用类似产...', color:'#d6e4ff', children:[]                  }                ]                },                {name:'5.4.3 大数据驱动的新产品开发\n（C2M 模式）', color:'#4096ff', collapsed:true, children:[                  {name:'C2M：用户直连制造。', color:'#d6e4ff', children:[]                  },                  {name:'C2M模式的具体做法包括：利用\n大数据技术从电商平台评论、搜...', color:'#d6e4ff', children:[]                  },                  {name:'苏州工业园区企业科沃斯是C2M\n模式的典型实践者。其研发团队...', color:'#d6e4ff', children:[]                  },                  {name:'这一产品上市后获得了巨大成功，\n成为科沃斯的标志性功能，并带...', color:'#d6e4ff', children:[]                  },                  {name:'新产品开发的核心就是创新。中\n国企业正在从“世界代工厂”向...', color:'#d6e4ff', children:[]                  },                  {name:'请结合C2M模式，设想一款针对\n“苏州工业园区外籍人士”的新...', color:'#d6e4ff', children:[]                  },                  {name:'大数据渠道：可以通过爬取苏州\n工业园区外籍人士常用的社交媒...', color:'#d6e4ff', children:[]                  },                  {name:'发现的痛点：很多在园区工作的\n外籍人士（特别是日韩、欧美高...', color:'#d6e4ff', children:[]                  },                  {name:'产品设计：推出一款“Expat \nHome Care”高端家政服务产品...', color:'#d6e4ff', children:[]                  },                  {name:'产品类型判断：这属于新定位产\n品。因为家政保洁服务本身已经...', color:'#d6e4ff', children:[]                  }                ]                }              ]              },              {name:'5.5 品牌与包装策略', color:'#1677ff', children:[                {name:'5.5.1 品牌的定义', color:'#4096ff', collapsed:true, children:[                  {name:'品牌是用于识别产品、区分竞争\n对手的名称、术语、符号、设计...', color:'#d6e4ff', children:[]                  },                  {name:'品牌是一个用于识别产品、区分\n竞争对手的名称、术语、符号、...', color:'#d6e4ff', children:[]                  },                  {name:'品牌资产则是指品牌所带来的超\n越产品功能本身的附加价值。品...', color:'#d6e4ff', children:[]                  },                  {name:'例如提到“沃尔沃”会联想到“\n安全”，提到“迪士尼”会联想...', color:'#d6e4ff', children:[]                  }                ]                },                {name:'5.5.2 品牌策略', color:'#4096ff', collapsed:true, children:[                  {name:'企业可以根据自身情况选择不同\n的品牌策略。', color:'#d6e4ff', children:[]                  },                  {name:'第一是品牌化策略，即决定是否\n使用品牌。绝大部分消费品都会...', color:'#d6e4ff', children:[]                  }                ]                },                {name:'5.5.3 包装策略', color:'#4096ff', collapsed:true, children:[                  {name:'包装是产品策略中不可或缺的部\n分，它不仅要保护产品、方便运...', color:'#d6e4ff', children:[]                  },                  {name:'类似包装是指企业所有产品使用\n统一或相似的包装设计风格，形...', color:'#d6e4ff', children:[]                  },                  {name:'等级包装是指同一产品按不同质\n量档次配以不同等级的包装。例...', color:'#d6e4ff', children:[]                  },                  {name:'组合包装是指将相关的几种产品\n放在同一个包装内一起销售。例...', color:'#d6e4ff', children:[]                  },                  {name:'复用包装是指包装在产品使用完\n后可以另作他用，具有一定的二...', color:'#d6e4ff', children:[]                  },                  {name:'附赠品包装是指在包装内附带小\n礼品，通常用于儿童产品或促销...', color:'#d6e4ff', children:[]                  },                  {name:'绿色包装是企业践行社会责任的\n重要体现。减少塑料污染、使用...', color:'#d6e4ff', children:[]                  },                  {name:'请以苏州工业园区某一家餐饮连\n锁品牌（例如“有家酸菜鱼”或...', color:'#d6e4ff', children:[]                  },                  {name:'以“老娘舅”（苏州本土中式快\n餐连锁）为例。该品牌现有包装...', color:'#d6e4ff', children:[]                  },                  {name:'改进建议一：将塑料餐盒更换为\n甘蔗渣浆压制的可降解餐盒（...', color:'#d6e4ff', children:[]                  },                  {name:'改进建议二：取消一次性筷子（\n或改为付费选配），鼓励顾客选...', color:'#d6e4ff', children:[]                  }                ]                }              ]              },              {name:'5.6 产教融合实战案例：科沃斯\n机器人（苏州工业园区）', color:'#1677ff', children:[                {name:'5.6.1 企业背景', color:'#4096ff', collapsed:true, children:[                  {name:'导入期（OEM 代工阶段）', color:'#69b1ff', collapsed:true, children:[                    {name:'1998-2006：为国际品牌代工吸\n尘器，无自主产品、无品牌、利...', color:'#d6e4ff', children:[]                    },                    {name:'产品策略：仅提供形式产品，无\n核心技术、无延伸服务。', color:'#d6e4ff', children:[]                    }                  ]                  },                  {name:'成长期（自主品牌起步）', color:'#69b1ff', collapsed:true, children:[                    {name:'2009 年推出首款扫地机器人 “\n地宝”，属于非渴求品。', color:'#d6e4ff', children:[]                    },                    {name:'策略：市场教育、体验营销、快\n速撇脂，建立早期用户认知。', color:'#d6e4ff', children:[]                    }                  ]                  },                  {name:'成熟期（产品迭代 + 生态扩张）', color:'#69b1ff', collapsed:true, children:[                    {name:'面对小米、石头等激烈竞争，科\n沃斯实施：', color:'#d6e4ff', children:[]                    },                    {name:'产品改良：AI 导航、扫拖一体、\n自动集尘', color:'#d6e4ff', children:[]                    },                    {name:'产品线延伸：窗宝、沁宝、割草\n机器人', color:'#d6e4ff', children:[]                    },                    {name:'品牌升级：综艺赞助、IP 联名、\n国际化', color:'#d6e4ff', children:[]                    },                    {name:'数字化：C2M 用户共创、OTA 升\n级', color:'#d6e4ff', children:[]                    },                    {name:'老产品逐步淘汰，新产品持续导\n入，通过潜在产品 + 延伸产品...', color:'#d6e4ff', children:[]                    }                  ]                  }                ]                },                {name:'5.6.3 案例思考题（深度）', color:'#4096ff', collapsed:true, children:[                  {name:'科沃斯从 OEM 到 OBM 转型中，\n产品策略的核心转变是什么？', color:'#d6e4ff', children:[]                  },                  {name:'结合 PLC 理论，说明科沃斯为\n什么必须持续进行产品迭代？', color:'#d6e4ff', children:[]                  },                  {name:'延伸产品如何帮助科沃斯摆脱价\n格战？', color:'#69b1ff', collapsed:true, children:[                    {name:'针对老年群体，你会如何设计一\n款简化版扫地机器人？', color:'#d6e4ff', children:[]                    }                  ]                  }                ]                }              ]              },              {name:'5.7 实训任务：数字化校园新产\n品设计', color:'#1677ff', children:[                {name:'New Product Design for \nDigital Campus Life', color:'#d6e4ff', children:[]                },                {name:'请同学们以小组形式（3-5人），\n结合苏州百年职业学院的校园实...', color:'#d6e4ff', children:[]                },                {name:'运用产品五层次模型完整描述新\n产品', color:'#d6e4ff', children:[]                },                {name:'给出中英文品牌名 + Slogan', color:'#d6e4ff', children:[]                },                {name:'输出 PPT，英文 3 分钟展示', color:'#d6e4ff', children:[]                }              ]              },              {name:'本章小结', color:'#1677ff', children:[                {name:'本章系统构建了市场营销产品策\n略完整理论体系，以产品整体概...', color:'#d6e4ff', children:[]                },                {name:'本章重点突出苏州工业园区本土\n化案例，以科沃斯机器人为核心...', color:'#d6e4ff', children:[]                },                {name:'在课程思政层面，本章贯穿工匠\n精神、自主创新、知识产权、绿...', color:'#d6e4ff', children:[]                },                {name:'产品策略是市场营销 4P 组合的\n基石与核心，价格、渠道、促销...', color:'#d6e4ff', children:[]                }              ]              },              {name:'关键术语（中英双语）', color:'#1677ff', children:[                {name:'产品整体概念 Total Product \nConcept', color:'#d6e4ff', children:[]                },                {name:'核心产品 Core Product', color:'#69b1ff', children:[]                },                {name:'延伸产品 Augmented Product', color:'#69b1ff', collapsed:true, children:[                  {name:'产品生命周期 Product Life \nCycle ', color:'#d6e4ff', children:[]                  },                  {name:'新产品开发 New Product \nDevelopment', color:'#d6e4ff', children:[]                  },                  {name:'品牌资产 Brand Equity', color:'#d6e4ff', children:[]                  },                  {name:'产品组合 Product Mix', color:'#d6e4ff', children:[]                  },                  {name:'差异化 Differentiation', color:'#d6e4ff', children:[]                  },                  {name:'用户共创 User Co-creation', color:'#d6e4ff', children:[]                  },                  {name:'C2M ', color:'#d6e4ff', children:[]                  }                ]                }              ]              },              {name:'思考与练习', color:'#1677ff', collapsed:true, children:[                {name:'详细阐述产品整体概念五层次，\n并以苏州工业园区某企业产品为...', color:'#d6e4ff', children:[]                },                {name:'对比分析导入期、成长期、成熟\n期、衰退期的营销策略差异。', color:'#d6e4ff', children:[]                },                {name:'论述大数据与 C2M 模式如何改\n变传统新产品开发流程。', color:'#d6e4ff', children:[]                },                {name:'结合科沃斯案例，说明品牌延伸\n的风险与收益。', color:'#d6e4ff', children:[]                },                {name:'设计一款面向苏州工业园区外籍\n人士的生活服务类产品，并完成...', color:'#d6e4ff', children:[]                },                {name:'产品整体概念五层次（以同程旅\n行国际机票为例）', color:'#d6e4ff', children:[]                },                {name:'核心产品：安全、便捷地从A地\n到B地。', color:'#69b1ff', children:[]                },                {name:'形式产品：APP界面、航班信息、\n电子行程单。', color:'#69b1ff', children:[]                },                {name:'期望产品：出票可靠、变动通知、\n24小时客服。', color:'#69b1ff', children:[]                },                {name:'延伸产品：延误险、接送机券、\n会员积分。', color:'#69b1ff', children:[]                },                {name:'潜在产品：AI改签建议、AR机场\n导航、签证一键办理。', color:'#69b1ff', collapsed:true, children:[                  {name:'导入期：目标→提知名度；策略\n→高价撇脂或低价渗透，渠道选...', color:'#d6e4ff', children:[]                  }                ]                },                {name:'成长期：目标→扩份额；策略→\n改进产品、拓展渠道、适当降价...', color:'#69b1ff', children:[]                },                {name:'成熟期：目标→延寿命；策略→\n市场/产品/营销组合改良，价格...', color:'#69b1ff', children:[]                },                {name:'衰退期：目标→收割或退出；策\n略→简化产品、收缩渠道、大幅...', color:'#69b1ff', collapsed:true, children:[                  {name:'3. 大数据与C2M如何改变新产品\n开发', color:'#d6e4ff', children:[]                  },                  {name:'创意来源：从内部猜测变为挖掘\n用户评论、客服录音等真实数据...', color:'#d6e4ff', children:[]                  },                  {name:'产品定义：数据驱动决策，优先\n开发高频需求功能。', color:'#d6e4ff', children:[]                  },                  {name:'生产模式：从大批量预测生产转\n为众筹预售、小批量柔性制造，...', color:'#d6e4ff', children:[]                  },                  {name:'迭代速度：从年度大版本变为月\n度快速迭代，形成“发布-反馈-...', color:'#d6e4ff', children:[]                  },                  {name:'4. 科沃斯品牌延伸的收益与风\n险', color:'#d6e4ff', children:[]                  },                  {name:'收益：降低新市场进入成本；形\n成生态协同，提高用户粘性；共...', color:'#d6e4ff', children:[]                  },                  {name:'风险：品牌稀释（联想模糊）；\n失败品类反噬母品牌声誉；渠道...', color:'#d6e4ff', children:[]                  },                  {name:'科沃斯成功关键：延伸始终围绕\n“家庭服务机器人”这一核心，...', color:'#d6e4ff', children:[]                  },                  {name:'5. 面向园区外籍人士的生活服\n务产品方案', color:'#d6e4ff', children:[]                  },                  {name:'产品名：ExpatCare Suzhou（苏\n外助手），Slogan：Your ...', color:'#d6e4ff', children:[]                  },                  {name:'五层次：核心→解决语言/生活\n障碍；形式→中英双语小程序（...', color:'#d6e4ff', children:[]                  },                  {name:'导入期策略：快速撇脂（翻译9.\n9元/分钟，管家199元/月），通...', color:'#d6e4ff', children:[]                  },                  {name:'定位：苏州外籍人士最信赖的生\n活伙伴。视觉：黛瓦白墙灰橙色...', color:'#d6e4ff', children:[]                  }                ]                }              ]              }            ]            };
+
+showStatus('正在渲染节点...', 'loading');
+
+// ============ CONSTANTS ============
+var NODE_W = 200, NODE_H = 44, H_GAP = 32, V_GAP = 16, CORNER_R = 8;
+var svgEl = document.getElementById('svg');
+var NS = 'http://www.w3.org/2000/svg';
+
+// ============ HELPERS ============
+function isLight(hex){
+  var r=parseInt(hex.slice(1,3),16),g=parseInt(hex.slice(3,5),16),b=parseInt(hex.slice(5,7),16);
+  return(r*299+g*587+b*114)/1000>160;
+}
+function darken(hex,amt){
+  var r=Math.max(0,parseInt(hex.slice(1,3),16)*(1-amt));
+  var g=Math.max(0,parseInt(hex.slice(3,5),16)*(1-amt));
+  var b=Math.max(0,parseInt(hex.slice(5,7),16)*(1-amt));
+  return '#'+[r,g,b].map(function(v){return Math.round(v).toString(16).padStart(2,'0')}).join('');
+}
+
+// ============ LAYOUT ============
+var flatNodes=[], flatLinks=[];
+
+function initCollapsed(d){
+  if(d.collapsed!==undefined)d._collapsed=d.collapsed;
+  else d._collapsed=false;
+  if(d.children)d.children.forEach(initCollapsed);
+}
+
+function layout(){
+  flatNodes=[];flatLinks=[];
+  initCollapsed(treeData);
+  var W=window.innerWidth, H=window.innerHeight;
+  var rootX=120;
+
+  function place(d,depth,yStart,ySpan){
+    var x=rootX+depth*(NODE_W+H_GAP);
+    var nKids=(d.children&&!d._collapsed)?d.children.length:1;
+    var leafSpan=ySpan/nKids;
+    var y=yStart+ySpan/2;
+    var node={
+      id:flatNodes.length, name:d.name, color:d.color||'#595959',
+      emph:!!d.emph, x:x, y:y, w:NODE_W, h:NODE_H, depth:depth,
+      hasKids:!!(d.children&&d.children.length>0), collapsed:!!d._collapsed
+    };
+    d._node=node;
+    flatNodes.push(node);
+    if(d.children&&!d._collapsed){
+      for(var i=0;i<d.children.length;i++){
+        var child=d.children[i];
+        place(child,depth+1,yStart+i*leafSpan,leafSpan);
+        flatLinks.push({s:node.id,t:child._node.id});
+      }
+    }
+  }
+  place(treeData,0,80,H-160);
+
+  // Fix overlaps
+  var byDepth={};
+  flatNodes.forEach(function(n){
+    if(!byDepth[n.depth])byDepth[n.depth]=[];
+    byDepth[n.depth].push(n);
+  });
+  for(var key in byDepth){
+    var arr=byDepth[key];
+    arr.sort(function(a,b){return a.y-b.y});
+    for(var i=1;i<arr.length;i++){
+      if(arr[i].y-arr[i-1].y<NODE_H+V_GAP) arr[i].y=arr[i-1].y+NODE_H+V_GAP;
+    }
+  }
+}
+
+// ============ RENDER ============
+var mainG, linkG, nodeG;
+
+function render(){
+  while(svgEl.firstChild)svgEl.removeChild(svgEl.firstChild);
+
+  var defs=document.createElementNS(NS,'defs');
+  var filter=document.createElementNS(NS,'filter');
+  filter.setAttribute('id','sd');
+  filter.setAttribute('x','-10%');filter.setAttribute('y','-10%');
+  filter.setAttribute('width','130%');filter.setAttribute('height','130%');
+  var fe=document.createElementNS(NS,'feDropShadow');
+  fe.setAttribute('dx','1');fe.setAttribute('dy','2');
+  fe.setAttribute('stdDeviation','3');fe.setAttribute('flood-opacity','0.12');
+  filter.appendChild(fe);defs.appendChild(filter);
+  svgEl.appendChild(defs);
+
+  mainG=document.createElementNS(NS,'g');
+  svgEl.appendChild(mainG);
+
+  linkG=document.createElementNS(NS,'g');
+  linkG.setAttribute('class','links');
+  mainG.appendChild(linkG);
+
+  nodeG=document.createElementNS(NS,'g');
+  nodeG.setAttribute('class','nodes');
+  mainG.appendChild(nodeG);
+
+  // Links
+  var linkSet={};
+  flatLinks.forEach(function(l){linkSet[l.s+'-'+l.t]={s:l.s,t:l.t}});
+  for(var k in linkSet){
+    var l=linkSet[k];
+    var s=flatNodes[l.s], t=flatNodes[l.t];
+    var sx=s.x+NODE_W, sy=s.y+NODE_H/2, ex=t.x, ey=t.y+NODE_H/2;
+    var mx=(sx+ex)/2;
+    var d='M'+sx+','+sy+' C'+mx+','+sy+' '+mx+','+ey+' '+ex+','+ey;
+    var p=document.createElementNS(NS,'path');
+    p.setAttribute('d',d);
+    p.setAttribute('fill','none');
+    p.setAttribute('stroke','#c0c0c0');
+    p.setAttribute('stroke-width','1.5');
+    p.setAttribute('stroke-opacity','0.6');
+    p.setAttribute('data-s',l.s);
+    p.setAttribute('data-t',l.t);
+    linkG.appendChild(p);
+  }
+
+  // Nodes
+  flatNodes.forEach(function(n){
+    var g=document.createElementNS(NS,'g');
+    g.setAttribute('transform','translate('+n.x+','+n.y+')');
+    g.setAttribute('class','node');
+    g.style.cursor=n.hasKids?'pointer':'default';
+    g.setAttribute('data-id',n.id);
+    g.addEventListener('click',function(ev){ev.stopPropagation();toggleNode(n);});
+
+    var rect=document.createElementNS(NS,'rect');
+    rect.setAttribute('width',n.w);
+    rect.setAttribute('height',n.h);
+    rect.setAttribute('rx',CORNER_R);
+    rect.setAttribute('ry',CORNER_R);
+    rect.setAttribute('fill',n.emph?darken(n.color,0.08):n.color);
+    rect.setAttribute('stroke',n.emph?darken(n.color,0.2):'rgba(0,0,0,0.08)');
+    rect.setAttribute('stroke-width',n.emph?'2.5':'1');
+    rect.setAttribute('filter','url(#sd)');
+    g.appendChild(rect);
+
+    // Collapse indicator
+    if(n.hasKids){
+      var cx=n.w-14, cy=n.h/2;
+      var circle=document.createElementNS(NS,'circle');
+      circle.setAttribute('cx',cx);circle.setAttribute('cy',cy);circle.setAttribute('r','8');
+      circle.setAttribute('fill','rgba(255,255,255,0.35)');
+      circle.setAttribute('stroke','rgba(255,255,255,0.6)');
+      circle.setAttribute('stroke-width','1');
+      g.appendChild(circle);
+      var txt=document.createElementNS(NS,'text');
+      txt.setAttribute('x',cx);txt.setAttribute('y',cy);
+      txt.setAttribute('dy','0.35em');
+      txt.setAttribute('text-anchor','middle');
+      txt.setAttribute('fill','#fff');
+      txt.setAttribute('font-size','11');
+      txt.setAttribute('font-weight','bold');
+      txt.textContent=n.collapsed?'+':'−';
+      g.appendChild(txt);
+    }
+
+    // Text
+    var lines=n.name.split('\n');
+    var fs=lines.length>3?10:lines.length>2?11:12;
+    var tc=isLight(n.color)?'#1a1a1a':'#fff';
+    var totalH=lines.length*(fs+3)-3;
+    lines.forEach(function(line,i){
+      var ty=n.h/2-totalH/2+i*(fs+3)+fs*0.35;
+      var txt=document.createElementNS(NS,'text');
+      txt.setAttribute('x',n.hasKids?'14':n.w/2);
+      txt.setAttribute('y',ty);
+      txt.setAttribute('text-anchor',n.hasKids?'start':'middle');
+      txt.setAttribute('fill',tc);
+      txt.setAttribute('font-size',fs);
+      txt.setAttribute('font-weight',n.emph?'bold':'normal');
+      txt.setAttribute('font-family','Microsoft YaHei,PingFang SC,sans-serif');
+      txt.textContent=line;
+      g.appendChild(txt);
+    });
+
+    nodeG.appendChild(g);
+  });
+}
+
+// ============ TREE OPS ============
+function findData(d,id){
+  if(d._node&&d._node.id===id)return d;
+  if(d.children)for(var i=0;i<d.children.length;i++){var r=findData(d.children[i],id);if(r)return r;}
+  return null;
+}
+
+function toggleNode(node){
+  var d=findData(treeData,node.id);
+  if(d&&d.children&&d.children.length>0){
+    d._collapsed=!d._collapsed;
+    layout();render();applyTransform();
+    var q=document.getElementById('searchInput').value.trim();
+    if(q)highlight(q);
+  }
+}
+
+function expandAll(){
+  (function e(d){d._collapsed=false;if(d.children)d.children.forEach(e);})(treeData);
+  layout();render();applyTransform();
+}
+function collapseAll(){
+  (function c(d,dp){if(dp>=2)d._collapsed=true;if(d.children)d.children.forEach(function(ch){c(ch,dp+1)});})(treeData,0);
+  layout();render();applyTransform();
+}
+
+// ============ SEARCH ============
+function highlight(q){
+  q=q.toLowerCase();
+  var match=[];
+  flatNodes.forEach(function(n){if(n.name.toLowerCase().indexOf(q)>=0)match[n.id]=true;});
+  var ng=nodeG.querySelectorAll('.node');
+  for(var i=0;i<ng.length;i++){
+    var id=parseInt(ng[i].getAttribute('data-id'));
+    ng[i].style.opacity=match[id]?'1':'0.15';
+  }
+  var lp=linkG.querySelectorAll('path');
+  for(var i=0;i<lp.length;i++){
+    var s=parseInt(lp[i].getAttribute('data-s'));
+    var t=parseInt(lp[i].getAttribute('data-t'));
+    lp[i].setAttribute('stroke-opacity',(match[s]||match[t])?'0.6':'0.06');
+  }
+}
+function clearHighlight(){
+  var ng=nodeG.querySelectorAll('.node');
+  for(var i=0;i<ng.length;i++)ng[i].style.opacity='1';
+  var lp=linkG.querySelectorAll('path');
+  for(var i=0;i<lp.length;i++)lp[i].setAttribute('stroke-opacity','0.6');
+}
+
+// ============ ZOOM & PAN ============
+var tx=0, ty=0, scale=1;
+
+function applyTransform(){
+  mainG.setAttribute('transform','translate('+tx+','+ty+') scale('+scale+')');
+}
+
+var panning=false, panSX=0, panSY=0, panTX=0, panTY=0;
+
+svgEl.addEventListener('mousedown',function(ev){
+  if(ev.target===svgEl||ev.target.tagName==='svg'||ev.target===mainG){
+    panning=true;panSX=ev.clientX;panSY=ev.clientY;panTX=tx;panTY=ty;
+    svgEl.style.cursor='grabbing';
+  }
+});
+window.addEventListener('mousemove',function(ev){
+  if(!panning)return;
+  tx=panTX+(ev.clientX-panSX);ty=panTY+(ev.clientY-panSY);
+  applyTransform();
+});
+window.addEventListener('mouseup',function(){panning=false;svgEl.style.cursor='';});
+svgEl.addEventListener('wheel',function(ev){
+  ev.preventDefault();
+  var ds=ev.deltaY>0?0.9:1.1;
+  var ns=Math.min(3,Math.max(0.15,scale*ds));
+  var mx=ev.clientX,my=ev.clientY;
+  tx=mx-(mx-tx)*(ns/scale);
+  ty=my-(my-ty)*(ns/scale);
+  scale=ns;
+  applyTransform();
+},{passive:false});
+
+function fitView(){
+  var bb=mainG.getBBox();
+  var W=window.innerWidth,H=window.innerHeight,pad=80;
+  scale=Math.min(W/(bb.width+pad*2),H/(bb.height+pad*2),1.2);
+  tx=(W-bb.width*scale)/2-bb.x*scale;
+  ty=(H-bb.height*scale)/2-bb.y*scale;
+  applyTransform();
+}
+
+// ============ INIT ============
+layout();
+render();
+applyTransform();
+setTimeout(function(){
+  fitView();
+  showStatus('✅ 思维导图已就绪', 'ok');
+  setTimeout(function(){statusEl.style.display='none';},1500);
+},200);
+
+document.getElementById('btnFit').addEventListener('click',fitView);
+document.getElementById('btnExpand').addEventListener('click',expandAll);
+document.getElementById('btnCollapse').addEventListener('click',collapseAll);
+document.getElementById('searchInput').addEventListener('input',function(){
+  var q=this.value.trim();
+  if(q)highlight(q);else clearHighlight();
+});
+
+var rt;
+window.addEventListener('resize',function(){
+  clearTimeout(rt);
+  rt=setTimeout(function(){layout();render();applyTransform();},200);
+});
+
+// Success
+console.log('MindMap: rendered '+flatNodes.length+' nodes, '+flatLinks.length+' links');
+
+}catch(e){
+  showStatus('⚠️ 加载失败: '+e.message, 'err');
+  console.error(e);
+}
+})();
+</script>
+</body>
+</html>

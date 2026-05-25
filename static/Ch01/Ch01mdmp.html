@@ -1,0 +1,559 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>第一章 市场营销导论 — 思维导图</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{
+  font-family:"Microsoft YaHei","PingFang SC",sans-serif;
+  background:#f0f2f5;
+  overflow:hidden;height:100vh;width:100vw;
+  user-select:none;-webkit-user-select:none;
+}
+svg{width:100%;height:100%;position:absolute;top:0;left:0}
+#toolbar{position:fixed;top:16px;right:16px;z-index:100;display:flex;gap:8px}
+#toolbar button{
+  padding:8px 16px;border:1px solid #d9d9d9;background:#fff;
+  border-radius:6px;cursor:pointer;font-size:13px;font-family:inherit;
+  box-shadow:0 1px 4px rgba(0,0,0,.08);transition:all .2s;
+}
+#toolbar button:hover{background:#1677ff;color:#fff;border-color:#1677ff}
+#search{position:fixed;top:16px;left:16px;z-index:100}
+#search input{
+  padding:8px 14px;border:1px solid #d9d9d9;border-radius:20px;
+  width:240px;font-size:13px;font-family:inherit;outline:none;
+  box-shadow:0 1px 4px rgba(0,0,0,.08);transition:border-color .2s;
+}
+#search input:focus{border-color:#1677ff}
+#info{
+  position:fixed;bottom:16px;right:16px;z-index:100;
+  background:#fff;padding:6px 12px;border-radius:6px;
+  box-shadow:0 1px 6px rgba(0,0,0,.1);font-size:11px;color:#888;
+}
+#legend{
+  position:fixed;bottom:16px;left:16px;z-index:100;
+  background:#fff;padding:10px 16px;border-radius:8px;
+  box-shadow:0 1px 6px rgba(0,0,0,.1);font-size:12px;
+  display:flex;gap:14px;flex-wrap:wrap;
+}
+.li{display:flex;align-items:center;gap:6px}
+.ld{width:12px;height:12px;border-radius:50%}
+#status{
+  position:fixed;top:50%;left:50%;transform:translate(-50%,-50%);
+  background:#fff;padding:20px 40px;border-radius:12px;z-index:200;
+  box-shadow:0 4px 20px rgba(0,0,0,.15);font-size:16px;text-align:center;
+}
+#status.ok{color:#52c41a}
+#status.err{color:#f5222d}
+#status.loading{color:#1677ff}
+</style>
+</head>
+<body>
+
+<div id="status" class="loading">正在加载思维导图...</div>
+
+<div id="toolbar">
+  <button id="btnFit">适应画面</button>
+  <button id="btnExpand">全部展开</button>
+  <button id="btnCollapse">全部收起</button>
+</div>
+<div id="search">
+  <input type="text" id="searchInput" placeholder="搜索节点...">
+</div>
+<div id="legend">
+  <span class="li"><span class="ld" style="background:#1677ff"></span>核心概念</span>
+  <span class="li"><span class="ld" style="background:#52c41a"></span>观念演变</span>
+  <span class="li"><span class="ld" style="background:#fa8c16"></span>案例分析</span>
+  <span class="li"><span class="ld" style="background:#722ed1"></span>国际化趋势</span>
+  <span class="li"><span class="ld" style="background:#eb2f96"></span>跨文化营销</span>
+  <span class="li"><span class="ld" style="background:#13c2c2"></span>实训/练习</span>
+</div>
+<div id="info">拖拽平移 · 滚轮缩放 · 点击节点展开/收起</div>
+
+<svg id="svg"></svg>
+
+<script>
+(function(){
+var statusEl = document.getElementById('status');
+function showStatus(msg, cls){
+  statusEl.textContent = msg;
+  statusEl.className = cls;
+}
+try {
+
+// ============ TREE DATA ============
+var treeData = {
+  name:'第一章\n市场营销导论', color:'#f5222d', collapsed:false, children:[
+  {name:'学习目标', color:'#595959', collapsed:true, children:[
+    {name:'知识目标', color:'#595959', children:[
+      {name:'市场核心概念\n与营销定义', color:'#8c8c8c'},
+      {name:'五种营销观念\n演变逻辑', color:'#8c8c8c'},
+      {name:'七大核心术语\n(需要→欲望→需求)', color:'#8c8c8c'},
+      {name:'数字化营销趋势\n(AI/大数据/元宇宙)', color:'#8c8c8c'},
+      {name:'霍夫斯泰德\n文化维度理论', color:'#8c8c8c'}
+    ]},
+    {name:'能力目标', color:'#595959', children:[
+      {name:'需求管理理论\n分析企业案例', color:'#8c8c8c'},
+      {name:'跨文化风险识别\n本地化策略', color:'#8c8c8c'},
+      {name:'营销观念诊断\n与ESG转型设计', color:'#8c8c8c'},
+      {name:'中英双语\n营销沟通能力', color:'#8c8c8c'},
+      {name:'数字营销案例\n分析能力', color:'#8c8c8c'}
+    ]},
+    {name:'素养目标', color:'#595959', children:[
+      {name:'社会营销观念\n“商业向善”价值观', color:'#8c8c8c'},
+      {name:'国际化视野\n跨文化敏感度', color:'#8c8c8c'},
+      {name:'数据驱动\n可持续发展职业观', color:'#8c8c8c'},
+      {name:'文化自信\n讲好中国故事', color:'#8c8c8c'}
+    ]}
+  ]},
+  {name:'1.1 市场营销的\n核心概念', color:'#1677ff', children:[
+    {name:'1.1.1 市场与\n市场营销的定义', color:'#4096ff', children:[
+      {name:'市场(Market)\n的多维解析', color:'#69b1ff', children:[
+        {name:'核心公式:\n市场=人口+购买欲望+购买力', color:'#bae0ff', emph:true},
+        {name:'物理市场vs数字市场\n(SHEIN/Temu跨境直达)', color:'#bae0ff'},
+        {name:'本地市场vs全球市场\n(互联网打破地理限制)', color:'#bae0ff'},
+        {name:'可持续市场vs传统市场\n(ESG重塑市场边界)', color:'#bae0ff'},
+        {name:'案例:追觅科技\n全球化市场细分策略', color:'#bae0ff'}
+      ]},
+      {name:'市场营销(Marketing)\n的本质', color:'#69b1ff', children:[
+        {name:'科特勒定义:\n创造并交换产品和价值\n满足需求的社会管理过程', color:'#bae0ff', emph:true},
+        {name:'AMA定义:\n为顾客/客户/合作伙伴\n/社会创造价值', color:'#bae0ff'},
+        {name:'支柱① 价值创造\n(Value Creation)\n挖掘未被满足的需求', color:'#bae0ff'},
+        {name:'支柱② 交换行为\n(Exchange)\n双方自愿互利的双赢', color:'#bae0ff'},
+        {name:'支柱③ 关系构建\n(Relationship Building)\n顾客终身价值CLV', color:'#bae0ff'},
+        {name:'本质是“管理需求”\n(Managing Demand)\n八种需求状态', color:'#bae0ff'}
+      ]}
+    ]},
+    {name:'1.1.2 核心术语\n双语解析', color:'#4096ff', children:[
+      {name:'① 需要 Needs\n(人类基本缺失状态)', color:'#91caff', children:[
+        {name:'马斯洛需求层次:\n生理→安全→社会\n→尊重→自我实现', color:'#d6e4ff'}
+      ]},
+      {name:'② 欲望 Wants\n(需要+文化+个性)', color:'#91caff', children:[
+        {name:'营销无法创造需要\n但可塑造欲望\nKOL种草/直播带货', color:'#d6e4ff'}
+      ]},
+      {name:'③ 需求 Demands\n(欲望+购买力)', color:'#91caff', children:[
+        {name:'Demands = Wants\n+ Purchasing Power\n分期/BaaS降低门槛', color:'#d6e4ff'}
+      ]},
+      {name:'④ 价值 Value\n(利益−成本)', color:'#91caff', children:[
+        {name:'顾客价值=所得利益−付出成本\n提升路径:增利益/降成本', color:'#d6e4ff'}
+      ]},
+      {name:'⑤ 满意度 Satisfaction\n(感知 vs 期望)', color:'#91caff', children:[
+        {name:'感知>期望→惊喜(忠诚)\n感知=期望→满意(易流失)\n感知<期望→不满(差评)', color:'#d6e4ff'}
+      ]},
+      {name:'⑥ 交换 Exchange\n⑦ 交易 Transaction', color:'#91caff', children:[
+        {name:'交换五条件\n交易=交换计量单元\nNFT扩展交易定义', color:'#d6e4ff'}
+      ]}
+    ]}
+  ]},
+  {name:'1.2 营销观念的\n演变', color:'#52c41a', children:[
+    {name:'① 生产观念\nProduction Concept', color:'#73d13d', children:[
+      {name:'核心:低价+广泛可得\n背景:19C末卖方市场\n案例:福特T型车/SHEIN\n局限:忽视差异化需求', color:'#d9f7be'}
+    ]},
+    {name:'② 产品观念\nProduct Concept', color:'#73d13d', children:[
+      {name:'核心:质量/性能/特色至上\n营销近视症(Levitt 1960)\n案例:柯达破产教训\n局限:忽视用户体验', color:'#d9f7be'}
+    ]},
+    {name:'③ 推销观念\nSelling Concept', color:'#73d13d', children:[
+      {name:'核心:大规模促销推动购买\n背景:1930s大萧条后\n适用:非渴求物品(保险等)\n由内向外(Inside-out)', color:'#d9f7be'}
+    ]},
+    {name:'④ 市场营销观念\nMarketing Concept', color:'#73d13d', children:[
+      {name:'核心:比竞品更有效\n满足目标市场需求\n由外向内(Outside-in)', color:'#b7eb8f'},
+      {name:'四大支柱:\n①目标市场②顾客需求\n③整合营销④盈利能力', color:'#b7eb8f', emph:true},
+      {name:'案例:海底捞超预期服务\n追觅数据驱动产品开发', color:'#b7eb8f'}
+    ]},
+    {name:'⑤ 社会营销观念\nSocietal Marketing', color:'#73d13d', children:[
+      {name:'核心:企业利润+消费者满意\n+社会长远利益=三赢', color:'#d9f7be'},
+      {name:'案例:Patagonia\n反消费主义/地球捐赠\nESG成为准入门票', color:'#d9f7be'},
+      {name:'华兴源创:3A绿色工厂\n首份ESG报告/CSRD合规', color:'#d9f7be'}
+    ]}
+  ]},
+  {name:'1.3 产教融合案例\n华兴源创', color:'#fa8c16', children:[
+    {name:'1.3.1 企业背景', color:'#ffa940', children:[
+      {name:'苏州工业园区\n科创板首家(688001)\n2025营收22.24亿(+22%)\n苹果/三星/特斯拉供应商', color:'#ffd591'}
+    ]},
+    {name:'1.3.2 营销观念转型\n三阶段', color:'#ffa940', children:[
+      {name:'阶段一(2005-2015)\n技术驱动产品观念\n追求检测精度极致', color:'#ffe7ba'},
+      {name:'阶段二(2015-2022)\n市场营销观念\n深度绑定/整线方案/全球化', color:'#ffe7ba'},
+      {name:'阶段三(2022-至今)\n社会营销观念\nESG/碳中和/AI定制化', color:'#ffe7ba'}
+    ]},
+    {name:'1.3.3 案例思考题\n(5道分析题)', color:'#ffa940'}
+  ]},
+  {name:'1.4 国际化背景下的\n市场营销趋势', color:'#722ed1', children:[
+    {name:'1.4.1 经济全球化\n与数字营销', color:'#9254de', children:[
+      {name:'全球化新格局', color:'#b37feb', children:[
+        {name:'本地竞争→全球竞争\n间接出口→DTC直达\nSHEIN/Temu案例', color:'#efdbff'}
+      ]},
+      {name:'数字营销三大前沿', color:'#b37feb', children:[
+        {name:'① AI营销\n预测/推荐/生成/实时决策\nNetflix推荐(80%观看)', color:'#d3adf7'},
+        {name:'② 大数据精准营销\n第一方数据/私域流量\nTikTok Shop即时转化', color:'#d3adf7'},
+        {name:'③ 元宇宙营销\n3D虚拟空间品牌体验\nNike Nikeland/Gucci NFT', color:'#d3adf7'}
+      ]}
+    ]},
+    {name:'1.4.2 苏州工业园区\n国际化实践', color:'#9254de', children:[
+      {name:'跨境电商集群\nAmazon/Shopee/Lazada', color:'#efdbff'},
+      {name:'外资企业本土化\n博世/西门子/三星', color:'#efdbff'},
+      {name:'科技企业出海\n思必驰/追觅科技', color:'#efdbff'}
+    ]}
+  ]},
+  {name:'1.5 跨文化营销\n的挑战与策略', color:'#eb2f96', children:[
+    {name:'1.5.1 文化差异\n五大维度', color:'#f759ab', children:[
+      {name:'语言与翻译\n(可口可乐/通用Nova)', color:'#ffd6e7'},
+      {name:'颜色与符号\n(红/白/绿文化差异)', color:'#ffd6e7'},
+      {name:'宗教与禁忌\n(清真/印度教/斋月)', color:'#ffd6e7'},
+      {name:'价值观与消费习惯\n(集体主义vs个人主义)', color:'#ffd6e7'},
+      {name:'时间观念\n(单一时间vs多元时间)', color:'#ffd6e7'}
+    ]},
+    {name:'1.5.2 霍夫斯泰德\n文化维度理论', color:'#f759ab', children:[
+      {name:'① 权力距离 PDI\n权威推荐 vs 同伴评价', color:'#ffd6e7'},
+      {name:'② 个人/集体主义 IDV\n个性表达 vs 群体归属', color:'#ffd6e7'},
+      {name:'③ 男性/女性化 MAS\n竞争成就 vs 关怀合作', color:'#ffd6e7'},
+      {name:'④ 不确定性规避 UAI\n品牌认证 vs 尝新意愿', color:'#ffd6e7'},
+      {name:'⑤ 长/短期导向 LTO\n百年传承 vs 即时满足', color:'#ffd6e7'},
+      {name:'⑥ 放纵/约束 IVR\n享乐消费 vs 实用储蓄', color:'#ffd6e7'}
+    ]},
+    {name:'1.5.3 经典陷阱\n三大案例', color:'#f759ab', children:[
+      {name:'D&G 2018中国广告\n东方主义/文化傲慢\n中国市场份额大降', color:'#fff0f6'},
+      {name:'麦当劳荷兰2025\nAI圣诞广告\n72h内删除', color:'#fff0f6'},
+      {name:'捷豹2024-2025\n品牌重塑失败\n月销暴跌97.5%', color:'#fff0f6'}
+    ]},
+    {name:'1.5.4 应对策略', color:'#f759ab', children:[
+      {name:'本地化策略 Localization\n(产品/包装/广告/渠道)', color:'#ffd6e7'},
+      {name:'文化审核机制\n(本地团队敏感度测试)', color:'#ffd6e7'},
+      {name:'Glocalization平衡\n全球统一+本地灵活', color:'#ffd6e7'},
+      {name:'跨文化团队建设\n(多元背景/中外合作)', color:'#ffd6e7'}
+    ]}
+  ]},
+  {name:'1.6 实训任务\nMini Project', color:'#13c2c2', collapsed:true, children:[
+    {name:'项目:Global Marketing\nFailure & Lesson', color:'#36cfc9', children:[
+      {name:'Step1 组建团队(3-4人)', color:'#b5f5ec'},
+      {name:'Step2 搜索真实案例\n(文化误解致失败)', color:'#b5f5ec'},
+      {name:'Step3 深度分析(PPT 8-10页)\n运用Hofstede理论≥2维度', color:'#b5f5ec'},
+      {name:'Step4 课堂展示\n中英双语 5分钟', color:'#b5f5ec'},
+      {name:'评分标准+参考方向\n+学生自评清单', color:'#b5f5ec'}
+    ]}
+  ]},
+  {name:'课程思政\n融入要点', color:'#595959', collapsed:true, children:[
+    {name:'数据求真\n与科学精神', color:'#8c8c8c'},
+    {name:'社会责任\n与可持续发展', color:'#8c8c8c'},
+    {name:'文化自信\n与国际视野', color:'#8c8c8c'},
+    {name:'消费者权益保护\n(消法/广告法)', color:'#8c8c8c'},
+    {name:'服务地方经济\n(苏州工业园区)', color:'#8c8c8c'}
+  ]},
+  {name:'本章小结\n+关键术语\n+思考练习', color:'#595959', collapsed:true, children:[
+    {name:'核心概念体系\n市场公式/七大术语', color:'#8c8c8c'},
+    {name:'五大观念演变\n生产→产品→推销\n→市场营销→社会营销', color:'#8c8c8c'},
+    {name:'数字化趋势\nAI/大数据/元宇宙', color:'#8c8c8c'},
+    {name:'跨文化营销\nHofstede六维度', color:'#8c8c8c'},
+    {name:'思考练习\n基础概念×3/分析应用×3\n综合论述×2', color:'#8c8c8c'}
+  ]}
+]};
+
+showStatus('正在渲染节点...', 'loading');
+
+// ============ CONSTANTS ============
+var NODE_W = 200, NODE_H = 44, H_GAP = 32, V_GAP = 16, CORNER_R = 8;
+var svgEl = document.getElementById('svg');
+var NS = 'http://www.w3.org/2000/svg';
+
+// ============ HELPERS ============
+function isLight(hex){
+  var r=parseInt(hex.slice(1,3),16),g=parseInt(hex.slice(3,5),16),b=parseInt(hex.slice(5,7),16);
+  return(r*299+g*587+b*114)/1000>160;
+}
+function darken(hex,amt){
+  var r=Math.max(0,parseInt(hex.slice(1,3),16)*(1-amt));
+  var g=Math.max(0,parseInt(hex.slice(3,5),16)*(1-amt));
+  var b=Math.max(0,parseInt(hex.slice(5,7),16)*(1-amt));
+  return '#'+[r,g,b].map(function(v){return Math.round(v).toString(16).padStart(2,'0')}).join('');
+}
+
+// ============ LAYOUT ============
+var flatNodes=[], flatLinks=[];
+
+function initCollapsed(d){
+  if(d.collapsed!==undefined)d._collapsed=d.collapsed;
+  else d._collapsed=false;
+  if(d.children)d.children.forEach(initCollapsed);
+}
+
+function layout(){
+  flatNodes=[];flatLinks=[];
+  initCollapsed(treeData);
+  var W=window.innerWidth, H=window.innerHeight;
+  var rootX=120;
+
+  function place(d,depth,yStart,ySpan){
+    var x=rootX+depth*(NODE_W+H_GAP);
+    var nKids=(d.children&&!d._collapsed)?d.children.length:1;
+    var leafSpan=ySpan/nKids;
+    var y=yStart+ySpan/2;
+    var node={
+      id:flatNodes.length, name:d.name, color:d.color||'#595959',
+      emph:!!d.emph, x:x, y:y, w:NODE_W, h:NODE_H, depth:depth,
+      hasKids:!!(d.children&&d.children.length>0), collapsed:!!d._collapsed
+    };
+    d._node=node;
+    flatNodes.push(node);
+    if(d.children&&!d._collapsed){
+      for(var i=0;i<d.children.length;i++){
+        var child=d.children[i];
+        place(child,depth+1,yStart+i*leafSpan,leafSpan);
+        flatLinks.push({s:node.id,t:child._node.id});
+      }
+    }
+  }
+  place(treeData,0,80,H-160);
+
+  // Fix overlaps
+  var byDepth={};
+  flatNodes.forEach(function(n){
+    if(!byDepth[n.depth])byDepth[n.depth]=[];
+    byDepth[n.depth].push(n);
+  });
+  for(var key in byDepth){
+    var arr=byDepth[key];
+    arr.sort(function(a,b){return a.y-b.y});
+    for(var i=1;i<arr.length;i++){
+      if(arr[i].y-arr[i-1].y<NODE_H+V_GAP) arr[i].y=arr[i-1].y+NODE_H+V_GAP;
+    }
+  }
+}
+
+// ============ RENDER ============
+var mainG, linkG, nodeG;
+
+function render(){
+  while(svgEl.firstChild)svgEl.removeChild(svgEl.firstChild);
+
+  var defs=document.createElementNS(NS,'defs');
+  var filter=document.createElementNS(NS,'filter');
+  filter.setAttribute('id','sd');
+  filter.setAttribute('x','-10%');filter.setAttribute('y','-10%');
+  filter.setAttribute('width','130%');filter.setAttribute('height','130%');
+  var fe=document.createElementNS(NS,'feDropShadow');
+  fe.setAttribute('dx','1');fe.setAttribute('dy','2');
+  fe.setAttribute('stdDeviation','3');fe.setAttribute('flood-opacity','0.12');
+  filter.appendChild(fe);defs.appendChild(filter);
+  svgEl.appendChild(defs);
+
+  mainG=document.createElementNS(NS,'g');
+  svgEl.appendChild(mainG);
+
+  linkG=document.createElementNS(NS,'g');
+  linkG.setAttribute('class','links');
+  mainG.appendChild(linkG);
+
+  nodeG=document.createElementNS(NS,'g');
+  nodeG.setAttribute('class','nodes');
+  mainG.appendChild(nodeG);
+
+  // Links
+  var linkSet={};
+  flatLinks.forEach(function(l){linkSet[l.s+'-'+l.t]={s:l.s,t:l.t}});
+  for(var k in linkSet){
+    var l=linkSet[k];
+    var s=flatNodes[l.s], t=flatNodes[l.t];
+    var sx=s.x+NODE_W, sy=s.y+NODE_H/2, ex=t.x, ey=t.y+NODE_H/2;
+    var mx=(sx+ex)/2;
+    var d='M'+sx+','+sy+' C'+mx+','+sy+' '+mx+','+ey+' '+ex+','+ey;
+    var p=document.createElementNS(NS,'path');
+    p.setAttribute('d',d);
+    p.setAttribute('fill','none');
+    p.setAttribute('stroke','#c0c0c0');
+    p.setAttribute('stroke-width','1.5');
+    p.setAttribute('stroke-opacity','0.6');
+    p.setAttribute('data-s',l.s);
+    p.setAttribute('data-t',l.t);
+    linkG.appendChild(p);
+  }
+
+  // Nodes
+  flatNodes.forEach(function(n){
+    var g=document.createElementNS(NS,'g');
+    g.setAttribute('transform','translate('+n.x+','+n.y+')');
+    g.setAttribute('class','node');
+    g.style.cursor=n.hasKids?'pointer':'default';
+    g.setAttribute('data-id',n.id);
+    g.addEventListener('click',function(ev){ev.stopPropagation();toggleNode(n);});
+
+    var rect=document.createElementNS(NS,'rect');
+    rect.setAttribute('width',n.w);
+    rect.setAttribute('height',n.h);
+    rect.setAttribute('rx',CORNER_R);
+    rect.setAttribute('ry',CORNER_R);
+    rect.setAttribute('fill',n.emph?darken(n.color,0.08):n.color);
+    rect.setAttribute('stroke',n.emph?darken(n.color,0.2):'rgba(0,0,0,0.08)');
+    rect.setAttribute('stroke-width',n.emph?'2.5':'1');
+    rect.setAttribute('filter','url(#sd)');
+    g.appendChild(rect);
+
+    // Collapse indicator
+    if(n.hasKids){
+      var cx=n.w-14, cy=n.h/2;
+      var circle=document.createElementNS(NS,'circle');
+      circle.setAttribute('cx',cx);circle.setAttribute('cy',cy);circle.setAttribute('r','8');
+      circle.setAttribute('fill','rgba(255,255,255,0.35)');
+      circle.setAttribute('stroke','rgba(255,255,255,0.6)');
+      circle.setAttribute('stroke-width','1');
+      g.appendChild(circle);
+      var txt=document.createElementNS(NS,'text');
+      txt.setAttribute('x',cx);txt.setAttribute('y',cy);
+      txt.setAttribute('dy','0.35em');
+      txt.setAttribute('text-anchor','middle');
+      txt.setAttribute('fill','#fff');
+      txt.setAttribute('font-size','11');
+      txt.setAttribute('font-weight','bold');
+      txt.textContent=n.collapsed?'+':'−';
+      g.appendChild(txt);
+    }
+
+    // Text
+    var lines=n.name.split('\n');
+    var fs=lines.length>3?10:lines.length>2?11:12;
+    var tc=isLight(n.color)?'#1a1a1a':'#fff';
+    var totalH=lines.length*(fs+3)-3;
+    lines.forEach(function(line,i){
+      var ty=n.h/2-totalH/2+i*(fs+3)+fs*0.35;
+      var txt=document.createElementNS(NS,'text');
+      txt.setAttribute('x',n.hasKids?'14':n.w/2);
+      txt.setAttribute('y',ty);
+      txt.setAttribute('text-anchor',n.hasKids?'start':'middle');
+      txt.setAttribute('fill',tc);
+      txt.setAttribute('font-size',fs);
+      txt.setAttribute('font-weight',n.emph?'bold':'normal');
+      txt.setAttribute('font-family','Microsoft YaHei,PingFang SC,sans-serif');
+      txt.textContent=line;
+      g.appendChild(txt);
+    });
+
+    nodeG.appendChild(g);
+  });
+}
+
+// ============ TREE OPS ============
+function findData(d,id){
+  if(d._node&&d._node.id===id)return d;
+  if(d.children)for(var i=0;i<d.children.length;i++){var r=findData(d.children[i],id);if(r)return r;}
+  return null;
+}
+
+function toggleNode(node){
+  var d=findData(treeData,node.id);
+  if(d&&d.children&&d.children.length>0){
+    d._collapsed=!d._collapsed;
+    layout();render();applyTransform();
+    var q=document.getElementById('searchInput').value.trim();
+    if(q)highlight(q);
+  }
+}
+
+function expandAll(){
+  (function e(d){d._collapsed=false;if(d.children)d.children.forEach(e);})(treeData);
+  layout();render();applyTransform();
+}
+function collapseAll(){
+  (function c(d,dp){if(dp>=2)d._collapsed=true;if(d.children)d.children.forEach(function(ch){c(ch,dp+1)});})(treeData,0);
+  layout();render();applyTransform();
+}
+
+// ============ SEARCH ============
+function highlight(q){
+  q=q.toLowerCase();
+  var match=[];
+  flatNodes.forEach(function(n){if(n.name.toLowerCase().indexOf(q)>=0)match[n.id]=true;});
+  var ng=nodeG.querySelectorAll('.node');
+  for(var i=0;i<ng.length;i++){
+    var id=parseInt(ng[i].getAttribute('data-id'));
+    ng[i].style.opacity=match[id]?'1':'0.15';
+  }
+  var lp=linkG.querySelectorAll('path');
+  for(var i=0;i<lp.length;i++){
+    var s=parseInt(lp[i].getAttribute('data-s'));
+    var t=parseInt(lp[i].getAttribute('data-t'));
+    lp[i].setAttribute('stroke-opacity',(match[s]||match[t])?'0.6':'0.06');
+  }
+}
+function clearHighlight(){
+  var ng=nodeG.querySelectorAll('.node');
+  for(var i=0;i<ng.length;i++)ng[i].style.opacity='1';
+  var lp=linkG.querySelectorAll('path');
+  for(var i=0;i<lp.length;i++)lp[i].setAttribute('stroke-opacity','0.6');
+}
+
+// ============ ZOOM & PAN ============
+var tx=0, ty=0, scale=1;
+
+function applyTransform(){
+  mainG.setAttribute('transform','translate('+tx+','+ty+') scale('+scale+')');
+}
+
+var panning=false, panSX=0, panSY=0, panTX=0, panTY=0;
+
+svgEl.addEventListener('mousedown',function(ev){
+  if(ev.target===svgEl||ev.target.tagName==='svg'||ev.target===mainG){
+    panning=true;panSX=ev.clientX;panSY=ev.clientY;panTX=tx;panTY=ty;
+    svgEl.style.cursor='grabbing';
+  }
+});
+window.addEventListener('mousemove',function(ev){
+  if(!panning)return;
+  tx=panTX+(ev.clientX-panSX);ty=panTY+(ev.clientY-panSY);
+  applyTransform();
+});
+window.addEventListener('mouseup',function(){panning=false;svgEl.style.cursor='';});
+svgEl.addEventListener('wheel',function(ev){
+  ev.preventDefault();
+  var ds=ev.deltaY>0?0.9:1.1;
+  var ns=Math.min(3,Math.max(0.15,scale*ds));
+  var mx=ev.clientX,my=ev.clientY;
+  tx=mx-(mx-tx)*(ns/scale);
+  ty=my-(my-ty)*(ns/scale);
+  scale=ns;
+  applyTransform();
+},{passive:false});
+
+function fitView(){
+  var bb=mainG.getBBox();
+  var W=window.innerWidth,H=window.innerHeight,pad=80;
+  scale=Math.min(W/(bb.width+pad*2),H/(bb.height+pad*2),1.2);
+  tx=(W-bb.width*scale)/2-bb.x*scale;
+  ty=(H-bb.height*scale)/2-bb.y*scale;
+  applyTransform();
+}
+
+// ============ INIT ============
+layout();
+render();
+applyTransform();
+setTimeout(function(){
+  fitView();
+  showStatus('✅ 思维导图已就绪', 'ok');
+  setTimeout(function(){statusEl.style.display='none';},1500);
+},200);
+
+document.getElementById('btnFit').addEventListener('click',fitView);
+document.getElementById('btnExpand').addEventListener('click',expandAll);
+document.getElementById('btnCollapse').addEventListener('click',collapseAll);
+document.getElementById('searchInput').addEventListener('input',function(){
+  var q=this.value.trim();
+  if(q)highlight(q);else clearHighlight();
+});
+
+var rt;
+window.addEventListener('resize',function(){
+  clearTimeout(rt);
+  rt=setTimeout(function(){layout();render();applyTransform();},200);
+});
+
+// Success
+console.log('MindMap: rendered '+flatNodes.length+' nodes, '+flatLinks.length+' links');
+
+}catch(e){
+  showStatus('⚠️ 加载失败: '+e.message, 'err');
+  console.error(e);
+}
+})();
+</script>
+</body>
+</html>

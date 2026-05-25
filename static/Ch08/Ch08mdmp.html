@@ -1,0 +1,396 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>第八章 促销策略：整合营销传播 — 思维导图</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{
+  font-family:"Microsoft YaHei","PingFang SC",sans-serif;
+  background:#f0f2f5;
+  overflow:hidden;height:100vh;width:100vw;
+  user-select:none;-webkit-user-select:none;
+}
+svg{width:100%;height:100%;position:absolute;top:0;left:0}
+#toolbar{position:fixed;top:16px;right:16px;z-index:100;display:flex;gap:8px}
+#toolbar button{
+  padding:8px 16px;border:1px solid #d9d9d9;background:#fff;
+  border-radius:6px;cursor:pointer;font-size:13px;font-family:inherit;
+  box-shadow:0 1px 4px rgba(0,0,0,.08);transition:all .2s;
+}
+#toolbar button:hover{background:#1677ff;color:#fff;border-color:#1677ff}
+#search{position:fixed;top:16px;left:16px;z-index:100}
+#search input{
+  padding:8px 14px;border:1px solid #d9d9d9;border-radius:20px;
+  width:240px;font-size:13px;font-family:inherit;outline:none;
+  box-shadow:0 1px 4px rgba(0,0,0,.08);transition:border-color .2s;
+}
+#search input:focus{border-color:#1677ff}
+#info{
+  position:fixed;bottom:16px;right:16px;z-index:100;
+  background:#fff;padding:6px 12px;border-radius:6px;
+  box-shadow:0 1px 6px rgba(0,0,0,.1);font-size:11px;color:#888;
+}
+#legend{
+  position:fixed;bottom:16px;left:16px;z-index:100;
+  background:#fff;padding:10px 16px;border-radius:8px;
+  box-shadow:0 1px 6px rgba(0,0,0,.1);font-size:12px;
+  display:flex;gap:14px;flex-wrap:wrap;
+}
+.li{display:flex;align-items:center;gap:6px}
+.ld{width:12px;height:12px;border-radius:50%}
+#status{
+  position:fixed;top:50%;left:50%;transform:translate(-50%,-50%);
+  background:#fff;padding:20px 40px;border-radius:12px;z-index:200;
+  box-shadow:0 4px 20px rgba(0,0,0,.15);font-size:16px;text-align:center;
+}
+#status.ok{color:#52c41a}
+#status.err{color:#f5222d}
+#status.loading{color:#1677ff}
+</style>
+</head>
+<body>
+
+<div id="status" class="loading">正在加载思维导图...</div>
+
+<div id="toolbar">
+  <button id="btnFit">适应画面</button>
+  <button id="btnExpand">全部展开</button>
+  <button id="btnCollapse">全部收起</button>
+</div>
+<div id="search">
+  <input type="text" id="searchInput" placeholder="搜索节点...">
+</div>
+<div id="legend">
+  <span class="li"><span class="ld" style="background:#1677ff"></span>核心概念</span>
+  <span class="li"><span class="ld" style="background:#52c41a"></span>观念演变</span>
+  <span class="li"><span class="ld" style="background:#fa8c16"></span>案例分析</span>
+  <span class="li"><span class="ld" style="background:#722ed1"></span>国际化趋势</span>
+  <span class="li"><span class="ld" style="background:#eb2f96"></span>跨文化营销</span>
+  <span class="li"><span class="ld" style="background:#13c2c2"></span>实训/练习</span>
+</div>
+<div id="info">拖拽平移 · 滚轮缩放 · 点击节点展开/收起</div>
+
+<svg id="svg"></svg>
+
+<script>
+(function(){
+var statusEl = document.getElementById('status');
+function showStatus(msg, cls){
+  statusEl.textContent = msg;
+  statusEl.className = cls;
+}
+try {
+
+// ============ TREE DATA ============
+var treeData = {name:'第八章 促销策略：整合营销传\n播', color:'#f5222d', children:[              {name:'学习目标 ', color:'#1677ff', children:[                {name:'知识目标', color:'#91caff', collapsed:true, children:[                  {name:'熟练掌握促销组合四大核心工具\n——广告、销售促进、公共关系...', color:'#d6e4ff', children:[]                  },                  {name:'系统理解整合营销传播的核心内\n涵、核心理念、发展历程、实施...', color:'#d6e4ff', children:[]                  },                  {name:'深入掌握数字化时代的新型传播\n工具，包括内容营销、社交媒体...', color:'#d6e4ff', children:[]                  },                  {name:'熟悉大数据、用户画像、归因模\n型、营销自动化、人工智能创意...', color:'#d6e4ff', children:[]                  },                  {name:'理解跨文化传播的基本原则、常\n见风险与应对策略，掌握全球化...', color:'#d6e4ff', children:[]                  },                  {name:'熟悉广告法、反不正当竞争法、\n个人信息保护法等法律法规在促...', color:'#d6e4ff', children:[]                  }                ]                },                {name:'能力目标', color:'#91caff', collapsed:true, children:[                  {name:'能够独立为苏州工业园区企业设\n计完整的整合营销传播方案，涵...', color:'#d6e4ff', children:[]                  },                  {name:'能够根据产品生命周期阶段、行\n业竞争特性、目标人群画像与消...', color:'#d6e4ff', children:[]                  },                  {name:'能够运用数字化工具开展精准投\n放、内容创作、KOL合作筛选、...', color:'#d6e4ff', children:[]                  },                  {name:'能够进行传播预算的科学分配、\n多维度效果监测、数据驱动复盘...', color:'#d6e4ff', children:[]                  },                  {name:'能够开展跨文化传播策划、合规\n风险识别与简单的危机应对方案...', color:'#d6e4ff', children:[]                  },                  {name:'能够运用FAB法则进行有效的产\n品推介与销售演示。', color:'#d6e4ff', children:[]                  }                ]                },                {name:'素养目标', color:'#91caff', collapsed:true, children:[                  {name:'树立诚信传播、真实宣传、合规\n营销的职业底线，坚决拒绝虚假...', color:'#d6e4ff', children:[]                  },                  {name:'强化文化自信与民族品牌意识，\n在传播中传递积极健康的价值观...', color:'#d6e4ff', children:[]                  },                  {name:'培养消费者为本、数据向善、隐\n私保护的责任意识，严格遵守法...', color:'#d6e4ff', children:[]                  },                  {name:'立足苏州工业园区高端制造、国\n货出海、跨境电商、科技创新的...', color:'#d6e4ff', children:[]                  },                  {name:'树立开放包容、跨文化尊重、合\n规国际化的全球视野，理解"全...', color:'#d6e4ff', children:[]                  }                ]                }              ]              },              {name:'8.1 整合营销传播概述', color:'#1677ff', children:[                {name:'8.1.1 促销与整合营销传播的关\n系', color:'#4096ff', collapsed:true, children:[                  {name:'在市场营销的经典4P框架中，促\n销是第四个P，但它绝非"配角"...', color:'#d6e4ff', children:[]                  },                  {name:'传统意义上的"促销"常被误解为\n简单的"打折促销"或"做广告"。...', color:'#d6e4ff', children:[]                  },                  {name:'整合营销传播（Integrated \nMarketing Communications, ...', color:'#d6e4ff', children:[]                  }                ]                },                {name:'8.1.2 IMC的核心定义与战略价\n值', color:'#4096ff', collapsed:true, children:[                  {name:'核心定义：整合营销传播是指企\n业将广告、销售促进、公共关系...', color:'#d6e4ff', children:[]                  },                  {name:'1. 信息一致性：避免不同渠道\n传递混乱、矛盾、碎片化的信息...', color:'#d6e4ff', children:[]                  },                  {name:'2. 效果叠加性：多种传播工具\n协同运作，产生"1+1>2"的放大...', color:'#d6e4ff', children:[]                  },                  {name:'3. 成本优化性：统一策划、统\n一内容生产、统一投放管理、统...', color:'#d6e4ff', children:[]                  },                  {name:'4. 体验连贯性：消费者在线上\n看到的品牌承诺，在线下门店应...', color:'#d6e4ff', children:[]                  },                  {name:'5. 数据闭环性：全渠道数据打\n通，消费者在任何一个触点上的...', color:'#d6e4ff', children:[]                  }                ]                },                {name:'8.1.3 IMC的核心理念', color:'#4096ff', collapsed:true, children:[                  {name:'理念一：以消费者为中心', color:'#d6e4ff', children:[]                  },                  {name:'传统促销思维是"企业想讲什么"，\nIMC思维是"消费者想听什么、在...', color:'#d6e4ff', children:[]                  },                  {name:'- 我们的目标消费者是谁？（人\n群画像、年龄、职业、收入、兴...', color:'#d6e4ff', children:[]                  },                  {name:'- 他们在哪些场景下会产生与品\n类相关的需求？（使用场景、购...', color:'#d6e4ff', children:[]                  },                  {name:'- 他们信任什么样的信息来源？\n（朋友推荐？KOL测评？权威媒...', color:'#d6e4ff', children:[]                  },                  {name:'- 他们偏好什么样的沟通方式？\n（严肃专业？轻松幽默？情感共...', color:'#d6e4ff', children:[]                  },                  {name:'- 他们在购买决策的不同阶段分\n别需要什么样的信息？（认知阶...', color:'#d6e4ff', children:[]                  },                  {name:'理念二：全渠道协同', color:'#d6e4ff', children:[]                  },                  {name:'传统媒体（电视、广播、报纸、\n户外）与数字媒体（搜索、社交...', color:'#d6e4ff', children:[]                  },                  {name:'理念三：数据驱动', color:'#d6e4ff', children:[]                  },                  {name:'在数字化时代，IMC的每一个环\n节都应当有数据支撑：', color:'#d6e4ff', children:[]                  },                  {name:'- 策划阶段：用数据定义目标人\n群（Demographic + Behavioral...', color:'#d6e4ff', children:[]                  },                  {name:'- 创意阶段：用数据分析消费者\n偏好的内容类型、语气风格、视...', color:'#d6e4ff', children:[]                  },                  {name:'- 投放阶段：用数据选择最优渠\n道组合、最佳投放时间、最精准...', color:'#d6e4ff', children:[]                  },                  {name:'- 优化阶段：用数据监测每一波\n传播的实际效果（曝光、点击、...', color:'#d6e4ff', children:[]                  },                  {name:'- 复盘阶段：用数据构建归因模\n型，识别哪些渠道和内容对最终...', color:'#d6e4ff', children:[]                  },                  {name:'理念四：长期关系导向', color:'#d6e4ff', children:[]                  },                  {name:'IMC的目标不仅是促成一次交易，\n更是建立品牌与消费者之间的长...', color:'#d6e4ff', children:[]                  },                  {name:'- 潜在客户阶段 → 品类教育、\n品牌认知（内容营销、广告）', color:'#d6e4ff', children:[]                  },                  {name:'- 兴趣阶段 → 产品种草、信任\n建立（KOL测评、案例、口碑）', color:'#d6e4ff', children:[]                  },                  {name:'- 购买阶段 → 转化激励、风险\n消除（促销、保障、试用）', color:'#d6e4ff', children:[]                  },                  {name:'- 购买后阶段 → 使用指导、售\n后关怀（私域、社群、服务）', color:'#d6e4ff', children:[]                  },                  {name:'- 忠诚阶段 → 会员权益、专属\n体验、以旧换新（会员体系、裂...', color:'#d6e4ff', children:[]                  }                ]                },                {name:'8.1.4 整合营销传播的发展历程', color:'#4096ff', collapsed:true, children:[                  {name:'理解IMC的演进历史，有助于把\n握未来趋势：', color:'#d6e4ff', children:[]                  },                  {name:'第一阶段：大众广告时代（\n1950s–1980s）', color:'#d6e4ff', children:[]                  },                  {name:'- 特征：以电视、广播、报纸、\n杂志四大传统媒体为主', color:'#d6e4ff', children:[]                  },                  {name:'- 逻辑："广而告之"——覆盖面\n越大，效果越好', color:'#d6e4ff', children:[]                  },                  {name:'- 局限：单向传播，无法精准触\n达，效果难以衡量', color:'#d6e4ff', children:[]                  },                  {name:'- 代表案例：可口可乐的电视广\n告、万宝路牛仔形象', color:'#d6e4ff', children:[]                  },                  {name:'第二阶段：促销组合时代（\n1980s–1990s）', color:'#d6e4ff', children:[]                  },                  {name:'- 特征：广告 + 销售促进 + 公\n共关系 + 人员推销初步组合', color:'#d6e4ff', children:[]                  },                  {name:'- 逻辑：不同工具有不同功能，\n需要搭配使用', color:'#d6e4ff', children:[]                  },                  {name:'- 局限：各工具独立运作，缺乏\n统一协调', color:'#d6e4ff', children:[]                  },                  {name:'- 代表案例：宝洁的多品牌多工\n具促销体系', color:'#d6e4ff', children:[]                  },                  {name:'第三阶段：IMC整合时代（1990s\n–2010s）', color:'#d6e4ff', children:[]                  },                  {name:'- 特征：以"同一个声音"为核心\n理念，统一品牌形象与信息', color:'#d6e4ff', children:[]                  },                  {name:'- 逻辑：消费者接触到的所有品\n牌信息应当协调一致', color:'#d6e4ff', children:[]                  },                  {name:'- 局限：仍以传统媒体为主，数\n字化程度不高', color:'#d6e4ff', children:[]                  },                  {name:'- 代表案例：苹果公司的极简主\n义统一传播', color:'#d6e4ff', children:[]                  },                  {name:'第四阶段：数字化IMC时代（\n2010s–至今）', color:'#d6e4ff', children:[]                  },                  {name:'- 特征：数据驱动、精准触达、\n实时互动、全链路闭环', color:'#d6e4ff', children:[]                  },                  {name:'- 逻辑：以消费者数据为引擎，\n以数字技术为驱动，实现千人千...', color:'#d6e4ff', children:[]                  },                  {name:'- 从"媒体为中心" → "消费者\n为中心"', color:'#d6e4ff', children:[]                  },                  {name:'- 从"单向推送" → "双向互动+\n用户共创"', color:'#d6e4ff', children:[]                  },                  {name:'- 从"经验决策" → "数据驱动\n决策"', color:'#d6e4ff', children:[]                  },                  {name:'- 从"事后评估" → "实时监测+\n即时优化"', color:'#d6e4ff', children:[]                  },                  {name:'- 从"公域为主" → "公域引流+\n私域深耕"', color:'#d6e4ff', children:[]                  },                  {name:'- 代表案例：完美日记的小红书\n种草+私域运营组合打法', color:'#d6e4ff', children:[]                  }                ]                },                {name:'8.1.5 IMC实施五步法', color:'#4096ff', collapsed:true, children:[                  {name:'第一步：洞察阶段', color:'#d6e4ff', children:[]                  },                  {name:'在策划任何传播活动之前，必须\n进行系统性的调研与分析：', color:'#d6e4ff', children:[]                  },                  {name:'1. 消费者洞察：目标人群是谁？\n他们的需求、痛点、偏好、媒体...', color:'#d6e4ff', children:[]                  },                  {name:'2. 竞品洞察：竞品在传播什么\n信息？使用哪些渠道？预算规模...', color:'#d6e4ff', children:[]                  },                  {name:'3. 品牌自身洞察：我们的核心\n优势是什么？品牌定位与价值主...', color:'#d6e4ff', children:[]                  },                  {name:'4. 渠道洞察：目标人群活跃在\n哪些媒体平台？不同平台的内容...', color:'#d6e4ff', children:[]                  },                  {name:'5. 数据洞察：历史传播数据中\n有哪些规律可循？哪些内容和渠...', color:'#d6e4ff', children:[]                  },                  {name:'第二步：战略阶段', color:'#d6e4ff', children:[]                  },                  {name:'基于洞察结果，制定清晰的传播\n战略：', color:'#d6e4ff', children:[]                  },                  {name:'1. 传播目标设定：遵循SMART原\n则', color:'#d6e4ff', children:[]                  },                  {name:'- 认知目标：品牌知名度提升X%', color:'#d6e4ff', children:[]                  },                  {name:'- 态度目标：品牌好感度提升X\n分', color:'#d6e4ff', children:[]                  },                  {name:'- 行动目标：线上转化率X%、线\n下客流增长X%', color:'#d6e4ff', children:[]                  },                  {name:'- 忠诚目标：复购率提升X%、推\n荐率NPS达到X分', color:'#d6e4ff', children:[]                  },                  {name:'2. 目标受众定义：建立清晰的\n人群画像与分层', color:'#d6e4ff', children:[]                  },                  {name:'3. 核心信息提炼：用一句话说\n清楚"我们是谁、我们提供什么...', color:'#d6e4ff', children:[]                  },                  {name:'4. 品牌调性确定：专业严谨？\n温暖亲切？潮酷先锋？高端奢华...', color:'#d6e4ff', children:[]                  },                  {name:'5. 预算分配框架：总预算以及\n在渠道、时段、目标人群之间的...', color:'#d6e4ff', children:[]                  },                  {name:'第三步：战术阶段', color:'#d6e4ff', children:[]                  },                  {name:'1. 促销组合设计：选择广告、\n促销、公关、人员推销、数字营...', color:'#d6e4ff', children:[]                  },                  {name:'2. 内容创意策划：核心创意主\n题、内容矩阵规划、素材生产计...', color:'#d6e4ff', children:[]                  },                  {name:'3. 媒体矩阵构建：具体的媒体\n平台选择、KOL筛选标准与名单...', color:'#d6e4ff', children:[]                  },                  {name:'4. 时间节奏安排：预热期、爆\n发期、延续期的具体时间节点与...', color:'#d6e4ff', children:[]                  },                  {name:'第四步：执行阶段', color:'#d6e4ff', children:[]                  },                  {name:'1. 内容生产与审核：确保所有\n素材符合品牌规范与法律要求', color:'#d6e4ff', children:[]                  },                  {name:'2. 统一投放与同步：各渠道按\n照排期表协同投放', color:'#d6e4ff', children:[]                  },                  {name:'3. 实时监测与调整：密切追踪\n核心数据指标，及时调整策略', color:'#d6e4ff', children:[]                  },                  {name:'4. 跨部门沟通协调：市场部、\n销售部、客服部、产品部信息对...', color:'#d6e4ff', children:[]                  },                  {name:'第五步：评估阶段', color:'#d6e4ff', children:[]                  },                  {name:'科学评估传播效果，为下一轮优\n化提供依据：', color:'#d6e4ff', children:[]                  }                ]                }              ]              },              {name:'8.2 促销组合四大核心工具', color:'#1677ff', children:[                {name:'8.2.1 广告策略', color:'#4096ff', collapsed:true, children:[                  {name:'8.2.1.1 广告的定义与核心功能', color:'#69b1ff', collapsed:true, children:[                    {name:'核心定义：广告是由明确可识别\n的广告主，以付费方式通过各类...', color:'#d6e4ff', children:[]                    },                    {name:'1. 告知功能：向市场传递新产\n品上市、新功能推出、新服务上...', color:'#d6e4ff', children:[]                    },                    {name:'2. 说服功能：在竞争激烈的市\n场中，通过广告建立品牌偏好、...', color:'#d6e4ff', children:[]                    },                    {name:'3. 提醒功能：对成熟期产品，\n通过持续的品牌曝光维持消费者...', color:'#d6e4ff', children:[]                    },                    {name:'4. 品牌塑造功能：通过长期的、\n一致性的广告传播，在消费者心...', color:'#d6e4ff', children:[]                    },                    {name:'5. 增值功能：优秀的广告不仅\n推广产品，更为品牌赋予情感价...', color:'#d6e4ff', children:[]                    }                  ]                  },                  {name:'8.2.1.2 广告的分类体系', color:'#69b1ff', collapsed:true, children:[                    {name:'- 电视广告：覆盖面广、视听冲\n击力强、品牌背书效果好，但成...', color:'#d6e4ff', children:[]                    },                    {name:'- 广播广告：成本低、灵活性强、\n可针对特定时段（如早晚高峰驾...', color:'#d6e4ff', children:[]                    },                    {name:'- 报纸广告：权威性强、信息容\n量大、可保存查阅，但读者群体...', color:'#d6e4ff', children:[]                    },                    {name:'- 杂志广告：印刷精美、目标人\n群精准（按杂志类型细分）、阅...', color:'#d6e4ff', children:[]                    },                    {name:'- 户外广告（Out-of-Home / \nOOH）：包括路牌、候车亭、公...', color:'#d6e4ff', children:[]                    },                    {name:'- 电梯广告：聚焦住宅和写字楼\n人群，频次高、干扰少、到达率...', color:'#d6e4ff', children:[]                    },                    {name:'- 搜索引擎广告（SEM / Search\n Ad）：以百度推广、Google ...', color:'#d6e4ff', children:[]                    },                    {name:'- 社交媒体信息流广告：嵌入在\n微信朋友圈、抖音、微博、小红...', color:'#d6e4ff', children:[]                    },                    {name:'- 短视频广告：在抖音、快手、\n视频号等平台以短视频形式呈现...', color:'#d6e4ff', children:[]                    },                    {name:'- 程序化广告：通过算法和平台\n自动完成媒体购买与投放，实时...', color:'#d6e4ff', children:[]                    },                    {name:'- KOL/KOC合作广告：以达人内\n容为载体的软性广告形式，兼具...', color:'#d6e4ff', children:[]                    },                    {name:'- 电商平台广告：在淘宝、京东、\n拼多多等电商平台内的搜索广告...', color:'#d6e4ff', children:[]                    },                    {name:'- OTT/智能电视广告：通过智能\n电视和视频平台投放的大屏数字...', color:'#d6e4ff', children:[]                    }                  ]                  },                  {name:'8.2.1.3 广告策划全流程', color:'#69b1ff', collapsed:true, children:[                    {name:'广告目标必须具体、可衡量，且\n与整体营销目标紧密衔接。常见...', color:'#d6e4ff', children:[]                    },                    {name:'- 认知目标：在3个月内将品牌\n知名度从30%提升至50%', color:'#d6e4ff', children:[]                    },                    {name:'- 态度目标：在6个月内将品牌\n好感度评分从3.5提升至4.2（5...', color:'#d6e4ff', children:[]                    },                    {name:'- 行为目标：通过广告投放实现\n月均10万次官网访问', color:'#d6e4ff', children:[]                    },                    {name:'- 转化目标：广告投放期间线上\n销售额环比增长20%', color:'#d6e4ff', children:[]                    },                    {name:'精准定义广告要触达的人群，包\n括：', color:'#d6e4ff', children:[]                    },                    {name:'- 人口统计特征：年龄、性别、\n收入、职业、教育程度、地域', color:'#d6e4ff', children:[]                    },                    {name:'- 行为特征：品类使用频率、品\n牌忠诚度、购买渠道偏好', color:'#d6e4ff', children:[]                    },                    {name:'- 心理特征：生活方式、价值观、\n兴趣爱好、消费态度', color:'#d6e4ff', children:[]                    },                    {name:'- 媒介行为：常用APP、关注的\n内容类型、上网时段分布', color:'#d6e4ff', children:[]                    },                    {name:'广告创意的核心是"说什么"（诉\n求策略）和"怎么说"（表现策略...', color:'#d6e4ff', children:[]                    },                    {name:'1. 理性诉求：强调产品的功能、\n性能、参数、性价比、使用效果...', color:'#d6e4ff', children:[]                    },                    {name:'2. 情感诉求：激发消费者的情\n感共鸣——温暖、感动、陪伴、...', color:'#d6e4ff', children:[]                    },                    {name:'3. 道德诉求：唤起消费者的社\n会责任感与价值认同——环保、...', color:'#d6e4ff', children:[]                    },                    {name:'4. 幽默诉求：通过轻松、有趣、\n出人意料的内容吸引注意并留下...', color:'#d6e4ff', children:[]                    },                    {name:'5. 场景诉求：将产品融入消费\n者真实的日常生活场景——工作...', color:'#d6e4ff', children:[]                    },                    {name:'选择最优的媒体组合需要考虑以\n下因素：', color:'#d6e4ff', children:[]                    },                    {name:'- 目标受众的媒体接触习惯（他\n们花时间在哪里？）', color:'#d6e4ff', children:[]                    },                    {name:'- 产品品类的特性（高卷入度产\n品需要深度信息，低卷入度产品...', color:'#d6e4ff', children:[]                    },                    {name:'- 广告目标（品牌建设选高影响\n力媒体，效果转化选精准媒体）', color:'#d6e4ff', children:[]                    },                    {name:'- 预算规模（预算有限时优先选\n择性价比最高的核心渠道）', color:'#d6e4ff', children:[]                    },                    {name:'- 竞品的媒体策略（差异化选择\n以避免正面冲突，或正面竞争以...', color:'#d6e4ff', children:[]                    },                    {name:'按照排期表进行广告投放，并实\n时追踪关键指标：', color:'#d6e4ff', children:[]                    },                    {name:'- 数字广告：曝光量、点击率、\n转化率、单次点击成本、千次曝...', color:'#d6e4ff', children:[]                    },                    {name:'- 传统广告：广告 recall（记\n忆度）、品牌搜索量变化、门店...', color:'#d6e4ff', children:[]                    },                    {name:'广告投放结束后，进行系统性的\n效果复盘：', color:'#d6e4ff', children:[]                    },                    {name:'- 是否达成了预定的传播目标与\n销售目标？', color:'#d6e4ff', children:[]                    },                    {name:'- 哪个媒体渠道的投资回报率最\n高？哪个表现不佳？', color:'#d6e4ff', children:[]                    },                    {name:'- 哪些创意素材效果最好？哪些\n需要优化或放弃？', color:'#d6e4ff', children:[]                    },                    {name:'- 目标受众的反馈如何？品牌认\n知与态度发生了怎样的变化？', color:'#d6e4ff', children:[]                    }                  ]                  }                ]                },                {name:'8.2.2 销售促进策略', color:'#4096ff', collapsed:true, children:[                  {name:'8.2.2.1 销售促进的定义与独特\n价值', color:'#69b1ff', collapsed:true, children:[                    {name:'核心定义：销售促进是运用各种\n短期激励工具，刺激消费者或渠...', color:'#d6e4ff', children:[]                    }                  ]                  },                  {name:'8.2.2.2 面向消费者的促销工具', color:'#69b1ff', collapsed:true, children:[                    {name:'- 直接折扣：原价X元，现价Y元。\n简单直接，对价格敏感型消费者...', color:'#d6e4ff', children:[]                    },                    {name:'- 满减优惠：满A元减B元。鼓励\n消费者提高客单价，同时给予实...', color:'#d6e4ff', children:[]                    },                    {name:'- 限时秒杀：在极短时间内以超\n低价格限量销售，营造紧迫感与...', color:'#d6e4ff', children:[]                    },                    {name:'- 第二件半价/买一赠一：以"额\n外获得感"而非"直接降价"来刺...', color:'#d6e4ff', children:[]                    },                    {name:'- 优惠券：线上领取/发放的数\n字或实体凭证，指定产品享受折...', color:'#d6e4ff', children:[]                    },                    {name:'- 返现/红包（Cashback/Rebate）：\n购买后返还部分金额，既能刺激...', color:'#d6e4ff', children:[]                    },                    {name:'- 运费险/免费退货：消除消费\n者的购买后顾之忧，显著提升转...', color:'#d6e4ff', children:[]                    },                    {name:'- 赠品（Premium/Gift with \nPurchase）：购买即赠送相关产...', color:'#d6e4ff', children:[]                    },                    {name:'- 试用装/小样：免费或以极低\n价格提供产品小样，让消费者在...', color:'#d6e4ff', children:[]                    },                    {name:'- 限量版/联名款：通过稀缺性\n和独特性创造溢价空间与社交话...', color:'#d6e4ff', children:[]                    },                    {name:'- 抽奖/竞赛（Sweepstakes/\nContest）：通过奖品吸引用户...', color:'#d6e4ff', children:[]                    },                    {name:'- 打卡/挑战：鼓励用户连续打\n卡或完成特定任务以获取奖励，...', color:'#d6e4ff', children:[]                    },                    {name:'- 互动游戏：通过有趣的互动游\n戏（如大转盘、刮刮卡、集卡等...', color:'#d6e4ff', children:[]                    },                    {name:'- 积分体系：消费积累积分，可\n用于兑换产品或抵扣金额。积分...', color:'#d6e4ff', children:[]                    },                    {name:'- 会员专属价/会员日：为会员\n提供特定产品的专属价格或专属...', color:'#d6e4ff', children:[]                    },                    {name:'- 等级权益：根据消费金额或频\n次将会员划分为不同等级，高等...', color:'#d6e4ff', children:[]                    }                  ]                  },                  {name:'8.2.2.3 面向渠道的促销工具', color:'#69b1ff', collapsed:true, children:[                    {name:'企业不仅需要对终端消费者促销，\n还需要激励渠道合作伙伴（经销...', color:'#d6e4ff', children:[]                    },                    {name:'- 进货返利：按进货金额或数量\n给予一定比例的返利或折扣。', color:'#d6e4ff', children:[]                    },                    {name:'- 台阶奖励：设定多级进货目标，\n达成更高目标享受更大力度奖励...', color:'#d6e4ff', children:[]                    },                    {name:'- 陈列补贴：支付费用以获得零\n售终端更好的货架位置或特殊陈...', color:'#d6e4ff', children:[]                    },                    {name:'- 销售人员竞赛：组织经销商的\n销售人员开展销售竞赛，对销售...', color:'#d6e4ff', children:[]                    },                    {name:'- 联合广告支持：品牌方与渠道\n方共同出资投放区域性广告。', color:'#d6e4ff', children:[]                    }                  ]                  },                  {name:'8.2.2.4 销售促进的策划流程', color:'#69b1ff', collapsed:true, children:[                    {name:'- 冲销量：快速提升短期销售额\n与市场份额', color:'#d6e4ff', children:[]                    },                    {name:'- 清库存：为新品上市或季节转\n换清理库存', color:'#d6e4ff', children:[]                    },                    {name:'- 拉新客：吸引从未购买过的新\n用户首次尝试', color:'#d6e4ff', children:[]                    },                    {name:'- 激活老客：促使沉睡用户重新\n活跃并复购', color:'#d6e4ff', children:[]                    },                    {name:'- 应对竞争：在竞品大促期间进\n行防御性促销', color:'#d6e4ff', children:[]                    },                    {name:'- 渠道压货：激励经销商在旺季\n前大量备货', color:'#d6e4ff', children:[]                    },                    {name:'根据产品品类、品牌定位、目标\n人群与促销目标选择最合适的工...', color:'#d6e4ff', children:[]                    },                    {name:'- 高端护肤品 → 赠品（高品质\n小样）+ 会员积分', color:'#d6e4ff', children:[]                    },                    {name:'- 快消饮料 → 扫码红包 + 第\n二瓶半价', color:'#d6e4ff', children:[]                    },                    {name:'- 家电产品 → 满减 + 免息分\n期 + 以旧换新', color:'#d6e4ff', children:[]                    },                    {name:'- App拉新 → 新人专享券 + 邀\n请有礼', color:'#d6e4ff', children:[]                    },                    {name:'促销规则的黄金法则：简单、透\n明、可执行。复杂的促销规则让...', color:'#d6e4ff', children:[]                    },                    {name:'促销预算包括直接的折扣/赠品\n成本和推广费用。时间安排在节...', color:'#d6e4ff', children:[]                    },                    {name:'- 设置合理的促销上限（如每人\n限购X件、总限量X份）', color:'#d6e4ff', children:[]                    },                    {name:'- 确保促销宣传符合广告法要求\n（如明确标注原价与促销价的计...', color:'#d6e4ff', children:[]                    },                    {name:'- 做好库存准备，避免"超卖"引\n发客诉', color:'#d6e4ff', children:[]                    },                    {name:'【产教融合案例：苏州食行生鲜\n的促销策略】', color:'#d6e4ff', children:[]                    },                    {name:'食行生鲜是一家总部位于苏州的\n新零售生鲜电商企业。其促销策...', color:'#d6e4ff', children:[]                    },                    {name:'- 新人专享券：新用户可领取"\n满29减10"新人券，大幅降低首...', color:'#d6e4ff', children:[]                    },                    {name:'- 每日秒杀：特定时间段推出少\n量超低价商品（如9毛9一份蔬菜...', color:'#d6e4ff', children:[]                    },                    {name:'- 满额包邮：购物满39元免配送\n费，激励用户凑单以提升客单价...', color:'#d6e4ff', children:[]                    },                    {name:'- 会员体系：付费会员（如月卡\n/季卡）享受更高频次的折扣与...', color:'#d6e4ff', children:[]                    },                    {name:'- 老带新裂变：老用户邀请新用\n户注册下单，双方各得优惠券，...', color:'#d6e4ff', children:[]                    },                    {name:'思考：食行生鲜为什么不直接全\n场打折，而是设计了如此多元的...', color:'#d6e4ff', children:[]                    }                  ]                  }                ]                },                {name:'8.2.3 公共关系策略', color:'#4096ff', collapsed:true, children:[                  {name:'8.2.3.1 公共关系的定义与独特\n优势', color:'#69b1ff', collapsed:true, children:[                    {name:'核心定义：公共关系（Public \nRelations, PR）是组织通过系...', color:'#d6e4ff', children:[]                    }                  ]                  },                  {name:'8.2.3.2 公共关系的主要工具', color:'#69b1ff', collapsed:true, children:[                    {name:'媒体关系', color:'#d6e4ff', children:[]                    },                    {name:'- 新闻稿：向媒体发布具有新闻\n价值的品牌信息——新品发布、...', color:'#d6e4ff', children:[]                    },                    {name:'- 媒体专访：安排企业高管接受\n权威媒体的深度采访，传递战略...', color:'#d6e4ff', children:[]                    },                    {name:'- 新闻发布会：在重大事件节点\n邀请多家媒体统一发布信息。', color:'#d6e4ff', children:[]                    },                    {name:'- 媒体合作：与行业媒体、地方\n媒体建立长期合作关系，形成稳...', color:'#d6e4ff', children:[]                    },                    {name:'事件与活动营销', color:'#d6e4ff', children:[]                    },                    {name:'- 新品发布会/品牌发布会：通\n过具有仪式感和传播力的大型活...', color:'#d6e4ff', children:[]                    },                    {name:'- 行业峰会与论坛：主办或赞助\n行业会议，彰显企业的行业领导...', color:'#d6e4ff', children:[]                    },                    {name:'- 公益与CSR活动：策划和实施\n具有社会价值的公益项目，赢得...', color:'#d6e4ff', children:[]                    },                    {name:'- 体育/文化赞助：赞助大型体\n育赛事或文化活动，借助赛事IP...', color:'#d6e4ff', children:[]                    },                    {name:'- 体验活动/快闪店：创造独特\n的线下体验场景，通过社交媒体...', color:'#d6e4ff', children:[]                    },                    {name:'内容公关', color:'#d6e4ff', children:[]                    },                    {name:'- 白皮书/行业报告：发布具有\n研究深度和行业洞察的专业内容...', color:'#d6e4ff', children:[]                    },                    {name:'- 案例故事/客户成功故事：以\n真实客户的真实使用体验和效果...', color:'#d6e4ff', children:[]                    },                    {name:'- 企业高管观点文章：企业高管\n在权威媒体发表署名文章，分享...', color:'#d6e4ff', children:[]                    },                    {name:'危机公关', color:'#d6e4ff', children:[]                    },                    {name:'危机公关是公共关系中最为关键\n也最具挑战性的领域。优秀的危...', color:'#d6e4ff', children:[]                    },                    {name:'承担责任原则：第一时间承认问\n题，不推卸不回避。消费者可以...', color:'#d6e4ff', children:[]                    },                    {name:'真诚沟通原则：以真诚、透明、\n富有同理心的态度与公众沟通，...', color:'#d6e4ff', children:[]                    },                    {name:'速度第一原则：在信息扩散极快\n的社交媒体时代，黄金回应窗口...', color:'#d6e4ff', children:[]                    },                    {name:'系统运行原则：危机管理不是公\n关部一个部门的事，需要CEO、...', color:'#d6e4ff', children:[]                    },                    {name:'权威证实原则：引入第三方权威\n机构或专家进行客观调查与证实...', color:'#d6e4ff', children:[]                    },                    {name:'社交媒体公关', color:'#d6e4ff', children:[]                    },                    {name:'在社交媒体时代，品牌官方账号\n的每一次发声都是一次公关行为...', color:'#d6e4ff', children:[]                    },                    {name:'- 品牌人格化：让品牌像一个有\n温度、有个性的人，而非冷冰冰...', color:'#d6e4ff', children:[]                    },                    {name:'- 实时互动：及时回复用户的评\n论与私信，将单向传播转化为双...', color:'#d6e4ff', children:[]                    },                    {name:'- 热点借势：恰当地参与社会热\n点话题讨论，但需注意分寸与边...', color:'#d6e4ff', children:[]                    }                  ]                  },                  {name:'8.2.3.3 公关效果评估', color:'#69b1ff', collapsed:true, children:[                    {name:'与广告相比，公关效果的量化评\n估更具挑战性，但可以从以下维...', color:'#d6e4ff', children:[]                    },                    {name:'- 媒体曝光量：媒体报道篇数、\n媒体级别与影响力权重、正面/...', color:'#d6e4ff', children:[]                    },                    {name:'- 传播广度：总触达人次、转载\n量、社交提及量', color:'#d6e4ff', children:[]                    },                    {name:'- 品牌声誉：舆情监测指数的变\n化、品牌美誉度调研分数的变化', color:'#d6e4ff', children:[]                    },                    {name:'- 搜索指数：品牌相关关键词的\n搜索量变化（公关活动往往驱动...', color:'#d6e4ff', children:[]                    },                    {name:'- 业务关联：公关事件后官网流\n量、门店客流、销售线索量的变...', color:'#d6e4ff', children:[]                    }                  ]                  }                ]                },                {name:'8.2.4 人员推销策略', color:'#4096ff', collapsed:true, children:[                  {name:'8.2.4.1 人员推销的定义与核心\n特征', color:'#69b1ff', collapsed:true, children:[                    {name:'核心定义：人员推销是销售人员\n通过面对面、一对一或一对少的...', color:'#d6e4ff', children:[]                    },                    {name:'1. 双向互动性：与广告的单向\n推送不同，人员推销是实时的双...', color:'#d6e4ff', children:[]                    },                    {name:'2. 高度灵活性：销售话术、产\n品推荐、方案组合均可根据每位...', color:'#d6e4ff', children:[]                    },                    {name:'3. 关系导向性：人员推销的核\n心不仅是"做成这笔生意"，更是...', color:'#d6e4ff', children:[]                    },                    {name:'4. 高成交效率：面对面沟通的\n信任建立速度远快于线上，尤其...', color:'#d6e4ff', children:[]                    },                    {name:'5. 高单位成本：人员推销的单\n位获客成本与维护成本远高于其...', color:'#d6e4ff', children:[]                    }                  ]                  },                  {name:'8.2.4.2 人员推销的标准流程（\n七步法）', color:'#69b1ff', collapsed:true, children:[                    {name:'第一步：寻找潜在客户', color:'#d6e4ff', children:[]                    },                    {name:'从海量线索中找出最有可能购买\n的目标客户：', color:'#d6e4ff', children:[]                    },                    {name:'- 内部渠道：公司CRM系统中的\n历史客户与线索、市场活动收集...', color:'#d6e4ff', children:[]                    },                    {name:'- 外部渠道：行业展会、行业名\n录、行业协会、企业信息平台（...', color:'#d6e4ff', children:[]                    },                    {name:'- 社交渠道：LinkedIn、脉脉、\n行业社群、朋友圈', color:'#d6e4ff', children:[]                    },                    {name:'- 老客户转介绍：满意的老客户\n推荐新客户是成本最低、成功率...', color:'#d6e4ff', children:[]                    },                    {name:'第二步：前期准备', color:'#d6e4ff', children:[]                    },                    {name:'- 了解客户的行业、公司规模、\n业务模式、发展阶段', color:'#d6e4ff', children:[]                    },                    {name:'- 研究客户可能面临的问题与挑\n战（痛点假设）', color:'#d6e4ff', children:[]                    },                    {name:'- 分析客户的决策链——谁会参\n与购买决策？各自关注什么？', color:'#d6e4ff', children:[]                    },                    {name:'- 准备好针对性的开场话题、产\n品资料与成功案例', color:'#d6e4ff', children:[]                    },                    {name:'第三步：建立信任', color:'#d6e4ff', children:[]                    },                    {name:'首次接触客户时的"第一印象"至\n关重要：', color:'#d6e4ff', children:[]                    },                    {name:'- 专业的外表、得体的举止与守\n时', color:'#d6e4ff', children:[]                    },                    {name:'- 真诚的态度——不要一上来就\n推销，先建立连接', color:'#d6e4ff', children:[]                    },                    {name:'- 用"你能为客户解决什么问题"\n而非"我们的产品有多好"开启对...', color:'#d6e4ff', children:[]                    },                    {name:'第四步：挖掘需求', color:'#d6e4ff', children:[]                    },                    {name:'这是人员推销中最关键的环节。\n优秀的销售人员用80%的时间提...', color:'#d6e4ff', children:[]                    },                    {name:'- Situation（现状问题）：了\n解客户的现有情况。"贵公司目...', color:'#d6e4ff', children:[]                    },                    {name:'- Problem（困难问题）：发现\n客户的痛点与不满意。"现有设...', color:'#d6e4ff', children:[]                    },                    {name:'- Implication（影响问题）：\n放大问题不解决的后果。"如果...', color:'#d6e4ff', children:[]                    },                    {name:'- Need-Payoff（需求-回报问题）：\n引导客户看到解决后的价值。"...', color:'#d6e4ff', children:[]                    },                    {name:'第五步：介绍演示（\nPresentation & Demonstration...', color:'#d6e4ff', children:[]                    },                    {name:'基于客户的具体需求，有针对性\n地介绍产品与解决方案。', color:'#d6e4ff', children:[]                    },                    {name:'第六步：处理异议', color:'#d6e4ff', children:[]                    },                    {name:'客户有异议是好事情——说明他\n们在认真考虑购买。常见的异议...', color:'#d6e4ff', children:[]                    },                    {name:'- 价格异议："你们的价格太贵\n了。" → 不要直接降价，转而...', color:'#d6e4ff', children:[]                    },                    {name:'- 需求异议："我们暂时不需要。\n" → 通过提问回到痛点挖掘，...', color:'#d6e4ff', children:[]                    },                    {name:'- 信任异议："我们已经有固定\n的供应商了。" → 不要攻击竞...', color:'#d6e4ff', children:[]                    },                    {name:'- 时机异议："过段时间再说吧。\n" → 询问具体原因，如果确实...', color:'#d6e4ff', children:[]                    }                  ]                  },                  {name:'8.2.4.3 销售团队的管理', color:'#69b1ff', collapsed:true, children:[                    {name:'- 区域型：按地理区域划分销售\n团队，适合市场覆盖广、区域差...', color:'#d6e4ff', children:[]                    },                    {name:'- 产品型：按产品线划分，适合\n产品线复杂、需要深厚产品知识...', color:'#d6e4ff', children:[]                    },                    {name:'- 客户型：按客户类型/规模划\n分，适合不同客户群体需求差异...', color:'#d6e4ff', children:[]                    },                    {name:'- 复合型：大型企业常采用多维\n复合结构（如"区域+产品"或"行...', color:'#d6e4ff', children:[]                    },                    {name:'- 薪酬结构：底薪 + 提成/佣金\n + 绩效奖金 + 年终奖', color:'#d6e4ff', children:[]                    },                    {name:'- 非经济激励：荣誉体系、晋升\n通道、专业培训、国内外旅游奖...', color:'#d6e4ff', children:[]                    },                    {name:'- 激励设计原则：简单透明、即\n时可见、公平公正、既激励个人...', color:'#d6e4ff', children:[]                    },                    {name:'- 结果指标：销售额、毛利、回\n款率、新客数量、客单价', color:'#d6e4ff', children:[]                    },                    {name:'- 过程指标：客户拜访量、提案\n数量、销售漏斗转化率', color:'#d6e4ff', children:[]                    },                    {name:'- 质量指标：客户满意度、客户\n流失率、老客复购率', color:'#d6e4ff', children:[]                    }                  ]                  }                ]                }              ]              },              {name:'8.3 数字化时代的整合营销传播', color:'#1677ff', children:[                {name:'8.3.1 数字化传播的五大核心特\n征', color:'#4096ff', collapsed:true, children:[                  {name:'数字技术从根本上改变了品牌与\n消费者沟通的方式，数字化传播...', color:'#d6e4ff', children:[]                  },                  {name:'特征一：精准化', color:'#d6e4ff', children:[]                  },                  {name:'传统广告是"广撒网"，不知道看\n到广告的人是谁。数字化传播基...', color:'#d6e4ff', children:[]                  },                  {name:'- 抖音广告可以定向到"过去30\n天搜索过\'装修\'关键词、年龄25...', color:'#d6e4ff', children:[]                  },                  {name:'- 微信朋友圈广告可以定向到"\n曾经到访过某商场、使用iPhone...', color:'#d6e4ff', children:[]                  },                  {name:'特征二：互动化', color:'#d6e4ff', children:[]                  },                  {name:'传统广告是单向的"我说你听"。\n数字化传播是双向的——消费者...', color:'#d6e4ff', children:[]                  },                  {name:'特征三：实时化', color:'#d6e4ff', children:[]                  },                  {name:'数字化传播可以实时投放、实时\n监测、实时优化。一条信息流广...', color:'#d6e4ff', children:[]                  },                  {name:'特征四：可测化', color:'#d6e4ff', children:[]                  },                  {name:'数字化传播的每个环节都留下数\n据足迹。从曝光到点击到浏览到...', color:'#d6e4ff', children:[]                  },                  {name:'特征五：闭环化', color:'#d6e4ff', children:[]                  },                  {name:'数字化传播打通了"公域获客→\n私域承接→复购转化→数据反哺...', color:'#d6e4ff', children:[]                  }                ]                },                {name:'8.3.2 数字化传播的核心工具矩\n阵', color:'#4096ff', collapsed:true, children:[                  {name:'8.3.2.1 内容营销', color:'#69b1ff', collapsed:true, children:[                    {name:'定义：通过持续创造和分发有价\n值、相关性强、一致性的内容，...', color:'#d6e4ff', children:[]                    },                    {name:'核心原则：有用、有趣、有料、\n有共鸣。内容营销的本质不是"...', color:'#d6e4ff', children:[]                    },                    {name:'- 图文内容：公众号文章、小红\n书笔记、知乎问答、微博帖子', color:'#d6e4ff', children:[]                    },                    {name:'- 短视频内容：抖音/快手/B站\n视频，15-60秒到3-5分钟不等', color:'#d6e4ff', children:[]                    },                    {name:'- 长视频内容：深度测评、教程、\n纪录片式品牌故事（B站、...', color:'#d6e4ff', children:[]                    },                    {name:'- 直播内容：实时演示、互动答\n疑、场景化讲解', color:'#d6e4ff', children:[]                    },                    {name:'- 互动内容：H5互动页面、测试、\n挑战赛、投票', color:'#d6e4ff', children:[]                    },                    {name:'- 功能科普类：教消费者如何更\n好地使用产品（如"扫地机器人...', color:'#d6e4ff', children:[]                    },                    {name:'- 场景剧情类：将产品融入真实\n生活场景的故事（如"一个人的...', color:'#d6e4ff', children:[]                    },                    {name:'- 知识干货类：分享与品类相关\n的专业知识（如"新房装修，这5...', color:'#d6e4ff', children:[]                    },                    {name:'- 情感共鸣类：聚焦目标人群的\n情感诉求（如"送给父母的智能...', color:'#d6e4ff', children:[]                    },                    {name:'- 热点借势类：结合社会热点话\n题创造相关内容（需要恰当而有...', color:'#d6e4ff', children:[]                    }                  ]                  },                  {name:'8.3.2.2 社交媒体营销', color:'#69b1ff', children:[]                  },                  {name:'8.3.2.3 KOL/KOC营销', color:'#69b1ff', collapsed:true, children:[                    {name:'KOL（Key Opinion Leader，关\n键意见领袖）与KOC（Key ...', color:'#d6e4ff', children:[]                    },                    {name:'- 矩阵式组合：头腰部KOL做声\n量+话题，KOC做长尾铺量+真实...', color:'#d6e4ff', children:[]                    },                    {name:'- 内容共创而非硬广：好的KOL\n合作是品牌提供核心信息，KOL...', color:'#d6e4ff', children:[]                    },                    {name:'- 长期合作优于一次性投放：与\n调性匹配的KOL建立长期合作关...', color:'#d6e4ff', children:[]                    },                    {name:'- 效果评估多维化：除曝光量、\n互动量外，还需关注搜索数据变...', color:'#d6e4ff', children:[]                    }                  ]                  },                  {name:'8.3.2.4 直播营销', color:'#69b1ff', collapsed:true, children:[                    {name:'直播营销已经成为中国数字化营\n销生态中增长最快、转化效率最...', color:'#d6e4ff', children:[]                    },                    {name:'- 品牌自播：品牌在官方账号开\n设直播，由内部主播讲解产品。...', color:'#d6e4ff', children:[]                    },                    {name:'- 达人代播：头部主播在个人直\n播间为品牌带货。优势在于流量...', color:'#d6e4ff', children:[]                    },                    {name:'- 工厂/原产地直播：直接将镜\n头对准生产线或原产地，以透明...', color:'#d6e4ff', children:[]                    },                    {name:'- 专场直播/品牌日：品牌与平\n台/达人合作开设专场，集合全...', color:'#d6e4ff', children:[]                    },                    {name:'- 主播能力：表达能力、产品知\n识、控场能力、亲和力', color:'#d6e4ff', children:[]                    },                    {name:'- 场景搭建：专业化的灯光、背\n景、道具，营造沉浸式体验', color:'#d6e4ff', children:[]                    },                    {name:'- 产品演示：直播的核心优势是\n"眼见为实"——清晰、真实、有...', color:'#d6e4ff', children:[]                    },                    {name:'- 节奏把控：过品节奏、互动节\n奏、优惠释放节奏的精心设计', color:'#d6e4ff', children:[]                    },                    {name:'- 优惠机制：直播间的价格优势\n是消费者蹲守直播的核心驱动力', color:'#d6e4ff', children:[]                    },                    {name:'- 氛围营造：互动、弹幕、限量\n抢购共同营造的从众效应与紧迫...', color:'#d6e4ff', children:[]                    }                  ]                  },                  {name:'8.3.2.5 私域流量运营', color:'#69b1ff', collapsed:true, children:[                    {name:'核心定义：私域流量是企业可以\n自主、免费、反复触达的用户流...', color:'#d6e4ff', children:[]                    },                    {name:'- 降低获客成本：公域获客一次\n就需要付一次费用；私域沉淀后...', color:'#d6e4ff', children:[]                    },                    {name:'- 提升复购率：通过持续的精准\n内容推送与会员权益，激活老客...', color:'#d6e4ff', children:[]                    },                    {name:'- 增强用户粘性：通过社群互动、\n一对一服务，建立品牌与用户的...', color:'#d6e4ff', children:[]                    },                    {name:'- 数据资产沉淀：私域中的用户\n行为数据完全属于品牌自身，不...', color:'#d6e4ff', children:[]                    },                    {name:'1. 公域引流：通过广告、内容、\nKOL、线下活动等方式将用户从...', color:'#d6e4ff', children:[]                    },                    {name:'2. 首次激活：用户进入私域后，\n通过欢迎语、新人券、新手任务...', color:'#d6e4ff', children:[]                    },                    {name:'3. 持续运营：通过定期推送有\n价值的内容、限时福利、互动活...', color:'#d6e4ff', children:[]                    },                    {name:'4. 转化复购：在日常运营中自\n然植入产品推荐与促销信息', color:'#d6e4ff', children:[]                    },                    {name:'5. 裂变增长：设计老带新激励\n机制，让满意的用户成为品牌的...', color:'#d6e4ff', children:[]                    }                  ]                  },                  {name:'8.3.2.6 搜索营销（Search \nEngine Marketing, SEM/SEO）', color:'#69b1ff', collapsed:true, children:[                    {name:'搜索营销是最具"意图捕获"能力\n的数字化传播工具——用户在主...', color:'#d6e4ff', children:[]                    },                    {name:'- 搜索引擎优化：通过优化网站\n结构、内容质量与外链建设，提...', color:'#d6e4ff', children:[]                    },                    {name:'- 搜索引擎营销/竞价排名：以\n关键词竞价方式购买搜索结果页...', color:'#d6e4ff', children:[]                    }                  ]                  }                ]                },                {name:'8.3.3 大数据与AI驱动的新一代\nIMC', color:'#4096ff', collapsed:true, children:[                  {name:'用户画像', color:'#d6e4ff', children:[]                  },                  {name:'大数据技术使得品牌可以为每一\n位消费者建立多维度的数据画像...', color:'#d6e4ff', children:[]                  },                  {name:'- 人口属性：年龄、性别、地域、\n学历、职业', color:'#d6e4ff', children:[]                  },                  {name:'- 兴趣偏好：关注的内容类型、\n互动的品牌、爱好圈层', color:'#d6e4ff', children:[]                  },                  {name:'- 消费行为：购买品类、价格带、\n购买频率、品牌偏好、渠道偏好', color:'#d6e4ff', children:[]                  },                  {name:'- 设备与环境：手机型号、操作\n系统、网络环境、地理位置', color:'#d6e4ff', children:[]                  },                  {name:'智能创意', color:'#d6e4ff', children:[]                  },                  {name:'AI正在颠覆传统的广告创意生产\n方式：', color:'#d6e4ff', children:[]                  },                  {name:'- AI文案：输入产品信息和目标\n人群，AI自动生成多版本广告文...', color:'#d6e4ff', children:[]                  },                  {name:'- AI作图/视频：通过AI工具高\n效生成广告素材，大幅缩短创意...', color:'#d6e4ff', children:[]                  },                  {name:'- 动态创意优化：针对不同人群\n自动展示最匹配的创意组合（不...', color:'#d6e4ff', children:[]                  },                  {name:'程序化广告平台通过算法自动完\n成广告采买、人群定向、实时竞...', color:'#d6e4ff', children:[]                  },                  {name:'全链路归因', color:'#d6e4ff', children:[]                  },                  {name:'归因模型是识别"哪个渠道/内容\n真正带来了转化"的数据分析框...', color:'#d6e4ff', children:[]                  },                  {name:'- 末次点击归因：将100%贡献归\n给转化前的最后一个触点', color:'#d6e4ff', children:[]                  },                  {name:'- 首次点击归因：将100%贡献归\n给第一个触点', color:'#d6e4ff', children:[]                  },                  {name:'- 线性归因：每个触点平均分配\n贡献', color:'#d6e4ff', children:[]                  },                  {name:'- 时间衰减归因：越接近转化的\n触点贡献越大', color:'#d6e4ff', children:[]                  },                  {name:'- 数据驱动归因：基于数据算法\n动态分配每个触点的贡献权重', color:'#d6e4ff', children:[]                  }                ]                }              ]              },              {name:'8.4 产教融合实战案例：科沃斯\n机器人（苏州工业园区）', color:'#1677ff', children:[                {name:'8.4.1 企业背景', color:'#4096ff', children:[]                },                {name:'8.4.2 传播面临的挑战', color:'#4096ff', collapsed:true, children:[                  {name:'1. 品类教育成本高：扫地机器\n人对于许多消费者而言仍是"新...', color:'#d6e4ff', children:[]                  },                  {name:'2. 高价产品需要强信任：科沃\n斯旗舰产品售价在3000-8000元...', color:'#d6e4ff', children:[]                  },                  {name:'3. 线上线下信息割裂：线上电\n商页面传递的产品信息、社交媒...', color:'#d6e4ff', children:[]                  },                  {name:'4. 国内国外双线作战：在中国\n市场建立高端品牌形象的同时，...', color:'#d6e4ff', children:[]                  }                ]                },                {name:'8.4.3 科沃斯IMC全案解析', color:'#4096ff', collapsed:true, children:[                  {name:'一、统一核心信息', color:'#91caff', collapsed:true, children:[                    {name:'"科沃斯，让机器人服务每个人"\n——科技、便捷、解放双手、品...', color:'#d6e4ff', children:[]                    }                  ]                  },                  {name:'二、促销组合协同打法', color:'#91caff', collapsed:true, children:[                    {name:'广告：品牌高度 + 产品教育', color:'#d6e4ff', children:[]                    },                    {name:'- 品牌形象广告：电视/OTT大屏、\n电梯广告投放高品质品牌TVC，...', color:'#d6e4ff', children:[]                    },                    {name:'- 数字效果广告：在抖音、小红\n书、百度等平台投放信息流广告...', color:'#d6e4ff', children:[]                    },                    {name:'- 电商平台广告：在天猫、京东、\n抖音电商等平台进行站内搜索广...', color:'#d6e4ff', children:[]                    },                    {name:'销售促进：节奏化、不伤害品牌', color:'#d6e4ff', children:[]                    },                    {name:'- 大促节点（618/双11/年货节）：\n以"套装组合+平台满减+分期免...', color:'#d6e4ff', children:[]                    },                    {name:'- 日常运营：通过"以旧换新""\n会员专享价""耗材套装优惠"等...', color:'#d6e4ff', children:[]                    },                    {name:'- 新品首发：首发期间以"早鸟\n价+首发赠品+限量礼盒"的方式...', color:'#d6e4ff', children:[]                    },                    {name:'公共关系：信任背书 + 科技形\n象', color:'#d6e4ff', children:[]                    },                    {name:'- 发布会/科技峰会：每年举办\n旗舰新品发布会，邀请科技媒体...', color:'#d6e4ff', children:[]                    },                    {name:'- 行业奖项与权威认证：积极申\n请和传播红点设计奖、iF设计奖...', color:'#d6e4ff', children:[]                    },                    {name:'- 科技KOL深度测评：邀请专业\n科技类KOL进行深度、硬核、公...', color:'#d6e4ff', children:[]                    },                    {name:'- CSR公益活动：发起与家庭、\n健康、科技教育相关的公益项目...', color:'#d6e4ff', children:[]                    },                    {name:'- 线下体验店/专柜：在全国主\n要城市的核心商圈与购物中心设...', color:'#d6e4ff', children:[]                    },                    {name:'- 大客户/礼品渠道：针对企业\n团购、员工福利、节日礼品等...', color:'#d6e4ff', children:[]                    }                  ]                  },                  {name:'三、数字化IMC全域矩阵', color:'#91caff', collapsed:true, children:[                    {name:'科沃斯构建了完整的数字化IMC\n体系：', color:'#d6e4ff', children:[]                    },                    {name:'- 内容矩阵：官方账号+员工账\n号+用户UGC，覆盖科技科普、场...', color:'#d6e4ff', children:[]                    },                    {name:'- KOL矩阵：科技达人（深度测\n评）+家居达人（场景种草）+母...', color:'#d6e4ff', children:[]                    },                    {name:'- 直播矩阵：品牌自播（日常）\n+达人直播（大促）+总裁直播（...', color:'#d6e4ff', children:[]                    },                    {name:'- 私域生态：企业微信+会员小\n程序+社群，实现从购买后到复...', color:'#d6e4ff', children:[]                    }                  ]                  },                  {name:'四、海外市场跨文化传播', color:'#91caff', collapsed:true, children:[                    {name:'- 全球统一形象：品牌Logo、VI、\n核心Slogan全球一致，"ECOVACS...', color:'#d6e4ff', children:[]                    },                    {name:'- 区域本地化：在不同市场适配\n本地化的传播内容、媒体渠道、...', color:'#d6e4ff', children:[]                    },                    {name:'- 本地化团队：在核心海外市场\n建立本地化的营销团队，而非从...', color:'#d6e4ff', children:[]                    }                  ]                  }                ]                },                {name:'8.4.4 传播效果', color:'#4096ff', collapsed:true, children:[                  {name:'- 品牌连续多年市场占有率第一，\n稳居行业领导地位', color:'#d6e4ff', children:[]                  },                  {name:'- 品牌认知度、高端形象、科技\n感、信任度等核心品牌指标行业...', color:'#d6e4ff', children:[]                  },                  {name:'- 线上线下信息一致性高，消费\n者体验连贯', color:'#d6e4ff', children:[]                  },                  {name:'- 海外收入占比接近50%，国货\n高端出海标杆地位确立', color:'#d6e4ff', children:[]                  },                  {name:'- 成为苏州工业园区"中国智造"\n走向全球的代表性企业', color:'#d6e4ff', children:[]                  }                ]                },                {name:'8.4.5 深度思考题', color:'#4096ff', collapsed:true, children:[                  {name:'1. 科沃斯如何通过IMC实现"品\n牌形象建设"与"销售转化驱动"...', color:'#d6e4ff', children:[]                  },                  {name:'2. 为什么扫地机器人这类高卷\n入度科技产品必须采用"广告+公...', color:'#d6e4ff', children:[]                  },                  {name:'3. 科沃斯如何避免频繁促销伤\n害其高端品牌定位？', color:'#d6e4ff', children:[]                  },                  {name:'4. 从课程思政的角度，分析科\n沃斯作为"中国智造"代表企业，...', color:'#d6e4ff', children:[]                  },                  {name:'5. 如果你是科沃斯的品牌经理，\n明年的传播预算需要在"品牌广...', color:'#d6e4ff', children:[]                  }                ]                }              ]              },              {name:'8.5 跨文化整合营销传播', color:'#1677ff', children:[                {name:'8.5.1 核心原则', color:'#4096ff', collapsed:true, children:[                  {name:'原则一：全球统一，本地适配（\nGlobal Consistency, Local ...', color:'#d6e4ff', children:[]                  },                  {name:'全球统一的是品牌核心价值观、\n视觉形象体系与品质标准；本地...', color:'#d6e4ff', children:[]                  },                  {name:'原则二：尊重文化、宗教、法律\n与习俗', color:'#d6e4ff', children:[]                  },                  {name:'在进入任何新市场之前，必须对\n该市场的文化规范、宗教信仰、...', color:'#d6e4ff', children:[]                  },                  {name:'原则三：语言准确，避免歧义与\n禁忌', color:'#d6e4ff', children:[]                  },                  {name:'翻译错误是跨文化传播中最常见\n的"翻车"场景。品牌名称、广告...', color:'#d6e4ff', children:[]                  },                  {name:'最好的跨文化传播执行者是"既\n懂全球品牌、又懂本地文化"的...', color:'#d6e4ff', children:[]                  }                ]                },                {name:'8.5.2 跨文化传播的常见风险', color:'#4096ff', children:[]                },                {name:'8.5.3 苏州工业园区企业的出海\n传播策略', color:'#4096ff', collapsed:true, children:[                  {name:'苏州工业园区聚集了大量具有全\n球化野心的优秀企业——从消费...', color:'#d6e4ff', children:[]                  },                  {name:'1. 文化调研先行：在进入目标\n市场前，通过专业机构或本地合...', color:'#d6e4ff', children:[]                  },                  {name:'2. 本地合作伙伴：寻找目标市\n场有经验的广告代理、公关公司...', color:'#d6e4ff', children:[]                  },                  {name:'3. 内容深度本地化：不仅是翻\n译，更是"重新创作"——用本地...', color:'#d6e4ff', children:[]                  },                  {name:'4. 媒体矩阵本地化：不同市场\n的主流媒体平台差异巨大。中国...', color:'#d6e4ff', children:[]                  },                  {name:'5. 持续优化迭代：跨文化传播\n没有"一次做对"的魔法公式，需...', color:'#d6e4ff', children:[]                  }                ]                }              ]              },              {name:'8.6 促销伦理与合规', color:'#1677ff', children:[                {name:'8.6.1 法律法规底线', color:'#4096ff', collapsed:true, children:[                  {name:'营销传播活动必须严格遵守国家\n法律法规，以下是核心法律要求...', color:'#d6e4ff', children:[]                  },                  {name:'《中华人民共和国广告法》核心\n条款：', color:'#d6e4ff', children:[]                  },                  {name:'- 广告不得含有虚假或者引人误\n解的内容，不得欺骗、误导消费...', color:'#d6e4ff', children:[]                  },                  {name:'- 广告不得使用"国家级""最高\n级""最佳"等绝对化用语', color:'#d6e4ff', children:[]                  },                  {name:'- 药品、医疗器械、保健食品等\n特殊品类的广告须经审查', color:'#d6e4ff', children:[]                  },                  {name:'- 利用未成年人进行广告活动须\n遵守特殊保护规定', color:'#d6e4ff', children:[]                  },                  {name:'《中华人民共和国反不正当竞争\n法》相关规定：', color:'#d6e4ff', children:[]                  },                  {name:'- 不得实施商业诋毁——捏造、\n散布虚伪事实损害竞争对手商誉', color:'#d6e4ff', children:[]                  },                  {name:'- 不得进行虚假宣传——对商品\n性能、功能、质量、销售状况等...', color:'#d6e4ff', children:[]                  },                  {name:'- 不得通过虚假交易（刷单）等\n方式进行虚假商业宣传', color:'#d6e4ff', children:[]                  },                  {name:'《中华人民共和国个人信息保护\n法》核心要求：', color:'#d6e4ff', children:[]                  },                  {name:'- 收集和使用消费者个人信息须\n取得"告知-同意"', color:'#d6e4ff', children:[]                  },                  {name:'- 不得非法买卖、提供或泄露消\n费者个人信息', color:'#d6e4ff', children:[]                  },                  {name:'- 消费者有权撤回同意、要求删\n除其个人信息', color:'#d6e4ff', children:[]                  },                  {name:'《中华人民共和国消费者权益保\n护法》相关规定：', color:'#d6e4ff', children:[]                  },                  {name:'- 经营者应当真实、全面地向消\n费者提供商品或服务信息', color:'#d6e4ff', children:[]                  },                  {name:'- 消费者享有知情权、选择权、\n公平交易权', color:'#d6e4ff', children:[]                  }                ]                },                {name:'8.6.2 职业伦理', color:'#4096ff', collapsed:true, children:[                  {name:'诚信传播： 真实、客观、不忽\n悠、不夸大。品牌可以突出自身...', color:'#d6e4ff', children:[]                  },                  {name:'正向价值： 传递健康、积极、\n文明、理性的消费观念。不制造...', color:'#d6e4ff', children:[]                  },                  {name:'尊重消费者： 不骚扰、不诱导、\n不强制。消费者有权选择接收与...', color:'#d6e4ff', children:[]                  },                  {name:'保护隐私： 数据向善、合规使\n用、防止泄露。消费者的行为数...', color:'#d6e4ff', children:[]                  }                ]                }              ]              },              {name:'8.7 实训任务', color:'#1677ff', children:[                {name:'Mini Project：Global IMC \nPlan（全球整合营销传播方案）', color:'#4096ff', collapsed:true, children:[                  {name:'项目背景', color:'#69b1ff', collapsed:true, children:[                    {name:'你是一家苏州工业园区智能清洁\n机器人品牌（名为"Cleantech"...', color:'#d6e4ff', children:[]                    },                    {name:'公司计划在未来3个月内正式将\n这款产品推向美国市场。作为国...', color:'#d6e4ff', children:[]                    }                  ]                  },                  {name:'项目任务', color:'#69b1ff', collapsed:true, children:[                    {name:'请以3-4人小组为单位，完成以\n下内容的策划与展示：', color:'#d6e4ff', children:[]                    },                    {name:'第一部分：市场与消费者洞察（\n15分）', color:'#d6e4ff', children:[]                    },                    {name:'- 美国扫地机器人市场的基本情\n况：市场规模、增长趋势、主要...', color:'#d6e4ff', children:[]                    },                    {name:'- 目标消费者画像：谁在买扫地\n机器人？他们的年龄、收入、居...', color:'#d6e4ff', children:[]                    },                    {name:'- 目标消费者购买扫地机器人的\n核心决策因素：他们最看重什么...', color:'#d6e4ff', children:[]                    },                    {name:'- 传播目标：在3个月内\nCleantech在美国市场的品牌认...', color:'#d6e4ff', children:[]                    },                    {name:'- 核心品牌信息：Cleantech的\n核心价值主张与品牌Slogan（英...', color:'#d6e4ff', children:[]                    },                    {name:'- 差异化定位：相较于iRobot、\nShark等本土品牌，Cleantech的...', color:'#d6e4ff', children:[]                    },                    {name:'第三部分：促销组合与媒体矩阵\n（30分）', color:'#d6e4ff', children:[]                    },                    {name:'- 广告：选择哪些广告类型与媒\n体平台？为什么？创意策略与核...', color:'#d6e4ff', children:[]                    },                    {name:'- 销售促进：新品上市期采用哪\n些促销工具？如何在美国市场设...', color:'#d6e4ff', children:[]                    },                    {name:'- 公共关系：新品上市期的PR策\n略——如何让美国消费者和媒体...', color:'#d6e4ff', children:[]                    },                    {name:'- 数字营销：社交媒体策略（选\n择哪些平台）、KOL合作策略（...', color:'#d6e4ff', children:[]                    },                    {name:'- 私域/CRM：在美国市场如何沉\n淀用户数据与建立长期客户关系...', color:'#d6e4ff', children:[]                    },                    {name:'总预算为100万美元（约700万元\n人民币），请按照以下类别进行...', color:'#d6e4ff', children:[]                    },                    {name:'- 公关活动（发布会/媒体/事件）：', color:'#d6e4ff', children:[]                    },                    {name:'- 销售促进（优惠/赠品/试用）：', color:'#d6e4ff', children:[]                    },                    {name:'- 内容生产（拍摄/设计/文案）：', color:'#d6e4ff', children:[]                    },                    {name:'第五部分：效果评估与KPI（10\n分）', color:'#d6e4ff', children:[]                    },                    {name:'- 传播层面KPI：曝光量、点击\n率、互动率、品牌搜索量变化', color:'#d6e4ff', children:[]                    },                    {name:'- 销售层面KPI：电商销量、转\n化率、ROI', color:'#d6e4ff', children:[]                    },                    {name:'- 品牌层面KPI：认知度、美誉\n度变化', color:'#d6e4ff', children:[]                    },                    {name:'- 归因方法：如何判断不同传播\n渠道对实际销售的贡献？', color:'#d6e4ff', children:[]                    },                    {name:'第六部分：跨文化风险识别与应\n对（5分）', color:'#d6e4ff', children:[]                    },                    {name:'识别Cleantech进入美国市场可\n能面临的跨文化传播风险（如品...', color:'#d6e4ff', children:[]                    },                    {name:'1. 中英文IMC方案书（PPT或PDF\n形式，不少于15页）', color:'#d6e4ff', children:[]                    },                    {name:'2. 媒体排期表（3个月的周度排\n期）', color:'#d6e4ff', children:[]                    },                    {name:'4. 创意示意（至少2个广告创意\n概念或社交媒体内容概念）', color:'#d6e4ff', children:[]                    },                    {name:'5. 5分钟双语路演', color:'#d6e4ff', children:[]                    }                  ]                  },                  {name:'评分标准', color:'#69b1ff', children:[]                  }                ]                }              ]              },              {name:'课程思政融入要点', color:'#1677ff', children:[                {name:'品牌即人品，传播即做人。', color:'#4096ff', collapsed:true, children:[                  {name:'一个品牌的长期成功，归根结底\n取决于它是否真诚地为消费者创...', color:'#d6e4ff', children:[]                  }                ]                },                {name:'文化自信：讲好中国品牌故事。', color:'#4096ff', collapsed:true, children:[                  {name:'苏州工业园区聚集了大量优秀的\n中国企业——从科沃斯到汇川技...', color:'#d6e4ff', children:[]                  }                ]                },                {name:'正道成功：拒绝灰色流量与黑灰\n产。', color:'#4096ff', collapsed:true, children:[                  {name:'刷单造假、购买假粉、恶意点击\n竞品广告、雇佣水军——这些"...', color:'#d6e4ff', children:[]                  }                ]                },                {name:'社会责任：倡导理性消费与可持\n续生活。', color:'#4096ff', collapsed:true, children:[                  {name:'营销传播具有强大的社会影响力。\n我们应当运用这种影响力倡导理...', color:'#d6e4ff', children:[]                  }                ]                }              ]              },              {name:'本章小结', color:'#1677ff', collapsed:true, children:[                {name:'本章系统构建了"整合营销传播\n理论框架 + 促销组合四大核心...', color:'#d6e4ff', children:[]                },                {name:'在传统的4P框架中，促销是沟通\n价值的引擎。IMC将这一引擎升...', color:'#d6e4ff', children:[]                },                {name:'- 理解全局（8.1）：IMC不是工\n具的简单叠加，而是以消费者为...', color:'#d6e4ff', children:[]                },                {name:'- 掌握工具（8.2）：广告建立\n认知与形象，销售促进驱动短期...', color:'#d6e4ff', children:[]                },                {name:'- 拥抱数字（8.3）：数字化将\nIMC的精准性、互动性、可测性...', color:'#d6e4ff', children:[]                },                {name:'- 沉浸案例（8.4）：科沃斯机\n器人的IMC全案展示了"品牌建设...', color:'#d6e4ff', children:[]                },                {name:'- 突破国界（8.5）：跨文化传\n播是企业全球化的必修课，"全...', color:'#d6e4ff', children:[]                },                {name:'- 坚守底线（8.6）：诚信是品\n牌最长远的战略，合规是营销最...', color:'#d6e4ff', children:[]                },                {name:'优秀的整合营销传播，能够让好\n产品被看见、被信任、被选择、...', color:'#d6e4ff', children:[]                }              ]              },              {name:'关键术语（中英双语）', color:'#1677ff', children:[]              },              {name:'思考与练习', color:'#1677ff', children:[                {name:'基础知识题', color:'#91caff', collapsed:true, children:[                  {name:'简述整合营销传播的核心理念。\n为什么现代企业需要IMC，而不...', color:'#d6e4ff', children:[]                  },                  {name:'广告与销售促进的本质区别是什\n么？在什么情况下应优先选择广...', color:'#d6e4ff', children:[]                  },                  {name:'公共关系在促销组合中扮演何种\n独特的角色？为什么公关的可信...', color:'#d6e4ff', children:[]                  },                  {name:'简述FAB推销法则。请以任意一\n款你熟悉的产品为例，写出它的...', color:'#d6e4ff', children:[]                  },                  {name:'数字化传播的五大特征是什么？\n数字化给IMC带来了哪些根本性...', color:'#d6e4ff', children:[]                  }                ]                },                {name:'案例分析题', color:'#91caff', collapsed:true, children:[                  {name:'以科沃斯机器人为例，分析高科\n技产品为什么必须采用"广告+公...', color:'#d6e4ff', children:[]                  },                  {name:'假设你是一家苏州工业园区的生\n物医药初创企业的市场负责人。...', color:'#d6e4ff', children:[]                  },                  {name:'选择一个你熟悉的品牌，分析该\n品牌近期的某次大型促销活动（...', color:'#d6e4ff', children:[]                  }                ]                },                {name:'跨文化思考题', color:'#91caff', collapsed:true, children:[                  {name:'中国企业"出海"时，在品牌传播\n方面最常犯哪些错误？请搜索至...', color:'#d6e4ff', children:[]                  },                  {name:'"全球统一，本地适配"是跨文化\n传播的黄金法则。请以科沃斯或...', color:'#d6e4ff', children:[]                  }                ]                },                {name:'课程思政反思题', color:'#91caff', collapsed:true, children:[                  {name:'《中华人民共和国广告法》禁止\n使用"国家级""最高级""最佳"等...', color:'#d6e4ff', children:[]                  },                  {name:'为什么说"诚信是品牌最长远的\n战略"？请从消费者心理的角度...', color:'#d6e4ff', children:[]                  },                  {name:'作为未来的营销从业者，你认为\n营销人在面对"老板要求你夸大...', color:'#d6e4ff', children:[]                  }                ]                },                {name:'实战模拟题', color:'#91caff', collapsed:true, children:[                  {name:'IMC方案设计：你是一家苏州本\n土新式茶饮品牌的营销经理。该...', color:'#d6e4ff', children:[]                  },                  {name:'危机公关模拟：你的品牌（上述\n茶饮品牌）因为某门店员工在社...', color:'#d6e4ff', children:[]                  },                  {name:'本章教学建议： 建议本章教学\n安排8-10课时，其中理论讲授4-...', color:'#d6e4ff', children:[]                  }                ]                }              ]              }            ]            };
+
+showStatus('正在渲染节点...', 'loading');
+
+// ============ CONSTANTS ============
+var NODE_W = 200, NODE_H = 44, H_GAP = 32, V_GAP = 16, CORNER_R = 8;
+var svgEl = document.getElementById('svg');
+var NS = 'http://www.w3.org/2000/svg';
+
+// ============ HELPERS ============
+function isLight(hex){
+  var r=parseInt(hex.slice(1,3),16),g=parseInt(hex.slice(3,5),16),b=parseInt(hex.slice(5,7),16);
+  return(r*299+g*587+b*114)/1000>160;
+}
+function darken(hex,amt){
+  var r=Math.max(0,parseInt(hex.slice(1,3),16)*(1-amt));
+  var g=Math.max(0,parseInt(hex.slice(3,5),16)*(1-amt));
+  var b=Math.max(0,parseInt(hex.slice(5,7),16)*(1-amt));
+  return '#'+[r,g,b].map(function(v){return Math.round(v).toString(16).padStart(2,'0')}).join('');
+}
+
+// ============ LAYOUT ============
+var flatNodes=[], flatLinks=[];
+
+function initCollapsed(d){
+  if(d.collapsed!==undefined)d._collapsed=d.collapsed;
+  else d._collapsed=false;
+  if(d.children)d.children.forEach(initCollapsed);
+}
+
+function layout(){
+  flatNodes=[];flatLinks=[];
+  initCollapsed(treeData);
+  var W=window.innerWidth, H=window.innerHeight;
+  var rootX=120;
+
+  function place(d,depth,yStart,ySpan){
+    var x=rootX+depth*(NODE_W+H_GAP);
+    var nKids=(d.children&&!d._collapsed)?d.children.length:1;
+    var leafSpan=ySpan/nKids;
+    var y=yStart+ySpan/2;
+    var node={
+      id:flatNodes.length, name:d.name, color:d.color||'#595959',
+      emph:!!d.emph, x:x, y:y, w:NODE_W, h:NODE_H, depth:depth,
+      hasKids:!!(d.children&&d.children.length>0), collapsed:!!d._collapsed
+    };
+    d._node=node;
+    flatNodes.push(node);
+    if(d.children&&!d._collapsed){
+      for(var i=0;i<d.children.length;i++){
+        var child=d.children[i];
+        place(child,depth+1,yStart+i*leafSpan,leafSpan);
+        flatLinks.push({s:node.id,t:child._node.id});
+      }
+    }
+  }
+  place(treeData,0,80,H-160);
+
+  // Fix overlaps
+  var byDepth={};
+  flatNodes.forEach(function(n){
+    if(!byDepth[n.depth])byDepth[n.depth]=[];
+    byDepth[n.depth].push(n);
+  });
+  for(var key in byDepth){
+    var arr=byDepth[key];
+    arr.sort(function(a,b){return a.y-b.y});
+    for(var i=1;i<arr.length;i++){
+      if(arr[i].y-arr[i-1].y<NODE_H+V_GAP) arr[i].y=arr[i-1].y+NODE_H+V_GAP;
+    }
+  }
+}
+
+// ============ RENDER ============
+var mainG, linkG, nodeG;
+
+function render(){
+  while(svgEl.firstChild)svgEl.removeChild(svgEl.firstChild);
+
+  var defs=document.createElementNS(NS,'defs');
+  var filter=document.createElementNS(NS,'filter');
+  filter.setAttribute('id','sd');
+  filter.setAttribute('x','-10%');filter.setAttribute('y','-10%');
+  filter.setAttribute('width','130%');filter.setAttribute('height','130%');
+  var fe=document.createElementNS(NS,'feDropShadow');
+  fe.setAttribute('dx','1');fe.setAttribute('dy','2');
+  fe.setAttribute('stdDeviation','3');fe.setAttribute('flood-opacity','0.12');
+  filter.appendChild(fe);defs.appendChild(filter);
+  svgEl.appendChild(defs);
+
+  mainG=document.createElementNS(NS,'g');
+  svgEl.appendChild(mainG);
+
+  linkG=document.createElementNS(NS,'g');
+  linkG.setAttribute('class','links');
+  mainG.appendChild(linkG);
+
+  nodeG=document.createElementNS(NS,'g');
+  nodeG.setAttribute('class','nodes');
+  mainG.appendChild(nodeG);
+
+  // Links
+  var linkSet={};
+  flatLinks.forEach(function(l){linkSet[l.s+'-'+l.t]={s:l.s,t:l.t}});
+  for(var k in linkSet){
+    var l=linkSet[k];
+    var s=flatNodes[l.s], t=flatNodes[l.t];
+    var sx=s.x+NODE_W, sy=s.y+NODE_H/2, ex=t.x, ey=t.y+NODE_H/2;
+    var mx=(sx+ex)/2;
+    var d='M'+sx+','+sy+' C'+mx+','+sy+' '+mx+','+ey+' '+ex+','+ey;
+    var p=document.createElementNS(NS,'path');
+    p.setAttribute('d',d);
+    p.setAttribute('fill','none');
+    p.setAttribute('stroke','#c0c0c0');
+    p.setAttribute('stroke-width','1.5');
+    p.setAttribute('stroke-opacity','0.6');
+    p.setAttribute('data-s',l.s);
+    p.setAttribute('data-t',l.t);
+    linkG.appendChild(p);
+  }
+
+  // Nodes
+  flatNodes.forEach(function(n){
+    var g=document.createElementNS(NS,'g');
+    g.setAttribute('transform','translate('+n.x+','+n.y+')');
+    g.setAttribute('class','node');
+    g.style.cursor=n.hasKids?'pointer':'default';
+    g.setAttribute('data-id',n.id);
+    g.addEventListener('click',function(ev){ev.stopPropagation();toggleNode(n);});
+
+    var rect=document.createElementNS(NS,'rect');
+    rect.setAttribute('width',n.w);
+    rect.setAttribute('height',n.h);
+    rect.setAttribute('rx',CORNER_R);
+    rect.setAttribute('ry',CORNER_R);
+    rect.setAttribute('fill',n.emph?darken(n.color,0.08):n.color);
+    rect.setAttribute('stroke',n.emph?darken(n.color,0.2):'rgba(0,0,0,0.08)');
+    rect.setAttribute('stroke-width',n.emph?'2.5':'1');
+    rect.setAttribute('filter','url(#sd)');
+    g.appendChild(rect);
+
+    // Collapse indicator
+    if(n.hasKids){
+      var cx=n.w-14, cy=n.h/2;
+      var circle=document.createElementNS(NS,'circle');
+      circle.setAttribute('cx',cx);circle.setAttribute('cy',cy);circle.setAttribute('r','8');
+      circle.setAttribute('fill','rgba(255,255,255,0.35)');
+      circle.setAttribute('stroke','rgba(255,255,255,0.6)');
+      circle.setAttribute('stroke-width','1');
+      g.appendChild(circle);
+      var txt=document.createElementNS(NS,'text');
+      txt.setAttribute('x',cx);txt.setAttribute('y',cy);
+      txt.setAttribute('dy','0.35em');
+      txt.setAttribute('text-anchor','middle');
+      txt.setAttribute('fill','#fff');
+      txt.setAttribute('font-size','11');
+      txt.setAttribute('font-weight','bold');
+      txt.textContent=n.collapsed?'+':'−';
+      g.appendChild(txt);
+    }
+
+    // Text
+    var lines=n.name.split('\n');
+    var fs=lines.length>3?10:lines.length>2?11:12;
+    var tc=isLight(n.color)?'#1a1a1a':'#fff';
+    var totalH=lines.length*(fs+3)-3;
+    lines.forEach(function(line,i){
+      var ty=n.h/2-totalH/2+i*(fs+3)+fs*0.35;
+      var txt=document.createElementNS(NS,'text');
+      txt.setAttribute('x',n.hasKids?'14':n.w/2);
+      txt.setAttribute('y',ty);
+      txt.setAttribute('text-anchor',n.hasKids?'start':'middle');
+      txt.setAttribute('fill',tc);
+      txt.setAttribute('font-size',fs);
+      txt.setAttribute('font-weight',n.emph?'bold':'normal');
+      txt.setAttribute('font-family','Microsoft YaHei,PingFang SC,sans-serif');
+      txt.textContent=line;
+      g.appendChild(txt);
+    });
+
+    nodeG.appendChild(g);
+  });
+}
+
+// ============ TREE OPS ============
+function findData(d,id){
+  if(d._node&&d._node.id===id)return d;
+  if(d.children)for(var i=0;i<d.children.length;i++){var r=findData(d.children[i],id);if(r)return r;}
+  return null;
+}
+
+function toggleNode(node){
+  var d=findData(treeData,node.id);
+  if(d&&d.children&&d.children.length>0){
+    d._collapsed=!d._collapsed;
+    layout();render();applyTransform();
+    var q=document.getElementById('searchInput').value.trim();
+    if(q)highlight(q);
+  }
+}
+
+function expandAll(){
+  (function e(d){d._collapsed=false;if(d.children)d.children.forEach(e);})(treeData);
+  layout();render();applyTransform();
+}
+function collapseAll(){
+  (function c(d,dp){if(dp>=2)d._collapsed=true;if(d.children)d.children.forEach(function(ch){c(ch,dp+1)});})(treeData,0);
+  layout();render();applyTransform();
+}
+
+// ============ SEARCH ============
+function highlight(q){
+  q=q.toLowerCase();
+  var match=[];
+  flatNodes.forEach(function(n){if(n.name.toLowerCase().indexOf(q)>=0)match[n.id]=true;});
+  var ng=nodeG.querySelectorAll('.node');
+  for(var i=0;i<ng.length;i++){
+    var id=parseInt(ng[i].getAttribute('data-id'));
+    ng[i].style.opacity=match[id]?'1':'0.15';
+  }
+  var lp=linkG.querySelectorAll('path');
+  for(var i=0;i<lp.length;i++){
+    var s=parseInt(lp[i].getAttribute('data-s'));
+    var t=parseInt(lp[i].getAttribute('data-t'));
+    lp[i].setAttribute('stroke-opacity',(match[s]||match[t])?'0.6':'0.06');
+  }
+}
+function clearHighlight(){
+  var ng=nodeG.querySelectorAll('.node');
+  for(var i=0;i<ng.length;i++)ng[i].style.opacity='1';
+  var lp=linkG.querySelectorAll('path');
+  for(var i=0;i<lp.length;i++)lp[i].setAttribute('stroke-opacity','0.6');
+}
+
+// ============ ZOOM & PAN ============
+var tx=0, ty=0, scale=1;
+
+function applyTransform(){
+  mainG.setAttribute('transform','translate('+tx+','+ty+') scale('+scale+')');
+}
+
+var panning=false, panSX=0, panSY=0, panTX=0, panTY=0;
+
+svgEl.addEventListener('mousedown',function(ev){
+  if(ev.target===svgEl||ev.target.tagName==='svg'||ev.target===mainG){
+    panning=true;panSX=ev.clientX;panSY=ev.clientY;panTX=tx;panTY=ty;
+    svgEl.style.cursor='grabbing';
+  }
+});
+window.addEventListener('mousemove',function(ev){
+  if(!panning)return;
+  tx=panTX+(ev.clientX-panSX);ty=panTY+(ev.clientY-panSY);
+  applyTransform();
+});
+window.addEventListener('mouseup',function(){panning=false;svgEl.style.cursor='';});
+svgEl.addEventListener('wheel',function(ev){
+  ev.preventDefault();
+  var ds=ev.deltaY>0?0.9:1.1;
+  var ns=Math.min(3,Math.max(0.15,scale*ds));
+  var mx=ev.clientX,my=ev.clientY;
+  tx=mx-(mx-tx)*(ns/scale);
+  ty=my-(my-ty)*(ns/scale);
+  scale=ns;
+  applyTransform();
+},{passive:false});
+
+function fitView(){
+  var bb=mainG.getBBox();
+  var W=window.innerWidth,H=window.innerHeight,pad=80;
+  scale=Math.min(W/(bb.width+pad*2),H/(bb.height+pad*2),1.2);
+  tx=(W-bb.width*scale)/2-bb.x*scale;
+  ty=(H-bb.height*scale)/2-bb.y*scale;
+  applyTransform();
+}
+
+// ============ INIT ============
+layout();
+render();
+applyTransform();
+setTimeout(function(){
+  fitView();
+  showStatus('✅ 思维导图已就绪', 'ok');
+  setTimeout(function(){statusEl.style.display='none';},1500);
+},200);
+
+document.getElementById('btnFit').addEventListener('click',fitView);
+document.getElementById('btnExpand').addEventListener('click',expandAll);
+document.getElementById('btnCollapse').addEventListener('click',collapseAll);
+document.getElementById('searchInput').addEventListener('input',function(){
+  var q=this.value.trim();
+  if(q)highlight(q);else clearHighlight();
+});
+
+var rt;
+window.addEventListener('resize',function(){
+  clearTimeout(rt);
+  rt=setTimeout(function(){layout();render();applyTransform();},200);
+});
+
+// Success
+console.log('MindMap: rendered '+flatNodes.length+' nodes, '+flatLinks.length+' links');
+
+}catch(e){
+  showStatus('⚠️ 加载失败: '+e.message, 'err');
+  console.error(e);
+}
+})();
+</script>
+</body>
+</html>

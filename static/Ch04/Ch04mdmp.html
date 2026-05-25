@@ -1,0 +1,396 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>第四章 市场细分与目标市场选择 — 思维导图</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{
+  font-family:"Microsoft YaHei","PingFang SC",sans-serif;
+  background:#f0f2f5;
+  overflow:hidden;height:100vh;width:100vw;
+  user-select:none;-webkit-user-select:none;
+}
+svg{width:100%;height:100%;position:absolute;top:0;left:0}
+#toolbar{position:fixed;top:16px;right:16px;z-index:100;display:flex;gap:8px}
+#toolbar button{
+  padding:8px 16px;border:1px solid #d9d9d9;background:#fff;
+  border-radius:6px;cursor:pointer;font-size:13px;font-family:inherit;
+  box-shadow:0 1px 4px rgba(0,0,0,.08);transition:all .2s;
+}
+#toolbar button:hover{background:#1677ff;color:#fff;border-color:#1677ff}
+#search{position:fixed;top:16px;left:16px;z-index:100}
+#search input{
+  padding:8px 14px;border:1px solid #d9d9d9;border-radius:20px;
+  width:240px;font-size:13px;font-family:inherit;outline:none;
+  box-shadow:0 1px 4px rgba(0,0,0,.08);transition:border-color .2s;
+}
+#search input:focus{border-color:#1677ff}
+#info{
+  position:fixed;bottom:16px;right:16px;z-index:100;
+  background:#fff;padding:6px 12px;border-radius:6px;
+  box-shadow:0 1px 6px rgba(0,0,0,.1);font-size:11px;color:#888;
+}
+#legend{
+  position:fixed;bottom:16px;left:16px;z-index:100;
+  background:#fff;padding:10px 16px;border-radius:8px;
+  box-shadow:0 1px 6px rgba(0,0,0,.1);font-size:12px;
+  display:flex;gap:14px;flex-wrap:wrap;
+}
+.li{display:flex;align-items:center;gap:6px}
+.ld{width:12px;height:12px;border-radius:50%}
+#status{
+  position:fixed;top:50%;left:50%;transform:translate(-50%,-50%);
+  background:#fff;padding:20px 40px;border-radius:12px;z-index:200;
+  box-shadow:0 4px 20px rgba(0,0,0,.15);font-size:16px;text-align:center;
+}
+#status.ok{color:#52c41a}
+#status.err{color:#f5222d}
+#status.loading{color:#1677ff}
+</style>
+</head>
+<body>
+
+<div id="status" class="loading">正在加载思维导图...</div>
+
+<div id="toolbar">
+  <button id="btnFit">适应画面</button>
+  <button id="btnExpand">全部展开</button>
+  <button id="btnCollapse">全部收起</button>
+</div>
+<div id="search">
+  <input type="text" id="searchInput" placeholder="搜索节点...">
+</div>
+<div id="legend">
+  <span class="li"><span class="ld" style="background:#1677ff"></span>核心概念</span>
+  <span class="li"><span class="ld" style="background:#52c41a"></span>观念演变</span>
+  <span class="li"><span class="ld" style="background:#fa8c16"></span>案例分析</span>
+  <span class="li"><span class="ld" style="background:#722ed1"></span>国际化趋势</span>
+  <span class="li"><span class="ld" style="background:#eb2f96"></span>跨文化营销</span>
+  <span class="li"><span class="ld" style="background:#13c2c2"></span>实训/练习</span>
+</div>
+<div id="info">拖拽平移 · 滚轮缩放 · 点击节点展开/收起</div>
+
+<svg id="svg"></svg>
+
+<script>
+(function(){
+var statusEl = document.getElementById('status');
+function showStatus(msg, cls){
+  statusEl.textContent = msg;
+  statusEl.className = cls;
+}
+try {
+
+// ============ TREE DATA ============
+var treeData = {name:'第四章 市场细分与目标市场选\n择', color:'#f5222d', children:[              {name:'Market Segmentation & \nTargeting', color:'#1677ff', children:[                {name:'> 跨章知识衔接： 本章与第三\n章（消费者行为分析）高度关联...', color:'#d6e4ff', children:[]                }              ]              },              {name:'学习目标', color:'#1677ff', children:[                {name:'知识目标', color:'#4096ff', collapsed:true, children:[                  {name:'1、熟练掌握市场细分的定义、\n作用、原则与四大核心细分变量...', color:'#d6e4ff', children:[]                  },                  {name:'2、精准理解三种目标市场覆盖\n策略——无差异营销、差异化营...', color:'#d6e4ff', children:[]                  },                  {name:'3、系统掌握 STP 战略的完整逻\n辑与实施步骤，理解市场定位的...', color:'#d6e4ff', children:[]                  },                  {name:'4、掌握大数据驱动下的用户画\n像、精准营销、微细分与千人千...', color:'#d6e4ff', children:[]                  },                  {name:'5、熟练运用 SWOT 分析模型（\nStrengths, Weaknesses, ...', color:'#d6e4ff', children:[]                  }                ]                },                {name:'能力目标', color:'#4096ff', collapsed:true, children:[                  {name:'1、能够独立运用地理、人口、\n心理、行为四类变量，对消费品...', color:'#d6e4ff', children:[]                  },                  {name:'2、能够结合苏州工业园区产业\n特点、企业资源与市场格局，评...', color:'#d6e4ff', children:[]                  },                  {name:'3、能够为企业完成市场定位设\n计、差异化策略制定与品牌心智...', color:'#d6e4ff', children:[]                  },                  {name:'4、能够运用大数据工具、电商\n数据与平台画像完成用户细分、...', color:'#d6e4ff', children:[]                  },                  {name:'5、能够针对苏州本土企业（科\n技、跨境、零售、文创、智能制...', color:'#d6e4ff', children:[]                  }                ]                },                {name:'素养目标（课程思政）', color:'#4096ff', collapsed:true, children:[                  {name:'1、树立精准营销、理性决策与\n战略取舍的现代商业思维，理解...', color:'#d6e4ff', children:[]                  },                  {name:'2、强化以消费者为中心、诚信\n定位与拒绝虚假宣传的职业操守...', color:'#d6e4ff', children:[]                  },                  {name:'3、培养创新意识、差异化竞争\n与长期主义品牌观，反对低价内...', color:'#d6e4ff', children:[]                  },                  {name:'4、增强服务地方经济、助力中\n小企业与赋能园区产业的责任意...', color:'#d6e4ff', children:[]                  },                  {name:'5、树立文化自信与全球化视野，\n理解跨文化细分与定位逻辑，成...', color:'#d6e4ff', children:[]                  }                ]                }              ]              },              {name:'4.1 市场细分概述', color:'#1677ff', children:[                {name:'市场细分是现代市场营销学的基\n石性概念，也是 STP 战略的逻...', color:'#d6e4ff', children:[]                },                {name:'4.1.1 市场细分的定义与起源', color:'#4096ff', children:[]                },                {name:'4.1.2 为什么必须进行市场细分？\n（六大价值）', color:'#4096ff', collapsed:true, children:[                  {name:'市场细分并非可有可无的理论练\n习，而是企业在竞争环境中生存...', color:'#d6e4ff', children:[]                  },                  {name:'第二，提高资源利用效率。 市\n场细分使企业能够将有限的人力...', color:'#d6e4ff', children:[]                  },                  {name:'第三，更好地满足消费者个性化\n需求。 通过细分，企业可以针...', color:'#d6e4ff', children:[]                  },                  {name:'第四，增强市场竞争力与抗风险\n能力。 市场细分帮助企业避开...', color:'#d6e4ff', children:[]                  },                  {name:'第五，提升顾客忠诚度与品牌黏\n性。 当企业的产品与服务精准...', color:'#d6e4ff', children:[]                  },                  {name:'第六，适配数字化时代精准营销\n的要求。 在大数据与算法驱动...', color:'#d6e4ff', children:[]                  }                ]                },                {name:'4.1.3 市场细分的原则（有效细\n分的五个标准）', color:'#4096ff', collapsed:true, children:[                  {name:'并非所有的市场划分都具有商业\n价值。有效的市场细分必须同时...', color:'#d6e4ff', children:[]                  },                  {name:'可衡量性。 细分变量必须是可\n以数据化、可统计、可对比的。...', color:'#d6e4ff', children:[]                  },                  {name:'可进入性。 企业必须能够通过\n现有的渠道、媒介与传播手段有...', color:'#d6e4ff', children:[]                  },                  {name:'可盈利性。 细分市场必须具有\n足够的规模与购买力，能够为企...', color:'#d6e4ff', children:[]                  },                  {name:'稳定性。 细分市场的需求特征\n在一定时期内应保持相对稳定，...', color:'#d6e4ff', children:[]                  },                  {name:'差异性。 不同细分市场对企业\n营销组合（产品、价格、渠道、...', color:'#d6e4ff', children:[]                  }                ]                },                {name:'4.1.4 市场细分的层次与演进', color:'#4096ff', collapsed:true, children:[                  {name:'从历史演进的角度看，市场细分\n经历了从粗放到精细的发展过程...', color:'#d6e4ff', children:[]                  },                  {name:'大众营销 是市场细分的"零阶段\n"，即不进行任何细分，以标准...', color:'#d6e4ff', children:[]                  },                  {name:'细分营销 是最经典的市场细分\n层次，将市场划分为若干个具有...', color:'#d6e4ff', children:[]                  },                  {name:'利基营销 是在细分市场内部进\n一步聚焦，选择更为狭窄但需求...', color:'#d6e4ff', children:[]                  },                  {name:'微观营销 是市场细分的最高层\n次，包括本地化营销与个体化营...', color:'#d6e4ff', children:[]                  }                ]                }              ]              },              {name:'4.2 市场细分的标准与方法（四\n大核心变量）', color:'#1677ff', children:[                {name:'市场细分的实质是选择恰当的变\n量对消费者进行分类。不同的细...', color:'#d6e4ff', children:[]                },                {name:'4.2.1 地理细分', color:'#4096ff', collapsed:true, children:[                  {name:'地理细分是按照消费者所在的地\n理位置、自然环境与区域特征对...', color:'#d6e4ff', children:[]                  },                  {name:'核心变量', color:'#69b1ff', collapsed:true, children:[                    {name:'国家与地区 是地理细分的最大\n尺度。不同国家与地区在经济发...', color:'#d6e4ff', children:[]                    },                    {name:'城市等级 是中国市场地理细分\n中最常用的变量之一。一线城市...', color:'#d6e4ff', children:[]                    },                    {name:'气候条件 直接影响消费者对特\n定产品品类的需求强度与季节性...', color:'#d6e4ff', children:[]                    },                    {name:'人口密度 影响消费者的购物方\n式与渠道偏好。核心城区消费者...', color:'#d6e4ff', children:[]                    },                    {name:'地域文化 是地理细分中容易被\n忽视但影响深远的变量。中国幅...', color:'#d6e4ff', children:[]                    }                  ]                  },                  {name:'苏州工业园区的地理细分应用', color:'#69b1ff', children:[]                  }                ]                },                {name:'4.2.2 人口细分', color:'#4096ff', collapsed:true, children:[                  {name:'人口细分是最常用、最基础且最\n易于操作的市场细分方法，在营...', color:'#d6e4ff', children:[]                  },                  {name:'核心变量', color:'#69b1ff', collapsed:true, children:[                    {name:'性别 差异在消费行为中的表现\n涉及产品偏好、审美风格、信息...', color:'#d6e4ff', children:[]                    },                    {name:'收入 是决定消费者购买力的核\n心变量，直接影响其价格敏感度...', color:'#d6e4ff', children:[]                    },                    {name:'职业 决定了消费者的工作场景、\n时间结构、社交圈层与功能需求...', color:'#d6e4ff', children:[]                    },                    {name:'教育程度 影响消费者的信息处\n理能力、品牌认知深度与消费决...', color:'#d6e4ff', children:[]                    },                    {name:'家庭生命周期 将消费者按照家\n庭发展阶段进行分类：单身→新...', color:'#d6e4ff', children:[]                    },                    {name:'国籍、民族与宗教 在国际化程\n度较高的区域市场中具有重要的...', color:'#d6e4ff', children:[]                    }                  ]                  },                  {name:'典型案例', color:'#69b1ff', children:[]                  },                  {name:'产业品市场的人口细分', color:'#69b1ff', collapsed:true, children:[                    {name:'在园区的产业生态中，企业客户\n的人口细分尤为重要。园区内既...', color:'#d6e4ff', children:[]                    }                  ]                  }                ]                },                {name:'4.2.3 心理细分', color:'#4096ff', collapsed:true, children:[                  {name:'本节心理细分变量与第三章3.2.\n3节（个人因素：AIO模型、自我...', color:'#d6e4ff', children:[]                  },                  {name:'心理细分是依据消费者的生活方\n式、价值观、个性特征与社会阶...', color:'#d6e4ff', children:[]                  },                  {name:'核心变量', color:'#69b1ff', collapsed:true, children:[                    {name:'生活方式（AIO 模型） 是心理\n细分中应用最为广泛的分析工具...', color:'#d6e4ff', children:[]                    },                    {name:'在当代中国市场中，基于生活方\n式的消费者群体呈现出日益多元...', color:'#d6e4ff', children:[]                    },                    {name:'个性特征 从消费者的人格维度\n进行市场划分。外向型与内敛型...', color:'#d6e4ff', children:[]                    }                  ]                  },                  {name:'典型案例', color:'#69b1ff', children:[]                  }                ]                },                {name:'4.2.4 行为细分', color:'#4096ff', collapsed:true, children:[                  {name:'行为细分中的"购买介入度"与"\n品牌忠诚度"变量，与第三章3.1...', color:'#d6e4ff', children:[]                  },                  {name:'行为细分是依据消费者的实际购\n买行为与使用行为对市场进行划...', color:'#d6e4ff', children:[]                  },                  {name:'核心变量', color:'#69b1ff', collapsed:true, children:[                    {name:'购买时机 按照消费者购买产品\n的时间节点与场景进行细分。日...', color:'#d6e4ff', children:[]                    },                    {name:'品牌忠诚度 按照消费者对特定\n品牌的忠诚程度进行细分。坚定...', color:'#d6e4ff', children:[]                    },                    {name:'使用场景 按照消费者使用产品\n的具体场景进行细分。居家场景...', color:'#d6e4ff', children:[]                    }                  ]                  },                  {name:'为什么行为细分最有效？', color:'#69b1ff', collapsed:true, children:[                    {name:'在大数据时代，行为细分的优势\n得到了进一步放大。电商平台、...', color:'#d6e4ff', children:[]                    }                  ]                  },                  {name:'多变量交叉细分的实践应用', color:'#69b1ff', collapsed:true, children:[                    {name:'在实际营销操作中，企业很少仅\n依赖单一变量进行市场细分，而...', color:'#d6e4ff', children:[]                    },                    {name:'交叉细分的关键在于变量选择的\n逻辑性与层次性。通常的操作路...', color:'#d6e4ff', children:[]                    },                    {name:'苏州工业园区的企业在实施市场\n细分时，尤其需要注意将国际化...', color:'#d6e4ff', children:[]                    },                    {name:'> 即学即练（5分钟）： 假设你\n为一家园区咖啡品牌做市场细分...', color:'#d6e4ff', children:[]                    }                  ]                  }                ]                }              ]              },              {name:'4.3 大数据时代的市场细分（数\n字化升级）', color:'#1677ff', collapsed:true, children:[                {name:'传统市场细分方法主要依赖问卷\n调查、人口普查数据与行业报告...', color:'#d6e4ff', children:[]                },                {name:'4.3.1 传统细分与大数据细分的\n比较', color:'#4096ff', children:[]                },                {name:'4.3.2 大数据细分核心工具', color:'#4096ff', collapsed:true, children:[                  {name:'千人千面 是大数据细分在营销\n实践中最具代表性的应用形态。...', color:'#d6e4ff', children:[]                  },                  {name:'人群标签体系 是连接用户画像\n与营销执行的中间层。电商平台...', color:'#d6e4ff', children:[]                  },                  {name:'预测式细分 利用机器学习模型，\n基于消费者的历史行为数据预测...', color:'#d6e4ff', children:[]                  },                  {name:'私域分层 是近年来中国市场营\n销实践中兴起的细分方法。企业...', color:'#d6e4ff', children:[]                  }                ]                },                {name:'4.3.3 从行为数据到聚类标签：\n四步操作流程', color:'#4096ff', collapsed:true, children:[                  {name:'为帮助学生建立可操作的方法论\n理解，以下以某跨境电商企业的...', color:'#d6e4ff', children:[]                  },                  {name:'第一步：数据采集与清洗。 从\n电商平台后台导出用户行为数据...', color:'#d6e4ff', children:[]                  },                  {name:'第二步：特征工程与变量构建。\n 将原始行为数据转化为有业务...', color:'#d6e4ff', children:[]                  },                  {name:'第三步：聚类分析与群体识别。\n 运用K-Means或层次聚类算法，...', color:'#d6e4ff', children:[]                  },                  {name:'第四步：标签命名与策略匹配。\n 对每个聚类的特征进行业务解...', color:'#d6e4ff', children:[]                  }                ]                },                {name:'4.3.4 园区数字化细分典型场景', color:'#4096ff', collapsed:true, children:[                  {name:'苏州工业园区的产业生态为大数\n据市场细分提供了丰富的应用场...', color:'#d6e4ff', children:[]                  },                  {name:'跨境电商领域。 园区内大量跨\n境电商企业需要针对不同目标市...', color:'#d6e4ff', children:[]                  },                  {name:'智能硬件领域。 园区内智能制\n造与消费电子企业可以基于用户...', color:'#d6e4ff', children:[]                  },                  {name:'外籍人士服务领域。 针对园区\n内外籍人士群体，企业可以通过...', color:'#d6e4ff', children:[]                  },                  {name:'海归群体消费领域。 海归群体\n兼具国际消费经验与本土文化认...', color:'#d6e4ff', children:[]                  }                ]                },                {name:'4.3.5 大数据细分的挑战与边界', color:'#4096ff', collapsed:true, children:[                  {name:'尽管大数据细分具有显著的技术\n优势，但其在实际应用中同样面...', color:'#d6e4ff', children:[]                  },                  {name:'数据质量问题。 大数据细分的\n有效性高度依赖于数据的准确性...', color:'#d6e4ff', children:[]                  },                  {name:'隐私保护与合规约束。 大数据\n细分依赖于对消费者个人信息与...', color:'#d6e4ff', children:[]                  },                  {name:'算法偏见与过度细分风险。 机\n器学习算法可能因训练数据的偏...', color:'#d6e4ff', children:[]                  },                  {name:'技术能力门槛。 大数据细分对\n企业的技术基础设施、数据分析...', color:'#d6e4ff', children:[]                  }                ]                }              ]              },              {name:'4.4 目标市场选择', color:'#1677ff', children:[                {name:'市场细分完成后，企业面临的下\n一个战略决策是：在众多细分市...', color:'#d6e4ff', children:[]                },                {name:'4.4.1 细分市场评估（三大标准）', color:'#4096ff', collapsed:true, children:[                  {name:'企业不能盲目进入任何一个细分\n市场，而必须对各细分市场的吸...', color:'#d6e4ff', children:[]                  },                  {name:'规模与增长性。 细分市场的当\n前规模与未来增长潜力是评估的...', color:'#d6e4ff', children:[]                  },                  {name:'企业目标与资源匹配度。 即使\n某一细分市场在规模与结构上都...', color:'#d6e4ff', children:[]                  }                ]                },                {name:'4.4.2 三种目标市场策略', color:'#4096ff', collapsed:true, children:[                  {name:'> 知识关联： 本节三种目标市\n场策略与4.1.4节"市场细分的层...', color:'#d6e4ff', children:[]                  },                  {name:'根据企业选择服务的细分市场数\n量与覆盖方式，目标市场策略可...', color:'#d6e4ff', children:[]                  },                  {name:'（一）无差异营销', color:'#d6e4ff', children:[]                  },                  {name:'无差异营销是指企业不进行市场\n细分或忽略细分市场之间的差异...', color:'#d6e4ff', children:[]                  },                  {name:'（二）差异化营销', color:'#d6e4ff', children:[]                  },                  {name:'差异化营销是指企业选择多个细\n分市场作为目标，并为每个细分...', color:'#d6e4ff', children:[]                  },                  {name:'（三）集中化营销', color:'#d6e4ff', children:[]                  },                  {name:'集中化营销是指企业将全部资源\n集中于一个或极少数细分市场，...', color:'#d6e4ff', children:[]                  }                ]                },                {name:'4.4.3 影响策略选择的因素', color:'#4096ff', collapsed:true, children:[                  {name:'企业在三种目标市场策略之间的\n选择，受到以下关键因素的制约...', color:'#d6e4ff', children:[]                  },                  {name:'企业资源。 资源有限的企业更\n适合采用集中化策略，将有限资...', color:'#d6e4ff', children:[]                  },                  {name:'产品同质性。 产品差异化空间\n较小的品类（如钢材、水泥、基...', color:'#d6e4ff', children:[]                  },                  {name:'市场同质性。 如果消费者需求\n高度一致，无差异营销即可满足...', color:'#d6e4ff', children:[]                  },                  {name:'产品生命周期阶段。 在产品导\n入期，市场认知尚未建立，无差...', color:'#d6e4ff', children:[]                  },                  {name:'竞争对手策略。 如果主要竞争\n对手已经实施了精细化的市场细...', color:'#d6e4ff', children:[]                  }                ]                },                {name:'4.4.4 目标市场策略的动态演进', color:'#4096ff', collapsed:true, children:[                  {name:'需要强调的是，目标市场策略并\n非一成不变的静态选择，而是随...', color:'#d6e4ff', children:[]                  },                  {name:'反之，部分企业在发展过程中也\n可能从差异化策略收缩为集中化...', color:'#d6e4ff', children:[]                  },                  {name:'此外，在数字化时代，目标市场\n策略的边界正在被技术重新定义...', color:'#d6e4ff', children:[]                  },                  {name:'> 即学即练（5分钟）： 一家刚\n成立的园区智能硬件初创企业，...', color:'#d6e4ff', children:[]                  }                ]                }              ]              },              {name:'4.5 SWOT 分析模型（战略必备\n工具）', color:'#1677ff', children:[                {name:'SWOT 分析是市场营销战略制定\n中应用最为广泛的环境分析工具...', color:'#d6e4ff', children:[]                },                {name:'4.5.1 SWOT 含义', color:'#4096ff', collapsed:true, children:[                  {name:'SWOT 是四个英文单词首字母的\n缩写，分别代表：', color:'#d6e4ff', children:[]                  },                  {name:'S（Strengths，优势） 是指企\n业内部具备的有利条件与竞争资...', color:'#d6e4ff', children:[]                  },                  {name:'W（Weaknesses，劣势） 是指企\n业内部存在的不利条件与能力短...', color:'#d6e4ff', children:[]                  },                  {name:'O（Opportunities，机会） 是\n指外部环境中对企业发展有利的...', color:'#d6e4ff', children:[]                  },                  {name:'T（Threats，威胁） 是指外部\n环境中对企业发展不利的风险与...', color:'#d6e4ff', children:[]                  }                ]                },                {name:'4.5.2 四大战略组合', color:'#4096ff', collapsed:true, children:[                  {name:'SWOT 分析的核心价值不仅在于\n识别四类因素，更在于通过因素...', color:'#d6e4ff', children:[]                  },                  {name:'SO 增长战略（优势 + 机会）。\n 利用企业内部优势抓住外部机...', color:'#d6e4ff', children:[]                  },                  {name:'WO 扭转型战略（劣势 + 机会）。\n 外部存在良好的市场机会，但...', color:'#d6e4ff', children:[]                  },                  {name:'ST 多元化战略（优势 + 威胁）。\n 企业具备内部优势，但外部环...', color:'#d6e4ff', children:[]                  },                  {name:'WT 防御战略（劣势 + 威胁）。\n 企业内部存在劣势且外部环境...', color:'#d6e4ff', children:[]                  }                ]                },                {name:'4.5.3 园区企业 SWOT 示例（追\n觅科技）', color:'#4096ff', collapsed:true, children:[                  {name:'以苏州工业园区标杆企业追觅科\n技为例，展示 SWOT 分析的实际...', color:'#d6e4ff', children:[]                  },                  {name:'S（优势）： 核心技术实力突出，\n拥有自主研发的高速数字马达技...', color:'#d6e4ff', children:[]                  },                  {name:'W（劣势）： 品牌创立时间较短，\n在全球市场的品牌知名度与历史...', color:'#d6e4ff', children:[]                  },                  {name:'O（机会）： 全球智能家居市场\n持续高速增长，消费者对智能清...', color:'#d6e4ff', children:[]                  },                  {name:'T（威胁）： 戴森在高端市场的\n品牌壁垒依然强大；小米生态链...', color:'#d6e4ff', children:[]                  },                  {name:'基于上述分析，追觅科技可以采\n取 SO 增长战略：依托核心技术...', color:'#d6e4ff', children:[]                  }                ]                }              ]              },              {name:'4.6 市场定位', color:'#1677ff', collapsed:true, children:[                {name:'市场定位是 STP 战略的第三个\n环节，也是将市场细分与目标市...', color:'#d6e4ff', children:[]                },                {name:'4.6.1 市场定位的本质', color:'#4096ff', collapsed:true, children:[                  {name:'市场定位的概念由美国营销学家\n艾尔·里斯与杰克·特劳特在 ...', color:'#d6e4ff', children:[]                  },                  {name:'定位的战场不在工厂、不在渠道，\n而在消费者的大脑。在信息过载...', color:'#d6e4ff', children:[]                  },                  {name:'定位的本质是一种竞争性的心智\n占位。有效的定位必须同时满足...', color:'#d6e4ff', children:[]                  }                ]                },                {name:'4.6.2 市场定位的步骤', color:'#4096ff', collapsed:true, children:[                  {name:'完整的市场定位过程通常包括四\n个步骤：', color:'#d6e4ff', children:[]                  },                  {name:'第一步：识别竞争优势。 企业\n需要系统梳理自身相对于竞争对...', color:'#d6e4ff', children:[]                  },                  {name:'第二步：选择正确的竞争优势。\n 并非所有的竞争优势都适合作...', color:'#d6e4ff', children:[]                  },                  {name:'第三步：有效传播定位。 定位\n确定后，企业需要通过整合营销...', color:'#d6e4ff', children:[]                  },                  {name:'第四步：持续维护定位。 定位\n是一项长期工程，需要企业保持...', color:'#d6e4ff', children:[]                  }                ]                },                {name:'4.6.3 六种常用定位方法', color:'#4096ff', collapsed:true, children:[                  {name:'营销实践中形成了多种成熟的定\n位方法，企业可以根据自身条件...', color:'#d6e4ff', children:[]                  },                  {name:'属性定位。 以产品的某一突出\n属性或特征作为定位基础。沃尔...', color:'#d6e4ff', children:[]                  },                  {name:'利益定位。 以产品为消费者带\n来的核心利益作为定位基础。高...', color:'#d6e4ff', children:[]                  },                  {name:'使用场景定位。 以产品的典型\n使用场景作为定位基础。红牛将...', color:'#d6e4ff', children:[]                  },                  {name:'使用者定位。 以目标使用者群\n体的身份特征作为定位基础。大...', color:'#d6e4ff', children:[]                  },                  {name:'竞争对标定位。 以与主要竞争\n对手的对比关系作为定位基础。...', color:'#d6e4ff', children:[]                  },                  {name:'价值与文化定位（Value/\nCultural Positioning）。 以...', color:'#d6e4ff', children:[]                  }                ]                },                {name:'4.6.4 四大定位误区（必须避免）', color:'#4096ff', collapsed:true, children:[                  {name:'在市场定位实践中，企业容易陷\n入以下四种常见误区：', color:'#d6e4ff', children:[]                  },                  {name:'定位过低。 品牌未能在消费者\n心智中建立任何清晰的差异化认...', color:'#d6e4ff', children:[]                  },                  {name:'定位过高。 品牌传递的形象过\n于狭窄或高端，使消费者产生"...', color:'#d6e4ff', children:[]                  },                  {name:'定位混乱。 品牌试图同时传递\n过多的定位信息，或频繁更换定...', color:'#d6e4ff', children:[]                  },                  {name:'定位虚假。 品牌的定位承诺与\n实际产品或服务体验之间存在显...', color:'#d6e4ff', children:[]                  }                ]                },                {name:'4.6.5 感知定位图', color:'#4096ff', collapsed:true, children:[                  {name:'感知定位图是市场定位分析中最\n直观、最实用的可视化工具。它...', color:'#d6e4ff', children:[]                  },                  {name:'绘制感知定位图的基本步骤包括：\n第一，通过消费者调研识别目标...', color:'#d6e4ff', children:[]                  },                  {name:'需要注意的是，感知定位图反映\n的是消费者的主观感知而非产品...', color:'#d6e4ff', children:[]                  }                ]                },                {name:'4.6.6 定位策略的组合使用', color:'#4096ff', collapsed:true, children:[                  {name:'在实际营销中，企业往往不会仅\n采用单一的定位方法，而是以一...', color:'#d6e4ff', children:[]                  },                  {name:'以追觅科技为例，其定位策略的\n组合运用体现为：核心层采用属...', color:'#d6e4ff', children:[]                  },                  {name:'定位组合的关键原则是：各层定\n位之间必须逻辑一致、相互强化...', color:'#d6e4ff', children:[]                  }                ]                },                {name:'4.6.7 重新定位的时机与策略', color:'#4096ff', collapsed:true, children:[                  {name:'市场环境并非一成不变，当原有\n定位不再有效时，企业需要进行...', color:'#d6e4ff', children:[]                  },                  {name:'重新定位的典型时机包括： 原\n有目标市场萎缩或增长停滞；竞...', color:'#d6e4ff', children:[]                  },                  {name:'渐进式重新定位。 在保持核心\n品牌资产的基础上，逐步调整定...', color:'#d6e4ff', children:[]                  },                  {name:'激进式重新定位。 彻底改变品\n牌在消费者心智中的位置，进入...', color:'#d6e4ff', children:[]                  },                  {name:'扩展式重新定位。 在原有定位\n基础上拓展品牌的适用范围，覆...', color:'#d6e4ff', children:[]                  },                  {name:'重新定位的关键风险在于：可能\n流失原有忠实客户，可能造成新...', color:'#d6e4ff', children:[]                  },                  {name:'> 即学即练（5分钟）： 请为以\n下品牌判断其主要采用了哪种定...', color:'#d6e4ff', children:[]                  }                ]                }              ]              },              {name:'4.7 产教融合实战案例：追觅科\n技（苏州工业园区）', color:'#1677ff', children:[                {name:'4.7.1 企业背景', color:'#4096ff', collapsed:true, children:[                  {name:'追觅科技的发展历程是园区"硬\n科技创业"的典型缩影：依托园...', color:'#d6e4ff', children:[]                  }                ]                },                {name:'4.7.2 基于 STP 的全球竞争战\n略', color:'#4096ff', collapsed:true, children:[                  {name:'追觅科技的市场成功，可以从 \nSTP 战略的视角进行系统解读。', color:'#d6e4ff', children:[]                  },                  {name:'1. 市场细分', color:'#d6e4ff', children:[]                  },                  {name:'追觅科技对全球智能清洁市场进\n行了多维度的交叉细分：', color:'#d6e4ff', children:[]                  },                  {name:'2. 目标市场选择', color:'#d6e4ff', children:[]                  },                  {name:'追觅科技的目标市场策略经历了\n从集中化到差异化的演进过程：', color:'#d6e4ff', children:[]                  },                  {name:'3. 市场定位', color:'#d6e4ff', children:[]                  },                  {name:'追觅科技的核心定位可以概括为：\n"航天科技驱动的高性能智能清...', color:'#d6e4ff', children:[]                  },                  {name:'这一定位策略的精妙之处在于：\n以"航天科技"建立技术权威性与...', color:'#d6e4ff', children:[]                  },                  {name:'追觅科技的竞争壁垒建立在三个\n支柱之上：技术壁垒（自主研发...', color:'#d6e4ff', children:[]                  }                ]                },                {name:'4.7.3 思考题（深度）', color:'#4096ff', collapsed:true, children:[                  {name:'追觅科技为什么在创业初期选择\n集中化策略，而非直接采用差异...', color:'#d6e4ff', children:[]                  },                  {name:'追觅科技与科沃斯同为苏州企业、\n同处智能清洁赛道，两者在市场...', color:'#d6e4ff', children:[]                  },                  {name:'如果追觅科技计划进入中东市场，\n你会如何调整其 STP 策略？请...', color:'#d6e4ff', children:[]                  }                ]                }              ]              },              {name:'4.8 实训任务：苏州工业园区文\n创产品 STP 策划', color:'#1677ff', children:[                {name:'任务名称', color:'#4096ff', collapsed:true, children:[                  {name:'STP Strategy for SIP \nCultural & Creative Products', color:'#d6e4ff', children:[]                  }                ]                },                {name:'任务背景', color:'#4096ff', collapsed:true, children:[                  {name:'园区拥有金鸡湖、东方之门、苏\n州中心、诚品书店等标志性文化...', color:'#d6e4ff', children:[]                  }                ]                },                {name:'任务要求', color:'#4096ff', collapsed:true, children:[                  {name:'本实训任务以小组为单位完成（\n每组 4—5 人），具体要求如下...', color:'#d6e4ff', children:[]                  },                  {name:'第一步：市场细分。 运用至少\n三种细分变量（地理、人口、心...', color:'#d6e4ff', children:[]                  },                  {name:'第二步：目标市场选择。 基于\n细分结果，运用细分市场评估三...', color:'#d6e4ff', children:[]                  },                  {name:'第三步：市场定位。 为所选目\n标市场设计市场定位方案，包括...', color:'#d6e4ff', children:[]                  },                  {name:'第四步：成果展示。 各小组以 \nPPT 形式进行英文汇报，展示时...', color:'#d6e4ff', children:[]                  }                ]                },                {name:'评分标准', color:'#4096ff', children:[]                }              ]              },              {name:'4.9 课程思政融入要点', color:'#1677ff', children:[                {name:'市场细分与目标市场选择蕴含着\n深刻的战略智慧与伦理要求。以...', color:'#d6e4ff', children:[]                },                {name:'"有所不为"的智慧从何而来？ \nSTP战略的核心是取舍。企业基...', color:'#d6e4ff', children:[]                },                {name:'定位承诺与产品真实之间的距离\n有多远？ 定位的生命力在于真...', color:'#d6e4ff', children:[]                },                {name:'差异化竞争与低价内卷，哪条路\n走得更远？ 市场细分的本质是...', color:'#d6e4ff', children:[]                }              ]              },              {name:'4.10 本章小结', color:'#1677ff', collapsed:true, children:[                {name:'本章系统构建了 STP战略的完整\n理论体系，这是市场营销学中最...', color:'#d6e4ff', children:[]                },                {name:'在数字化升级层面，本章对比了\n传统细分与大数据细分在数据来...', color:'#d6e4ff', children:[]                },                {name:'在目标市场选择层面，本章阐述\n了细分市场评估的三大标准（规...', color:'#d6e4ff', children:[]                },                {name:'在市场定位层面，本章阐明了定\n位的本质——在消费者心智中建...', color:'#d6e4ff', children:[]                },                {name:'在战略工具层面，本章介绍了 \nSWOT 分析模型的含义与四大战...', color:'#d6e4ff', children:[]                },                {name:'在实践应用层面，本章以追觅科\n技的全球竞争战略为贯穿案例，...', color:'#d6e4ff', children:[]                },                {name:'STP 战略是企业从"卖产品"升级\n为"做品牌"的关键路径，也是市...', color:'#d6e4ff', children:[]                }              ]              },              {name:'4.11 关键术语（中英双语）', color:'#1677ff', children:[]              },              {name:'4.12 思考与练习（深度拓展）', color:'#1677ff', children:[                {name:'从群体细分到个体微细分。 结\n合大数据技术的发展，论述市场...', color:'#d6e4ff', children:[]                },                {name:'园区企业 STP 全景分析。 选择\n苏州工业园区一家你熟悉的企业...', color:'#d6e4ff', children:[]                },                {name:'三种策略的适用边界。 比较无\n差异营销、差异化营销与集中化...', color:'#d6e4ff', children:[]                },                {name:'国际咖啡品牌的 STP 设计。 假\n设一家国际精品咖啡品牌计划进...', color:'#d6e4ff', children:[]                },                {name:'SWOT 分析与战略推导。 选择园\n区一家文创企业（或自行假设一...', color:'#d6e4ff', children:[]                }              ]              }            ]            };
+
+showStatus('正在渲染节点...', 'loading');
+
+// ============ CONSTANTS ============
+var NODE_W = 200, NODE_H = 44, H_GAP = 32, V_GAP = 16, CORNER_R = 8;
+var svgEl = document.getElementById('svg');
+var NS = 'http://www.w3.org/2000/svg';
+
+// ============ HELPERS ============
+function isLight(hex){
+  var r=parseInt(hex.slice(1,3),16),g=parseInt(hex.slice(3,5),16),b=parseInt(hex.slice(5,7),16);
+  return(r*299+g*587+b*114)/1000>160;
+}
+function darken(hex,amt){
+  var r=Math.max(0,parseInt(hex.slice(1,3),16)*(1-amt));
+  var g=Math.max(0,parseInt(hex.slice(3,5),16)*(1-amt));
+  var b=Math.max(0,parseInt(hex.slice(5,7),16)*(1-amt));
+  return '#'+[r,g,b].map(function(v){return Math.round(v).toString(16).padStart(2,'0')}).join('');
+}
+
+// ============ LAYOUT ============
+var flatNodes=[], flatLinks=[];
+
+function initCollapsed(d){
+  if(d.collapsed!==undefined)d._collapsed=d.collapsed;
+  else d._collapsed=false;
+  if(d.children)d.children.forEach(initCollapsed);
+}
+
+function layout(){
+  flatNodes=[];flatLinks=[];
+  initCollapsed(treeData);
+  var W=window.innerWidth, H=window.innerHeight;
+  var rootX=120;
+
+  function place(d,depth,yStart,ySpan){
+    var x=rootX+depth*(NODE_W+H_GAP);
+    var nKids=(d.children&&!d._collapsed)?d.children.length:1;
+    var leafSpan=ySpan/nKids;
+    var y=yStart+ySpan/2;
+    var node={
+      id:flatNodes.length, name:d.name, color:d.color||'#595959',
+      emph:!!d.emph, x:x, y:y, w:NODE_W, h:NODE_H, depth:depth,
+      hasKids:!!(d.children&&d.children.length>0), collapsed:!!d._collapsed
+    };
+    d._node=node;
+    flatNodes.push(node);
+    if(d.children&&!d._collapsed){
+      for(var i=0;i<d.children.length;i++){
+        var child=d.children[i];
+        place(child,depth+1,yStart+i*leafSpan,leafSpan);
+        flatLinks.push({s:node.id,t:child._node.id});
+      }
+    }
+  }
+  place(treeData,0,80,H-160);
+
+  // Fix overlaps
+  var byDepth={};
+  flatNodes.forEach(function(n){
+    if(!byDepth[n.depth])byDepth[n.depth]=[];
+    byDepth[n.depth].push(n);
+  });
+  for(var key in byDepth){
+    var arr=byDepth[key];
+    arr.sort(function(a,b){return a.y-b.y});
+    for(var i=1;i<arr.length;i++){
+      if(arr[i].y-arr[i-1].y<NODE_H+V_GAP) arr[i].y=arr[i-1].y+NODE_H+V_GAP;
+    }
+  }
+}
+
+// ============ RENDER ============
+var mainG, linkG, nodeG;
+
+function render(){
+  while(svgEl.firstChild)svgEl.removeChild(svgEl.firstChild);
+
+  var defs=document.createElementNS(NS,'defs');
+  var filter=document.createElementNS(NS,'filter');
+  filter.setAttribute('id','sd');
+  filter.setAttribute('x','-10%');filter.setAttribute('y','-10%');
+  filter.setAttribute('width','130%');filter.setAttribute('height','130%');
+  var fe=document.createElementNS(NS,'feDropShadow');
+  fe.setAttribute('dx','1');fe.setAttribute('dy','2');
+  fe.setAttribute('stdDeviation','3');fe.setAttribute('flood-opacity','0.12');
+  filter.appendChild(fe);defs.appendChild(filter);
+  svgEl.appendChild(defs);
+
+  mainG=document.createElementNS(NS,'g');
+  svgEl.appendChild(mainG);
+
+  linkG=document.createElementNS(NS,'g');
+  linkG.setAttribute('class','links');
+  mainG.appendChild(linkG);
+
+  nodeG=document.createElementNS(NS,'g');
+  nodeG.setAttribute('class','nodes');
+  mainG.appendChild(nodeG);
+
+  // Links
+  var linkSet={};
+  flatLinks.forEach(function(l){linkSet[l.s+'-'+l.t]={s:l.s,t:l.t}});
+  for(var k in linkSet){
+    var l=linkSet[k];
+    var s=flatNodes[l.s], t=flatNodes[l.t];
+    var sx=s.x+NODE_W, sy=s.y+NODE_H/2, ex=t.x, ey=t.y+NODE_H/2;
+    var mx=(sx+ex)/2;
+    var d='M'+sx+','+sy+' C'+mx+','+sy+' '+mx+','+ey+' '+ex+','+ey;
+    var p=document.createElementNS(NS,'path');
+    p.setAttribute('d',d);
+    p.setAttribute('fill','none');
+    p.setAttribute('stroke','#c0c0c0');
+    p.setAttribute('stroke-width','1.5');
+    p.setAttribute('stroke-opacity','0.6');
+    p.setAttribute('data-s',l.s);
+    p.setAttribute('data-t',l.t);
+    linkG.appendChild(p);
+  }
+
+  // Nodes
+  flatNodes.forEach(function(n){
+    var g=document.createElementNS(NS,'g');
+    g.setAttribute('transform','translate('+n.x+','+n.y+')');
+    g.setAttribute('class','node');
+    g.style.cursor=n.hasKids?'pointer':'default';
+    g.setAttribute('data-id',n.id);
+    g.addEventListener('click',function(ev){ev.stopPropagation();toggleNode(n);});
+
+    var rect=document.createElementNS(NS,'rect');
+    rect.setAttribute('width',n.w);
+    rect.setAttribute('height',n.h);
+    rect.setAttribute('rx',CORNER_R);
+    rect.setAttribute('ry',CORNER_R);
+    rect.setAttribute('fill',n.emph?darken(n.color,0.08):n.color);
+    rect.setAttribute('stroke',n.emph?darken(n.color,0.2):'rgba(0,0,0,0.08)');
+    rect.setAttribute('stroke-width',n.emph?'2.5':'1');
+    rect.setAttribute('filter','url(#sd)');
+    g.appendChild(rect);
+
+    // Collapse indicator
+    if(n.hasKids){
+      var cx=n.w-14, cy=n.h/2;
+      var circle=document.createElementNS(NS,'circle');
+      circle.setAttribute('cx',cx);circle.setAttribute('cy',cy);circle.setAttribute('r','8');
+      circle.setAttribute('fill','rgba(255,255,255,0.35)');
+      circle.setAttribute('stroke','rgba(255,255,255,0.6)');
+      circle.setAttribute('stroke-width','1');
+      g.appendChild(circle);
+      var txt=document.createElementNS(NS,'text');
+      txt.setAttribute('x',cx);txt.setAttribute('y',cy);
+      txt.setAttribute('dy','0.35em');
+      txt.setAttribute('text-anchor','middle');
+      txt.setAttribute('fill','#fff');
+      txt.setAttribute('font-size','11');
+      txt.setAttribute('font-weight','bold');
+      txt.textContent=n.collapsed?'+':'−';
+      g.appendChild(txt);
+    }
+
+    // Text
+    var lines=n.name.split('\n');
+    var fs=lines.length>3?10:lines.length>2?11:12;
+    var tc=isLight(n.color)?'#1a1a1a':'#fff';
+    var totalH=lines.length*(fs+3)-3;
+    lines.forEach(function(line,i){
+      var ty=n.h/2-totalH/2+i*(fs+3)+fs*0.35;
+      var txt=document.createElementNS(NS,'text');
+      txt.setAttribute('x',n.hasKids?'14':n.w/2);
+      txt.setAttribute('y',ty);
+      txt.setAttribute('text-anchor',n.hasKids?'start':'middle');
+      txt.setAttribute('fill',tc);
+      txt.setAttribute('font-size',fs);
+      txt.setAttribute('font-weight',n.emph?'bold':'normal');
+      txt.setAttribute('font-family','Microsoft YaHei,PingFang SC,sans-serif');
+      txt.textContent=line;
+      g.appendChild(txt);
+    });
+
+    nodeG.appendChild(g);
+  });
+}
+
+// ============ TREE OPS ============
+function findData(d,id){
+  if(d._node&&d._node.id===id)return d;
+  if(d.children)for(var i=0;i<d.children.length;i++){var r=findData(d.children[i],id);if(r)return r;}
+  return null;
+}
+
+function toggleNode(node){
+  var d=findData(treeData,node.id);
+  if(d&&d.children&&d.children.length>0){
+    d._collapsed=!d._collapsed;
+    layout();render();applyTransform();
+    var q=document.getElementById('searchInput').value.trim();
+    if(q)highlight(q);
+  }
+}
+
+function expandAll(){
+  (function e(d){d._collapsed=false;if(d.children)d.children.forEach(e);})(treeData);
+  layout();render();applyTransform();
+}
+function collapseAll(){
+  (function c(d,dp){if(dp>=2)d._collapsed=true;if(d.children)d.children.forEach(function(ch){c(ch,dp+1)});})(treeData,0);
+  layout();render();applyTransform();
+}
+
+// ============ SEARCH ============
+function highlight(q){
+  q=q.toLowerCase();
+  var match=[];
+  flatNodes.forEach(function(n){if(n.name.toLowerCase().indexOf(q)>=0)match[n.id]=true;});
+  var ng=nodeG.querySelectorAll('.node');
+  for(var i=0;i<ng.length;i++){
+    var id=parseInt(ng[i].getAttribute('data-id'));
+    ng[i].style.opacity=match[id]?'1':'0.15';
+  }
+  var lp=linkG.querySelectorAll('path');
+  for(var i=0;i<lp.length;i++){
+    var s=parseInt(lp[i].getAttribute('data-s'));
+    var t=parseInt(lp[i].getAttribute('data-t'));
+    lp[i].setAttribute('stroke-opacity',(match[s]||match[t])?'0.6':'0.06');
+  }
+}
+function clearHighlight(){
+  var ng=nodeG.querySelectorAll('.node');
+  for(var i=0;i<ng.length;i++)ng[i].style.opacity='1';
+  var lp=linkG.querySelectorAll('path');
+  for(var i=0;i<lp.length;i++)lp[i].setAttribute('stroke-opacity','0.6');
+}
+
+// ============ ZOOM & PAN ============
+var tx=0, ty=0, scale=1;
+
+function applyTransform(){
+  mainG.setAttribute('transform','translate('+tx+','+ty+') scale('+scale+')');
+}
+
+var panning=false, panSX=0, panSY=0, panTX=0, panTY=0;
+
+svgEl.addEventListener('mousedown',function(ev){
+  if(ev.target===svgEl||ev.target.tagName==='svg'||ev.target===mainG){
+    panning=true;panSX=ev.clientX;panSY=ev.clientY;panTX=tx;panTY=ty;
+    svgEl.style.cursor='grabbing';
+  }
+});
+window.addEventListener('mousemove',function(ev){
+  if(!panning)return;
+  tx=panTX+(ev.clientX-panSX);ty=panTY+(ev.clientY-panSY);
+  applyTransform();
+});
+window.addEventListener('mouseup',function(){panning=false;svgEl.style.cursor='';});
+svgEl.addEventListener('wheel',function(ev){
+  ev.preventDefault();
+  var ds=ev.deltaY>0?0.9:1.1;
+  var ns=Math.min(3,Math.max(0.15,scale*ds));
+  var mx=ev.clientX,my=ev.clientY;
+  tx=mx-(mx-tx)*(ns/scale);
+  ty=my-(my-ty)*(ns/scale);
+  scale=ns;
+  applyTransform();
+},{passive:false});
+
+function fitView(){
+  var bb=mainG.getBBox();
+  var W=window.innerWidth,H=window.innerHeight,pad=80;
+  scale=Math.min(W/(bb.width+pad*2),H/(bb.height+pad*2),1.2);
+  tx=(W-bb.width*scale)/2-bb.x*scale;
+  ty=(H-bb.height*scale)/2-bb.y*scale;
+  applyTransform();
+}
+
+// ============ INIT ============
+layout();
+render();
+applyTransform();
+setTimeout(function(){
+  fitView();
+  showStatus('✅ 思维导图已就绪', 'ok');
+  setTimeout(function(){statusEl.style.display='none';},1500);
+},200);
+
+document.getElementById('btnFit').addEventListener('click',fitView);
+document.getElementById('btnExpand').addEventListener('click',expandAll);
+document.getElementById('btnCollapse').addEventListener('click',collapseAll);
+document.getElementById('searchInput').addEventListener('input',function(){
+  var q=this.value.trim();
+  if(q)highlight(q);else clearHighlight();
+});
+
+var rt;
+window.addEventListener('resize',function(){
+  clearTimeout(rt);
+  rt=setTimeout(function(){layout();render();applyTransform();},200);
+});
+
+// Success
+console.log('MindMap: rendered '+flatNodes.length+' nodes, '+flatLinks.length+' links');
+
+}catch(e){
+  showStatus('⚠️ 加载失败: '+e.message, 'err');
+  console.error(e);
+}
+})();
+</script>
+</body>
+</html>

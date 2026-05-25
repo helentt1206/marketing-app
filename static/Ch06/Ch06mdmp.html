@@ -1,0 +1,396 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>第六章 价格策略 — 思维导图</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{
+  font-family:"Microsoft YaHei","PingFang SC",sans-serif;
+  background:#f0f2f5;
+  overflow:hidden;height:100vh;width:100vw;
+  user-select:none;-webkit-user-select:none;
+}
+svg{width:100%;height:100%;position:absolute;top:0;left:0}
+#toolbar{position:fixed;top:16px;right:16px;z-index:100;display:flex;gap:8px}
+#toolbar button{
+  padding:8px 16px;border:1px solid #d9d9d9;background:#fff;
+  border-radius:6px;cursor:pointer;font-size:13px;font-family:inherit;
+  box-shadow:0 1px 4px rgba(0,0,0,.08);transition:all .2s;
+}
+#toolbar button:hover{background:#1677ff;color:#fff;border-color:#1677ff}
+#search{position:fixed;top:16px;left:16px;z-index:100}
+#search input{
+  padding:8px 14px;border:1px solid #d9d9d9;border-radius:20px;
+  width:240px;font-size:13px;font-family:inherit;outline:none;
+  box-shadow:0 1px 4px rgba(0,0,0,.08);transition:border-color .2s;
+}
+#search input:focus{border-color:#1677ff}
+#info{
+  position:fixed;bottom:16px;right:16px;z-index:100;
+  background:#fff;padding:6px 12px;border-radius:6px;
+  box-shadow:0 1px 6px rgba(0,0,0,.1);font-size:11px;color:#888;
+}
+#legend{
+  position:fixed;bottom:16px;left:16px;z-index:100;
+  background:#fff;padding:10px 16px;border-radius:8px;
+  box-shadow:0 1px 6px rgba(0,0,0,.1);font-size:12px;
+  display:flex;gap:14px;flex-wrap:wrap;
+}
+.li{display:flex;align-items:center;gap:6px}
+.ld{width:12px;height:12px;border-radius:50%}
+#status{
+  position:fixed;top:50%;left:50%;transform:translate(-50%,-50%);
+  background:#fff;padding:20px 40px;border-radius:12px;z-index:200;
+  box-shadow:0 4px 20px rgba(0,0,0,.15);font-size:16px;text-align:center;
+}
+#status.ok{color:#52c41a}
+#status.err{color:#f5222d}
+#status.loading{color:#1677ff}
+</style>
+</head>
+<body>
+
+<div id="status" class="loading">正在加载思维导图...</div>
+
+<div id="toolbar">
+  <button id="btnFit">适应画面</button>
+  <button id="btnExpand">全部展开</button>
+  <button id="btnCollapse">全部收起</button>
+</div>
+<div id="search">
+  <input type="text" id="searchInput" placeholder="搜索节点...">
+</div>
+<div id="legend">
+  <span class="li"><span class="ld" style="background:#1677ff"></span>核心概念</span>
+  <span class="li"><span class="ld" style="background:#52c41a"></span>观念演变</span>
+  <span class="li"><span class="ld" style="background:#fa8c16"></span>案例分析</span>
+  <span class="li"><span class="ld" style="background:#722ed1"></span>国际化趋势</span>
+  <span class="li"><span class="ld" style="background:#eb2f96"></span>跨文化营销</span>
+  <span class="li"><span class="ld" style="background:#13c2c2"></span>实训/练习</span>
+</div>
+<div id="info">拖拽平移 · 滚轮缩放 · 点击节点展开/收起</div>
+
+<svg id="svg"></svg>
+
+<script>
+(function(){
+var statusEl = document.getElementById('status');
+function showStatus(msg, cls){
+  statusEl.textContent = msg;
+  statusEl.className = cls;
+}
+try {
+
+// ============ TREE DATA ============
+var treeData = {name:'第六章 价格策略', color:'#f5222d', children:[              {name:'学习目标 ', color:'#1677ff', children:[                {name:'知识目标', color:'#4096ff', collapsed:true, children:[                  {name:'熟练掌握定价铁三角：成本、需\n求、竞争三大核心要素的内涵、...', color:'#d6e4ff', children:[]                  },                  {name:'系统掌握成本导向、需求导向、\n竞争导向三大类定价方法的计算...', color:'#d6e4ff', children:[]                  },                  {name:'全面理解心理定价、差别定价、\n产品组合定价、折扣定价、地区...', color:'#d6e4ff', children:[]                  },                  {name:'深入理解B2B 工业制造、跨境电\n商、文旅文创、新零售等不同业...', color:'#d6e4ff', children:[]                  },                  {name:'掌握大数据动态定价、AI 智能\n报价、收益管理、TCO 总拥有成...', color:'#d6e4ff', children:[]                  },                  {name:'熟悉国际定价中的关税、汇率、\n物流、反倾销、合规风控等关键...', color:'#d6e4ff', children:[]                  }                ]                },                {name:'能力目标', color:'#4096ff', collapsed:true, children:[                  {name:'能够为苏州工业园区高端制造、\nB2B 大客户、跨境电商、文旅文...', color:'#d6e4ff', children:[]                  },                  {name:'能够独立完成成本核算、盈亏平\n衡分析、价格弹性测算、竞品对...', color:'#d6e4ff', children:[]                  },                  {name:'能够运用认知价值定价、心理定\n价、组合定价提升产品毛利与品...', color:'#d6e4ff', children:[]                  },                  {name:'能够开展国际市场报价、汇率换\n算、出口定价、价格风险规避。', color:'#d6e4ff', children:[]                  },                  {name:'能够运用大数据思维进行用户分\n层、动态调价、竞争监控、价格...', color:'#d6e4ff', children:[]                  }                ]                },                {name:'素养目标', color:'#4096ff', collapsed:true, children:[                  {name:'树立合法定价、诚信经营、公平\n竞争的职业底线，遵守《价格法...', color:'#d6e4ff', children:[]                  },                  {name:'强化价值创造、创新驱动、拒绝\n低价内卷的高质量发展理念。', color:'#d6e4ff', children:[]                  },                  {name:'培养风险意识、长期主义、共赢\n思维，反对价格欺诈、掠夺性定...', color:'#d6e4ff', children:[]                  },                  {name:'立足苏州工业园区高端制造、国\n产替代、国际化、数字化战略，...', color:'#d6e4ff', children:[]                  },                  {name:'坚守商业伦理、客户共赢、可持\n续发展，实现企业、客户、社会...', color:'#d6e4ff', children:[]                  }                ]                }              ]              },              {name:'6.1 定价基础理论', color:'#1677ff', children:[                {name:'6.1.1 价格的营销地位与核心功\n能', color:'#4096ff', collapsed:true, children:[                  {name:'价格是企业市场营销组合4P 中\n唯一直接产生收入的要素，是市...', color:'#d6e4ff', children:[]                  },                  {name:'在数字化与国际化双重背景下，\n定价已经从 “简单计算” 升级...', color:'#d6e4ff', children:[]                  },                  {name:'在现代营销中，价格是市场供需\n关系、品牌价值、竞争格局、成...', color:'#d6e4ff', children:[]                  },                  {name:'在数字化与国际化双重背景下，\n定价已经从“简单计算成本加利...', color:'#d6e4ff', children:[]                  }                ]                },                {name:'6.1.2 定价铁三角：三大核心制\n约因素', color:'#4096ff', collapsed:true, children:[                  {name:'企业任何定价行为，都必须在底\n线、上限、调节器三者之间寻找...', color:'#d6e4ff', children:[]                  },                  {name:'成本 —— 价格的底线', color:'#d6e4ff', children:[]                  },                  {name:'成本是企业能够接受的最低价格\n边界，低于此边界将导致亏损。', color:'#d6e4ff', children:[]                  },                  {name:'成本分为固定成本（如厂房设备\n折旧、研发摊销、管理团队薪酬...', color:'#d6e4ff', children:[]                  },                  {name:'此外，现代企业还需考虑全生命\n周期成本，包括研发、模具、生...', color:'#d6e4ff', children:[]                  },                  {name:'定价启示在于：短期内，企业可\n接受价格覆盖变动成本（如为了...', color:'#d6e4ff', children:[]                  },                  {name:'以苏州工业园区的一家装备制造\n企业为例，其一台设备售价100...', color:'#d6e4ff', children:[]                  },                  {name:'固定成本：厂房、设备、折旧、\n研发摊销、管理团队薪酬、房租...', color:'#d6e4ff', children:[]                  },                  {name:'变动成本：原材料、包装、生产\n人工、物流、售后安装、能耗等...', color:'#d6e4ff', children:[]                  },                  {name:'2. 需求 —— 价格的上限', color:'#d6e4ff', children:[]                  },                  {name:'消费者对产品的认知价值决定愿\n意支付的最高价格。消费者对产...', color:'#d6e4ff', children:[]                  },                  {name:'不同产品、不同人群的价格敏感\n度不同，这由需求价格弹性衡量...', color:'#d6e4ff', children:[]                  },                  {name:'影响价值感知的因素包括：功能\n价值（产品解决了什么问题）、...', color:'#d6e4ff', children:[]                  },                  {name:'3. 竞争 —— 价格的调节器', color:'#d6e4ff', children:[]                  },                  {name:'竞争对手的价格、替代品的水平\n以及行业格局，决定了实际价格...', color:'#d6e4ff', children:[]                  },                  {name:'不同的市场结构下，定价权差异\n巨大：在完全竞争市场（如农产...', color:'#d6e4ff', children:[]                  },                  {name:'例如，苏州工业园区的生物医药\n企业信达生物，其抗癌药在专利...', color:'#d6e4ff', children:[]                  }                ]                },                {name:'6.1.3 定价目标', color:'#4096ff', collapsed:true, children:[                  {name:'定价目标必须与企业整体战略保\n持一致。不同的目标对应完全不...', color:'#d6e4ff', children:[]                  },                  {name:'第一种是利润导向型目标，即追\n求利润最大化、目标利润率或投...', color:'#d6e4ff', children:[]                  },                  {name:'第二种是销量或市场份额导向型\n目标，即追求销量最大化、市场...', color:'#d6e4ff', children:[]                  },                  {name:'第三种是生存导向型目标，即消\n化库存、回笼现金流、维持经营...', color:'#d6e4ff', children:[]                  },                  {name:'第四种是质量与品牌形象导向型\n目标，即用高价支撑高端定位、...', color:'#d6e4ff', children:[]                  },                  {name:'第五种是竞争导向型目标，即遏\n制对手、防御进入、稳定价格、...', color:'#d6e4ff', children:[]                  },                  {name:'Pricing Objective 定价目标', color:'#d6e4ff', children:[]                  },                  {name:'Profit Maximization 利润最大\n化', color:'#d6e4ff', children:[]                  },                  {name:'Market Share 市场份额', color:'#d6e4ff', children:[]                  },                  {name:'Perceived Value 认知价值', color:'#d6e4ff', children:[]                  },                  {name:'Price Elasticity 价格弹性', color:'#d6e4ff', children:[]                  },                  {name:'Dynamic Pricing 动态定价', color:'#d6e4ff', children:[]                  },                  {name:'Total Cost of Ownership 总拥\n有成本', color:'#d6e4ff', children:[]                  }                ]                },                {name:'6.1.4 影响定价的全维度因素', color:'#4096ff', collapsed:true, children:[                  {name:'影响定价的因素可以分为内部因\n素和外部因素两大类。', color:'#d6e4ff', children:[]                  },                  {name:'内部因素包括：成本结构与生产\n效率（直接决定底线）；企业战...', color:'#d6e4ff', children:[]                  }                ]                }              ]              },              {name:'6.2 三大定价方法（核心章节）', color:'#1677ff', children:[                {name:'6.2.1 成本导向定价法', color:'#4096ff', collapsed:true, children:[                  {name:'以成本为核心依据，简单、易算、\n稳健，是最基础的定价方式，适...', color:'#d6e4ff', children:[]                  },                  {name:'第一种是成本加成定价法，也是\n最常用的方法。', color:'#d6e4ff', children:[]                  },                  {name:'最终售价 = 单位成本 ×（1 + \n加成率）', color:'#d6e4ff', children:[]                  },                  {name:'例如，某企业生产一个保温杯，\n单位成本为20元，加成率为50%...', color:'#d6e4ff', children:[]                  },                  {name:'适用场景包括传统制造、餐饮、\n零售、建筑工程等。苏州工业园...', color:'#d6e4ff', children:[]                  },                  {name:'企业可以先计算盈亏平衡点，这\n个公式算出“不赚不赔”的销量...', color:'#d6e4ff', children:[]                  },                  {name:'盈亏平衡点销量 = 固定成本 ÷\n（单位售价 − 单位变动成本）', color:'#d6e4ff', children:[]                  },                  {name:'例如，某新产品固定成本为100\n万元，单位售价200元，单位变...', color:'#d6e4ff', children:[]                  },                  {name:'该方法适用于新产品上市、产能\n规划、订单报价、项目投标和清...', color:'#d6e4ff', children:[]                  },                  {name:'根据预期投资回报率倒推价格。', color:'#d6e4ff', children:[]                  },                  {name:'例如，企业投入1000万元研发新\n设备，期望3年收回投资并实现...', color:'#d6e4ff', children:[]                  }                ]                },                {name:'6.2.2 需求导向定价法', color:'#4096ff', collapsed:true, children:[                  {name:'需求导向定价法以消费者认知价\n值与需求强度为核心，是现代品...', color:'#d6e4ff', children:[]                  },                  {name:'消费者认为 “值多少钱”，就\n定多少钱。企业需要通过营销手...', color:'#d6e4ff', children:[]                  },                  {name:'典型案例是依云矿泉水：其成本\n很低，但通过“阿尔卑斯山纯净...', color:'#d6e4ff', children:[]                  },                  {name:'苹果手机同样如此：消费者愿意\n为iOS体验、品牌生态付出高溢...', color:'#d6e4ff', children:[]                  },                  {name:'在苏州工业园区，汇川技术的工\n业变频器定价高于国内杂牌，但...', color:'#d6e4ff', children:[]                  },                  {name:'企业先通过市场调查了解消费者\n可接受的价格区间，然后倒推出...', color:'#d6e4ff', children:[]                  },                  {name:'例如，拼多多上的很多工厂直营\n产品，先定目标售价（如29.9元...', color:'#d6e4ff', children:[]                  },                  {name:'3. 差别定价法（合法合规前提\n下）', color:'#d6e4ff', children:[]                  },                  {name:'同一成本的产品，对不同人群、\n时间、渠道、版本制定不同价格...', color:'#d6e4ff', children:[]                  },                  {name:'常见形式包括：顾客细分定价（\n学生票、老人票、会员价、企业...', color:'#d6e4ff', children:[]                  },                  {name:'例如，苏州工业园区内的同程旅\n行，机票价格在春节和平时差异...', color:'#d6e4ff', children:[]                  }                ]                },                {name:'6.2.3 竞争导向定价法', color:'#4096ff', collapsed:true, children:[                  {name:'竞争导向定价法以竞争对手价格\n为主要依据，适合高度同质化或...', color:'#d6e4ff', children:[]                  },                  {name:'第一种是随行就市定价法，即跟\n随行业均价，风险最低。适用于...', color:'#d6e4ff', children:[]                  },                  {name:'第二种是密封投标定价法，常用\n于政府采购、工程项目、B2B大...', color:'#d6e4ff', children:[]                  },                  {name:'第三种是主动竞争定价法，企业\n根据自身差异化选择高于、等于...', color:'#d6e4ff', children:[]                  }                ]                }              ]              },              {name:'6.3 实战定价策略（10 类高频\n应用）', color:'#1677ff', collapsed:true, children:[                {name:'6.3.1 新产品定价策略', color:'#4096ff', collapsed:true, children:[                  {name:'撇脂定价是指高价上市，快速回\n收研发投入。适用于创新产品、...', color:'#d6e4ff', children:[]                  },                  {name:'渗透定价是指低价上市，快速占\n领市场、阻止竞争对手进入。适...', color:'#d6e4ff', children:[]                  },                  {name:'温和定价是指中间价，稳妥、风\n险低、渠道接受度高。适用于成...', color:'#d6e4ff', children:[]                  },                  {name:'苏州工业园区一家初创企业苏芯\n科技推出智能家居网关产品，市...', color:'#d6e4ff', children:[]                  }                ]                },                {name:'6.3.2 产品组合定价策略', color:'#4096ff', collapsed:true, children:[                  {name:'产品线定价是指同一产品线内按\n档次拉开价差，低端引流、中端...', color:'#d6e4ff', children:[]                  },                  {name:'互补品定价是指主品低价、耗材\n/配件高价，典型的如打印机低...', color:'#d6e4ff', children:[]                  },                  {name:'可选配件定价是指基础款低价，\n升级功能加价，如软件行业的基...', color:'#d6e4ff', children:[]                  },                  {name:'捆绑定价是指套餐价比单独购买\n更划算，提高客单价，如麦当劳...', color:'#d6e4ff', children:[]                  },                  {name:'两部定价是指入门费加使用费，\n如健身房会员费（入门费）加私...', color:'#d6e4ff', children:[]                  },                  {name:'苏州工业园区扫地机器人企业科\n沃斯的产品线定价策略如下：入...', color:'#d6e4ff', children:[]                  },                  {name:'意图是利用低价款吸引价格敏感\n型用户（如租房年轻人），避免...', color:'#d6e4ff', children:[]                  }                ]                },                {name:'6.3.3 心理定价策略', color:'#4096ff', collapsed:true, children:[                  {name:'利用消费者心理感知，提升接受\n度与转化率。', color:'#d6e4ff', children:[]                  },                  {name:'尾数定价如9.9元、19.9元、99\n元，让消费者感觉“便宜”。', color:'#d6e4ff', children:[]                  },                  {name:'整数定价如1000元、5000元，用\n于品质感、体面、高端产品，如...', color:'#d6e4ff', children:[]                  },                  {name:'声望定价是指极高价象征身份、\n稀缺、专业，如劳力士手表、飞...', color:'#d6e4ff', children:[]                  },                  {name:'招徕定价是指爆款超低价引流，\n带动利润品销售，如超市的鸡蛋...', color:'#d6e4ff', children:[]                  },                  {name:'参考定价是指划掉原价，显示优\n惠力度，如“原价199，现价99...', color:'#d6e4ff', children:[]                  },                  {name:'苏州工业园区一家本土高端丝绸\n品牌绣娘丝绸，推出一款手工苏...', color:'#d6e4ff', children:[]                  },                  {name:'前提条件包括：第一，产品必须\n具有真实的高品质或工艺稀缺性...', color:'#d6e4ff', children:[]                  }                ]                },                {name:'6.3.4 折扣与折让策略', color:'#4096ff', collapsed:true, children:[                  {name:'苏州工业园区的一家工业机器人\n零部件供应商——苏州博实精密...', color:'#d6e4ff', children:[]                  },                  {name:'客户“苏州智造自动化有限公司”\n在第一季度累计采购了 150万元...', color:'#d6e4ff', children:[]                  },                  {name:'采购额150万元，属于“100万元\n（含）- 200万元”档，折扣率5...', color:'#d6e4ff', children:[]                  },                  {name:'折扣金额 = 150万元 × 5% = 7\n.5万元。', color:'#d6e4ff', children:[]                  },                  {name:'实际支付金额 = 150万元 - 7.5\n万元 = 142.5万元。', color:'#d6e4ff', children:[]                  },                  {name:'若采购额为 200万元：属于“\n200万元及以上”档，折扣率8%...', color:'#d6e4ff', children:[]                  },                  {name:'若采购额为 250万元：同样8%折\n扣率，折扣金额 = 250万 × 8%...', color:'#d6e4ff', children:[]                  },                  {name:'客户是否有动力将采购额从200\n万元提升到250万元？', color:'#d6e4ff', children:[]                  },                  {name:'需要计算边际折扣收益。当采购\n额从200万元增加到250万元，新...', color:'#d6e4ff', children:[]                  },                  {name:'在200万元水平下，实际支付 = \n200万 × (1 - 8%) = 184万元...', color:'#d6e4ff', children:[]                  },                  {name:'在250万元水平下，实际支付 = \n230万元。', color:'#d6e4ff', children:[]                  },                  {name:'新增50万元采购额带来的实际额\n外支出 = 230 - 184 = 46万元...', color:'#d6e4ff', children:[]                  },                  {name:'这相当于客户为多买50万元商品\n实际只多付了46万元，边际折扣...', color:'#d6e4ff', children:[]                  }                ]                },                {name:'6.3.5 地区定价策略', color:'#4096ff', collapsed:true, children:[                  {name:'FOB原产地定价是指买家承担运\n费与风险，出厂后所有权转移。...', color:'#d6e4ff', children:[]                  }                ]                },                {name:'6.3.6 国际市场定价策略', color:'#4096ff', collapsed:true, children:[                  {name:'全球统一定价品牌形象统一，但\n执行难度大，因为各国成本、购...', color:'#d6e4ff', children:[]                  },                  {name:'苏州工业园区跨境电商企业苏州\n贝宝，在亚马逊美国站和德国站...', color:'#d6e4ff', children:[]                  },                  {name:'合理。因为德国站的物流成本更\n高（从中国发到德国运费高于美...', color:'#d6e4ff', children:[]                  }                ]                },                {name:'6.3.7 动态定价策略（大数据时\n代核心）', color:'#4096ff', collapsed:true, children:[                  {name:'基于需求、库存、时段、竞争、\n用户画像实时调价。典型应用有...', color:'#d6e4ff', children:[]                  },                  {name:'苏州工业园区一家经济型酒店格\n林豪泰，周一到周四入住率仅50...', color:'#d6e4ff', children:[]                  },                  {name:'效果是周五高峰日通过涨价（\n269元）获取更高收入，同时也...', color:'#d6e4ff', children:[]                  }                ]                },                {name:'6.3.8 价值定价策略（高端制造\n核心）', color:'#4096ff', collapsed:true, children:[                  {name:'不靠低价，靠总拥有成本取胜。\n典型代表是苏州汇川技术、华兴...', color:'#d6e4ff', children:[]                  },                  {name:'采购价略高 + 故障率极低 + 停\n机损失极少 + 服务成本极低 = ...', color:'#d6e4ff', children:[]                  },                  {name:'苏州工业园区企业汇川技术的变\n频器售价1.2万元/台，国内杂牌...', color:'#d6e4ff', children:[]                  },                  {name:'杂牌：采购价0.8万元，8年需换\n2次（第0年和第4年各买一台）...', color:'#d6e4ff', children:[]                  },                  {name:'汇川单台1.2万元，使用8年；杂\n牌单台0.8万元，4年报废，8年...', color:'#d6e4ff', children:[]                  },                  {name:'最终答案：虽然汇川采购价高\n4000元，但节省了换新设备的人...', color:'#d6e4ff', children:[]                  }                ]                },                {name:'6.3.9 渠道价格管理策略', color:'#4096ff', collapsed:true, children:[                  {name:'包括统一零售价、保护经销商利\n润、防止窜货、防止乱价。企业...', color:'#d6e4ff', children:[]                  },                  {name:'苏州工业园区科沃斯扫地机器人，\n要求所有线上官方授权店售价不...', color:'#d6e4ff', children:[]                  },                  {name:'第一步调查货源：该C店是否从\n授权经销商处窜货？如果是，对...', color:'#d6e4ff', children:[]                  }                ]                },                {name:'6.3.10 价格调整与竞争应对策\n略', color:'#4096ff', collapsed:true, children:[                  {name:'主动提价的原因包括成本上涨、\n供不应求、品牌升级、产品迭代...', color:'#d6e4ff', children:[]                  },                  {name:'苏州工业园区宝时得电动工具，\n某国内杂牌将其竞品价格从500...', color:'#d6e4ff', children:[]                  }                ]                }              ]              },              {name:'6.4 产教融合实战案例：苏州汇\n川技术 ——B2B 价值定价标杆', color:'#1677ff', children:[                {name:'6.4.1 企业背景', color:'#4096ff', collapsed:true, children:[                  {name:'苏州汇川技术有限公司位于苏州\n工业园区，是中国工业自动化控...', color:'#d6e4ff', children:[]                  }                ]                },                {name:'6.4.2 行业困境：低价内卷没有\n未来', color:'#4096ff', collapsed:true, children:[                  {name:'在汇川成立初期，国内工控企业\n普遍陷入低成本、低价格、低质...', color:'#d6e4ff', children:[]                  }                ]                },                {name:'6.4.3 战略转型：价值定价取代\n成本定价', color:'#4096ff', collapsed:true, children:[                  {name:'汇川技术果断放弃了低价内卷路\n线，实施了以价值定价为核心的...', color:'#d6e4ff', children:[]                  },                  {name:'首先，汇川将定价低于国际巨头\n20%至30%，但显著高于国内杂牌...', color:'#d6e4ff', children:[]                  },                  {name:'其次，汇川建立了强大的价值支\n撑体系：核心技术自研，性能接...', color:'#d6e4ff', children:[]                  },                  {name:'汇川采用总拥有成本定价法，向\n客户传递核心价值，采购价略高...', color:'#d6e4ff', children:[]                  },                  {name:'采购价略高 + 故障率极低 + 停\n机损失极少 + 服务成本极低 = ...', color:'#d6e4ff', children:[]                  },                  {name:'汇川还应用数字化动态报价，按\n行业差异定价（光伏、锂电、3C...', color:'#d6e4ff', children:[]                  }                ]                },                {name:'6.4.4 实施成果', color:'#4096ff', collapsed:true, children:[                  {name:'通过价值定价策略，汇川技术成\n功实现了国产替代，进入了全球...', color:'#d6e4ff', children:[]                  }                ]                },                {name:'6.4.5 深度思考题', color:'#4096ff', collapsed:true, children:[                  {name:'为什么 B2B 高端制造行业绝不\n能依赖成本加成定价？', color:'#d6e4ff', children:[]                  },                  {name:'汇川技术如何用 “价值” 对抗\n价格战？', color:'#d6e4ff', children:[]                  },                  {name:'面对预算有限的小微企业，应如\n何设计阶梯定价、版本定价、租...', color:'#d6e4ff', children:[]                  },                  {name:'从课程思政角度，分析 “价值\n定价” 对中国制造业高质量发...', color:'#d6e4ff', children:[]                  },                  {name:'【思考题1】 为什么B2B高端制\n造行业绝不能依赖成本加成定价...', color:'#d6e4ff', children:[]                  },                  {name:'答案：因为成本加成定价完全忽\n略了客户价值。B2B客户采购设...', color:'#d6e4ff', children:[]                  },                  {name:'【思考题2】 汇川技术如何用“\n价值”对抗价格战？', color:'#d6e4ff', children:[]                  },                  {name:'答案：汇川通过三个方面构建价\n值：第一，技术价值——产品性...', color:'#d6e4ff', children:[]                  },                  {name:'【思考题3】 面对预算有限的小\n微企业，应如何设计阶梯定价、...', color:'#d6e4ff', children:[]                  },                  {name:'答案：可以推出“精简版”设备\n（减少部分非核心功能，价格降...', color:'#d6e4ff', children:[]                  },                  {name:'【思考题4】 从课程思政角度，\n分析“价值定价”对中国制造业...', color:'#d6e4ff', children:[]                  },                  {name:'答案：价值定价鼓励企业依靠技\n术创新、品质提升和服务优化来...', color:'#d6e4ff', children:[]                  }                ]                }              ]              },              {name:'6.5 国际市场定价（园区跨境企\n业必备）', color:'#1677ff', children:[                {name:'6.5.1 国际定价核心影响因素', color:'#4096ff', collapsed:true, children:[                  {name:'苏州工业园区的跨境电商企业在\n制定国际定价时，必须综合评估...', color:'#d6e4ff', children:[]                  }                ]                },                {name:'6.5.2 国际定价三种策略', color:'#4096ff', collapsed:true, children:[                  {name:'全球统一定价是指企业在所有国\n家销售相同产品、相同货币价格...', color:'#d6e4ff', children:[]                  },                  {name:'市场差异化定价是最常用的策略，\n企业根据不同国家的购买力、竞...', color:'#d6e4ff', children:[]                  },                  {name:'成本加成出口定价是指企业在国\n内成本基础上加上出口相关的成...', color:'#d6e4ff', children:[]                  },                  {name:'苏州工业园区一家医疗器械公司\n苏州康多，研发了一款便携式心...', color:'#d6e4ff', children:[]                  },                  {name:'印度市场：建议采用市场差异化\n定价中的“低价渗透”策略。因...', color:'#d6e4ff', children:[]                  },                  {name:'德国市场：建议采用价值定价（\n属市场差异化策略）。德国客户...', color:'#d6e4ff', children:[]                  }                ]                },                {name:'6.5.3 汇率与报价计算', color:'#4096ff', collapsed:true, children:[                  {name:'汇率波动是出口企业面临的主要\n风险之一。', color:'#d6e4ff', children:[]                  },                  {name:'外币报价 = 人民币价格 ÷ 汇\n率', color:'#d6e4ff', children:[]                  },                  {name:'苏州工业园区一家服装出口企业\n苏州苏豪，接到美国客户订单...', color:'#d6e4ff', children:[]                  },                  {name:'若不采取措施：3个月后汇率6.8，\n100万美元兑换680万元人民币；...', color:'#d6e4ff', children:[]                  },                  {name:'方法一：远期锁汇——与银行签\n订3个月远期结汇协议，锁定汇...', color:'#d6e4ff', children:[]                  },                  {name:'方法二：合同保值条款——在合\n同中加入“汇率波动超过2%时重...', color:'#d6e4ff', children:[]                  },                  {name:'其他方法：提前收汇（要求客户\n预付款），或通过出口信用保险...', color:'#d6e4ff', children:[]                  }                ]                },                {name:'6.5.4 反倾销与合规底线', color:'#4096ff', collapsed:true, children:[                  {name:'反倾销是指进口国政府对低于正\n常价值销售的出口产品征收额外...', color:'#d6e4ff', children:[]                  },                  {name:'苏州工业园区某铝制品出口企业，\n向欧盟出口铝制散热片。欧盟竞...', color:'#d6e4ff', children:[]                  }                ]                }              ]              },              {name:'6.6 数字化时代定价新趋势（大\n数据 + AI）', color:'#1677ff', children:[                {name:'6.6.1 大数据驱动的动态定价', color:'#4096ff', collapsed:true, children:[                  {name:'大数据技术使得以下定价方式成\n为可能：', color:'#d6e4ff', children:[]                  },                  {name:'价格弹性测算——通过分析历史\n订单数据和促销活动效果，量化...', color:'#d6e4ff', children:[]                  },                  {name:'用户分层定价（在合规前提下）\n——根据用户的购买历史、浏览...', color:'#d6e4ff', children:[]                  },                  {name:'实时调价——根据库存水位、时\n段、竞争对手价格、天气、事件...', color:'#d6e4ff', children:[]                  },                  {name:'促销优化——通过算法计算满减、\n折扣、优惠券的最优组合，使...', color:'#d6e4ff', children:[]                  },                  {name:'竞品监控——用爬虫技术实时抓\n取竞争对手价格，系统自动决定...', color:'#d6e4ff', children:[]                  },                  {name:'苏州工业园区一家跨境电商企业\n苏州贝宝，在亚马逊上销售婚纱...', color:'#d6e4ff', children:[]                  },                  {name:'先计算当前利润：×100 = 4500\n美元。', color:'#d6e4ff', children:[]                  },                  {name:'若降价1美元到94美元，预计销\n量=100+8=108件，利润=×108=...', color:'#d6e4ff', children:[]                  },                  {name:'若涨价1美元到96美元，预计销\n量=100-5=95件，利润=×95=46...', color:'#d6e4ff', children:[]                  },                  {name:'因此降价有利。继续计算最优价\n格？假设线性关系，设价格P，...', color:'#d6e4ff', children:[]                  }                ]                },                {name:'6.6.2 AI 智能定价应用', color:'#4096ff', children:[]                },                {name:'6.6.3 苏州工业园区企业应用场\n景', color:'#4096ff', collapsed:true, children:[                  {name:'苏州工业园区一家工业设备企业\n苏州博众精工，为手机组装线提...', color:'#d6e4ff', children:[]                  },                  {name:'对企业好处：报价效率大幅提升\n（从几天缩短到几分钟），销售...', color:'#d6e4ff', children:[]                  }                ]                }              ]              },              {name:'6.7 价格伦理与合规', color:'#1677ff', children:[                {name:'6.7.1 法律合规底线', color:'#4096ff', collapsed:true, children:[                  {name:'企业必须遵守《价格法》《反垄\n断法》《反不正当竞争法》，禁...', color:'#d6e4ff', children:[]                  }                ]                },                {name:'6.7.2 商业伦理准则', color:'#4096ff', collapsed:true, children:[                  {name:'诚信定价：明码实价、信守承诺、\n童叟无欺。', color:'#d6e4ff', children:[]                  },                  {name:'拒绝内卷：靠创新与价值竞争，\n不靠恶意低价。', color:'#d6e4ff', children:[]                  },                  {name:'共赢思维：平衡厂家、渠道、客\n户、社会利益。', color:'#d6e4ff', children:[]                  },                  {name:'长期主义：不贪图短期暴利，维\n护品牌生态。', color:'#d6e4ff', children:[]                  }                ]                }              ]              },              {name:'6.8 实训任务：苏州园林文创雪\n糕定价全案', color:'#1677ff', collapsed:true, children:[                {name:'Pricing Strategy for Suzhou \nGarden Cultural & Creative ...', color:'#d6e4ff', children:[]                },                {name:'苏州园林（拙政园、狮子林、留\n园等）是世界文化遗产，每年吸...', color:'#d6e4ff', children:[]                },                {name:'现假设你受聘于苏州园林发展股\n份有限公司，负责为拙政园·远...', color:'#d6e4ff', children:[]                },                {name:'拙政园景区内门店（游客即时消\n费，冲动购买）', color:'#d6e4ff', children:[]                },                {name:'苏州博物馆文创店（文化爱好者，\n礼品属性）', color:'#d6e4ff', children:[]                },                {name:'线上商城（“苏州园林”天猫旗\n舰店，面向全国）', color:'#d6e4ff', children:[]                },                {name:'研学团队/旅行社（批量采购，\n作为伴手礼）', color:'#d6e4ff', children:[]                },                {name:'苏州本地便利店（罗森、全家等，\n覆盖本地及外地游客）', color:'#d6e4ff', children:[]                },                {name:'你需要根据成本数据、竞争环境、\n消费者心理、渠道差异等因素，...', color:'#d6e4ff', children:[]                },                {name:'原料 3 元 + 包装 1 元 + 物流\n 1 元 = 单位变动成本 5 元。', color:'#d6e4ff', children:[]                },                {name:'计算保本价、目标毛利率 50% \n的建议售价。', color:'#d6e4ff', children:[]                },                {name:'故宫雪糕 18 元、兵马俑雪糕 \n15 元、三星堆雪糕 20 元。', color:'#d6e4ff', children:[]                },                {name:'成本导向 / 需求导向 / 竞争导\n向三选一并说明理由。', color:'#d6e4ff', children:[]                },                {name:'尾数定价、声望定价、招徕定价、\n组合定价应用。', color:'#d6e4ff', children:[]                },                {name:'景区门店、线上商城、团购、批\n发、出口定价。', color:'#d6e4ff', children:[]                },                {name:'出口美国，汇率 1 美元 = 7 元\n人民币，计算美元标价。', color:'#d6e4ff', children:[]                },                {name:'Excel 测算表 + 定价报告 + \nPPT 展示。', color:'#d6e4ff', children:[]                }              ]              },              {name:'课程思政融入要点', color:'#1677ff', children:[                {name:'高端制造的核心是价值与创新，\n不是低价倾销。国产替代的底气...', color:'#d6e4ff', children:[]                }              ]              },              {name:'本章小结', color:'#1677ff', children:[                {name:'本章系统构建了从定价原理、方\n法、策略、国际定价到数字化定...', color:'#d6e4ff', children:[]                },                {name:'价格不是简单数字，而是战略、\n价值、竞争、成本、需求、法律...', color:'#d6e4ff', children:[]                },                {name:'本章以汇川技术为标杆案例，深\n度诠释了高端制造、国产替代、...', color:'#d6e4ff', children:[]                },                {name:'在课程思政层面，本章强调合规\n经营、诚信定价、创新驱动、拒...', color:'#d6e4ff', children:[]                }              ]              }            ]            };
+
+showStatus('正在渲染节点...', 'loading');
+
+// ============ CONSTANTS ============
+var NODE_W = 200, NODE_H = 44, H_GAP = 32, V_GAP = 16, CORNER_R = 8;
+var svgEl = document.getElementById('svg');
+var NS = 'http://www.w3.org/2000/svg';
+
+// ============ HELPERS ============
+function isLight(hex){
+  var r=parseInt(hex.slice(1,3),16),g=parseInt(hex.slice(3,5),16),b=parseInt(hex.slice(5,7),16);
+  return(r*299+g*587+b*114)/1000>160;
+}
+function darken(hex,amt){
+  var r=Math.max(0,parseInt(hex.slice(1,3),16)*(1-amt));
+  var g=Math.max(0,parseInt(hex.slice(3,5),16)*(1-amt));
+  var b=Math.max(0,parseInt(hex.slice(5,7),16)*(1-amt));
+  return '#'+[r,g,b].map(function(v){return Math.round(v).toString(16).padStart(2,'0')}).join('');
+}
+
+// ============ LAYOUT ============
+var flatNodes=[], flatLinks=[];
+
+function initCollapsed(d){
+  if(d.collapsed!==undefined)d._collapsed=d.collapsed;
+  else d._collapsed=false;
+  if(d.children)d.children.forEach(initCollapsed);
+}
+
+function layout(){
+  flatNodes=[];flatLinks=[];
+  initCollapsed(treeData);
+  var W=window.innerWidth, H=window.innerHeight;
+  var rootX=120;
+
+  function place(d,depth,yStart,ySpan){
+    var x=rootX+depth*(NODE_W+H_GAP);
+    var nKids=(d.children&&!d._collapsed)?d.children.length:1;
+    var leafSpan=ySpan/nKids;
+    var y=yStart+ySpan/2;
+    var node={
+      id:flatNodes.length, name:d.name, color:d.color||'#595959',
+      emph:!!d.emph, x:x, y:y, w:NODE_W, h:NODE_H, depth:depth,
+      hasKids:!!(d.children&&d.children.length>0), collapsed:!!d._collapsed
+    };
+    d._node=node;
+    flatNodes.push(node);
+    if(d.children&&!d._collapsed){
+      for(var i=0;i<d.children.length;i++){
+        var child=d.children[i];
+        place(child,depth+1,yStart+i*leafSpan,leafSpan);
+        flatLinks.push({s:node.id,t:child._node.id});
+      }
+    }
+  }
+  place(treeData,0,80,H-160);
+
+  // Fix overlaps
+  var byDepth={};
+  flatNodes.forEach(function(n){
+    if(!byDepth[n.depth])byDepth[n.depth]=[];
+    byDepth[n.depth].push(n);
+  });
+  for(var key in byDepth){
+    var arr=byDepth[key];
+    arr.sort(function(a,b){return a.y-b.y});
+    for(var i=1;i<arr.length;i++){
+      if(arr[i].y-arr[i-1].y<NODE_H+V_GAP) arr[i].y=arr[i-1].y+NODE_H+V_GAP;
+    }
+  }
+}
+
+// ============ RENDER ============
+var mainG, linkG, nodeG;
+
+function render(){
+  while(svgEl.firstChild)svgEl.removeChild(svgEl.firstChild);
+
+  var defs=document.createElementNS(NS,'defs');
+  var filter=document.createElementNS(NS,'filter');
+  filter.setAttribute('id','sd');
+  filter.setAttribute('x','-10%');filter.setAttribute('y','-10%');
+  filter.setAttribute('width','130%');filter.setAttribute('height','130%');
+  var fe=document.createElementNS(NS,'feDropShadow');
+  fe.setAttribute('dx','1');fe.setAttribute('dy','2');
+  fe.setAttribute('stdDeviation','3');fe.setAttribute('flood-opacity','0.12');
+  filter.appendChild(fe);defs.appendChild(filter);
+  svgEl.appendChild(defs);
+
+  mainG=document.createElementNS(NS,'g');
+  svgEl.appendChild(mainG);
+
+  linkG=document.createElementNS(NS,'g');
+  linkG.setAttribute('class','links');
+  mainG.appendChild(linkG);
+
+  nodeG=document.createElementNS(NS,'g');
+  nodeG.setAttribute('class','nodes');
+  mainG.appendChild(nodeG);
+
+  // Links
+  var linkSet={};
+  flatLinks.forEach(function(l){linkSet[l.s+'-'+l.t]={s:l.s,t:l.t}});
+  for(var k in linkSet){
+    var l=linkSet[k];
+    var s=flatNodes[l.s], t=flatNodes[l.t];
+    var sx=s.x+NODE_W, sy=s.y+NODE_H/2, ex=t.x, ey=t.y+NODE_H/2;
+    var mx=(sx+ex)/2;
+    var d='M'+sx+','+sy+' C'+mx+','+sy+' '+mx+','+ey+' '+ex+','+ey;
+    var p=document.createElementNS(NS,'path');
+    p.setAttribute('d',d);
+    p.setAttribute('fill','none');
+    p.setAttribute('stroke','#c0c0c0');
+    p.setAttribute('stroke-width','1.5');
+    p.setAttribute('stroke-opacity','0.6');
+    p.setAttribute('data-s',l.s);
+    p.setAttribute('data-t',l.t);
+    linkG.appendChild(p);
+  }
+
+  // Nodes
+  flatNodes.forEach(function(n){
+    var g=document.createElementNS(NS,'g');
+    g.setAttribute('transform','translate('+n.x+','+n.y+')');
+    g.setAttribute('class','node');
+    g.style.cursor=n.hasKids?'pointer':'default';
+    g.setAttribute('data-id',n.id);
+    g.addEventListener('click',function(ev){ev.stopPropagation();toggleNode(n);});
+
+    var rect=document.createElementNS(NS,'rect');
+    rect.setAttribute('width',n.w);
+    rect.setAttribute('height',n.h);
+    rect.setAttribute('rx',CORNER_R);
+    rect.setAttribute('ry',CORNER_R);
+    rect.setAttribute('fill',n.emph?darken(n.color,0.08):n.color);
+    rect.setAttribute('stroke',n.emph?darken(n.color,0.2):'rgba(0,0,0,0.08)');
+    rect.setAttribute('stroke-width',n.emph?'2.5':'1');
+    rect.setAttribute('filter','url(#sd)');
+    g.appendChild(rect);
+
+    // Collapse indicator
+    if(n.hasKids){
+      var cx=n.w-14, cy=n.h/2;
+      var circle=document.createElementNS(NS,'circle');
+      circle.setAttribute('cx',cx);circle.setAttribute('cy',cy);circle.setAttribute('r','8');
+      circle.setAttribute('fill','rgba(255,255,255,0.35)');
+      circle.setAttribute('stroke','rgba(255,255,255,0.6)');
+      circle.setAttribute('stroke-width','1');
+      g.appendChild(circle);
+      var txt=document.createElementNS(NS,'text');
+      txt.setAttribute('x',cx);txt.setAttribute('y',cy);
+      txt.setAttribute('dy','0.35em');
+      txt.setAttribute('text-anchor','middle');
+      txt.setAttribute('fill','#fff');
+      txt.setAttribute('font-size','11');
+      txt.setAttribute('font-weight','bold');
+      txt.textContent=n.collapsed?'+':'−';
+      g.appendChild(txt);
+    }
+
+    // Text
+    var lines=n.name.split('\n');
+    var fs=lines.length>3?10:lines.length>2?11:12;
+    var tc=isLight(n.color)?'#1a1a1a':'#fff';
+    var totalH=lines.length*(fs+3)-3;
+    lines.forEach(function(line,i){
+      var ty=n.h/2-totalH/2+i*(fs+3)+fs*0.35;
+      var txt=document.createElementNS(NS,'text');
+      txt.setAttribute('x',n.hasKids?'14':n.w/2);
+      txt.setAttribute('y',ty);
+      txt.setAttribute('text-anchor',n.hasKids?'start':'middle');
+      txt.setAttribute('fill',tc);
+      txt.setAttribute('font-size',fs);
+      txt.setAttribute('font-weight',n.emph?'bold':'normal');
+      txt.setAttribute('font-family','Microsoft YaHei,PingFang SC,sans-serif');
+      txt.textContent=line;
+      g.appendChild(txt);
+    });
+
+    nodeG.appendChild(g);
+  });
+}
+
+// ============ TREE OPS ============
+function findData(d,id){
+  if(d._node&&d._node.id===id)return d;
+  if(d.children)for(var i=0;i<d.children.length;i++){var r=findData(d.children[i],id);if(r)return r;}
+  return null;
+}
+
+function toggleNode(node){
+  var d=findData(treeData,node.id);
+  if(d&&d.children&&d.children.length>0){
+    d._collapsed=!d._collapsed;
+    layout();render();applyTransform();
+    var q=document.getElementById('searchInput').value.trim();
+    if(q)highlight(q);
+  }
+}
+
+function expandAll(){
+  (function e(d){d._collapsed=false;if(d.children)d.children.forEach(e);})(treeData);
+  layout();render();applyTransform();
+}
+function collapseAll(){
+  (function c(d,dp){if(dp>=2)d._collapsed=true;if(d.children)d.children.forEach(function(ch){c(ch,dp+1)});})(treeData,0);
+  layout();render();applyTransform();
+}
+
+// ============ SEARCH ============
+function highlight(q){
+  q=q.toLowerCase();
+  var match=[];
+  flatNodes.forEach(function(n){if(n.name.toLowerCase().indexOf(q)>=0)match[n.id]=true;});
+  var ng=nodeG.querySelectorAll('.node');
+  for(var i=0;i<ng.length;i++){
+    var id=parseInt(ng[i].getAttribute('data-id'));
+    ng[i].style.opacity=match[id]?'1':'0.15';
+  }
+  var lp=linkG.querySelectorAll('path');
+  for(var i=0;i<lp.length;i++){
+    var s=parseInt(lp[i].getAttribute('data-s'));
+    var t=parseInt(lp[i].getAttribute('data-t'));
+    lp[i].setAttribute('stroke-opacity',(match[s]||match[t])?'0.6':'0.06');
+  }
+}
+function clearHighlight(){
+  var ng=nodeG.querySelectorAll('.node');
+  for(var i=0;i<ng.length;i++)ng[i].style.opacity='1';
+  var lp=linkG.querySelectorAll('path');
+  for(var i=0;i<lp.length;i++)lp[i].setAttribute('stroke-opacity','0.6');
+}
+
+// ============ ZOOM & PAN ============
+var tx=0, ty=0, scale=1;
+
+function applyTransform(){
+  mainG.setAttribute('transform','translate('+tx+','+ty+') scale('+scale+')');
+}
+
+var panning=false, panSX=0, panSY=0, panTX=0, panTY=0;
+
+svgEl.addEventListener('mousedown',function(ev){
+  if(ev.target===svgEl||ev.target.tagName==='svg'||ev.target===mainG){
+    panning=true;panSX=ev.clientX;panSY=ev.clientY;panTX=tx;panTY=ty;
+    svgEl.style.cursor='grabbing';
+  }
+});
+window.addEventListener('mousemove',function(ev){
+  if(!panning)return;
+  tx=panTX+(ev.clientX-panSX);ty=panTY+(ev.clientY-panSY);
+  applyTransform();
+});
+window.addEventListener('mouseup',function(){panning=false;svgEl.style.cursor='';});
+svgEl.addEventListener('wheel',function(ev){
+  ev.preventDefault();
+  var ds=ev.deltaY>0?0.9:1.1;
+  var ns=Math.min(3,Math.max(0.15,scale*ds));
+  var mx=ev.clientX,my=ev.clientY;
+  tx=mx-(mx-tx)*(ns/scale);
+  ty=my-(my-ty)*(ns/scale);
+  scale=ns;
+  applyTransform();
+},{passive:false});
+
+function fitView(){
+  var bb=mainG.getBBox();
+  var W=window.innerWidth,H=window.innerHeight,pad=80;
+  scale=Math.min(W/(bb.width+pad*2),H/(bb.height+pad*2),1.2);
+  tx=(W-bb.width*scale)/2-bb.x*scale;
+  ty=(H-bb.height*scale)/2-bb.y*scale;
+  applyTransform();
+}
+
+// ============ INIT ============
+layout();
+render();
+applyTransform();
+setTimeout(function(){
+  fitView();
+  showStatus('✅ 思维导图已就绪', 'ok');
+  setTimeout(function(){statusEl.style.display='none';},1500);
+},200);
+
+document.getElementById('btnFit').addEventListener('click',fitView);
+document.getElementById('btnExpand').addEventListener('click',expandAll);
+document.getElementById('btnCollapse').addEventListener('click',collapseAll);
+document.getElementById('searchInput').addEventListener('input',function(){
+  var q=this.value.trim();
+  if(q)highlight(q);else clearHighlight();
+});
+
+var rt;
+window.addEventListener('resize',function(){
+  clearTimeout(rt);
+  rt=setTimeout(function(){layout();render();applyTransform();},200);
+});
+
+// Success
+console.log('MindMap: rendered '+flatNodes.length+' nodes, '+flatLinks.length+' links');
+
+}catch(e){
+  showStatus('⚠️ 加载失败: '+e.message, 'err');
+  console.error(e);
+}
+})();
+</script>
+</body>
+</html>

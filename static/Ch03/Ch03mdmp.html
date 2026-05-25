@@ -1,0 +1,396 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>第三章 消费者行为分析 — 思维导图</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{
+  font-family:"Microsoft YaHei","PingFang SC",sans-serif;
+  background:#f0f2f5;
+  overflow:hidden;height:100vh;width:100vw;
+  user-select:none;-webkit-user-select:none;
+}
+svg{width:100%;height:100%;position:absolute;top:0;left:0}
+#toolbar{position:fixed;top:16px;right:16px;z-index:100;display:flex;gap:8px}
+#toolbar button{
+  padding:8px 16px;border:1px solid #d9d9d9;background:#fff;
+  border-radius:6px;cursor:pointer;font-size:13px;font-family:inherit;
+  box-shadow:0 1px 4px rgba(0,0,0,.08);transition:all .2s;
+}
+#toolbar button:hover{background:#1677ff;color:#fff;border-color:#1677ff}
+#search{position:fixed;top:16px;left:16px;z-index:100}
+#search input{
+  padding:8px 14px;border:1px solid #d9d9d9;border-radius:20px;
+  width:240px;font-size:13px;font-family:inherit;outline:none;
+  box-shadow:0 1px 4px rgba(0,0,0,.08);transition:border-color .2s;
+}
+#search input:focus{border-color:#1677ff}
+#info{
+  position:fixed;bottom:16px;right:16px;z-index:100;
+  background:#fff;padding:6px 12px;border-radius:6px;
+  box-shadow:0 1px 6px rgba(0,0,0,.1);font-size:11px;color:#888;
+}
+#legend{
+  position:fixed;bottom:16px;left:16px;z-index:100;
+  background:#fff;padding:10px 16px;border-radius:8px;
+  box-shadow:0 1px 6px rgba(0,0,0,.1);font-size:12px;
+  display:flex;gap:14px;flex-wrap:wrap;
+}
+.li{display:flex;align-items:center;gap:6px}
+.ld{width:12px;height:12px;border-radius:50%}
+#status{
+  position:fixed;top:50%;left:50%;transform:translate(-50%,-50%);
+  background:#fff;padding:20px 40px;border-radius:12px;z-index:200;
+  box-shadow:0 4px 20px rgba(0,0,0,.15);font-size:16px;text-align:center;
+}
+#status.ok{color:#52c41a}
+#status.err{color:#f5222d}
+#status.loading{color:#1677ff}
+</style>
+</head>
+<body>
+
+<div id="status" class="loading">正在加载思维导图...</div>
+
+<div id="toolbar">
+  <button id="btnFit">适应画面</button>
+  <button id="btnExpand">全部展开</button>
+  <button id="btnCollapse">全部收起</button>
+</div>
+<div id="search">
+  <input type="text" id="searchInput" placeholder="搜索节点...">
+</div>
+<div id="legend">
+  <span class="li"><span class="ld" style="background:#1677ff"></span>核心概念</span>
+  <span class="li"><span class="ld" style="background:#52c41a"></span>观念演变</span>
+  <span class="li"><span class="ld" style="background:#fa8c16"></span>案例分析</span>
+  <span class="li"><span class="ld" style="background:#722ed1"></span>国际化趋势</span>
+  <span class="li"><span class="ld" style="background:#eb2f96"></span>跨文化营销</span>
+  <span class="li"><span class="ld" style="background:#13c2c2"></span>实训/练习</span>
+</div>
+<div id="info">拖拽平移 · 滚轮缩放 · 点击节点展开/收起</div>
+
+<svg id="svg"></svg>
+
+<script>
+(function(){
+var statusEl = document.getElementById('status');
+function showStatus(msg, cls){
+  statusEl.textContent = msg;
+  statusEl.className = cls;
+}
+try {
+
+// ============ TREE DATA ============
+var treeData = {name:'第三章 消费者行为分析', color:'#f5222d', children:[              {name:'Consumer Behavior Analysis', color:'#1677ff', children:[]              },              {name:'学习目标', color:'#1677ff', children:[                {name:'知识目标', color:'#4096ff', collapsed:true, children:[                  {name:'1、熟练掌握刺激—反应模型的\n构成要素、运行逻辑及其在数字...', color:'#d6e4ff', children:[]                  },                  {name:'2、精准理解并区分文化因素、\n社会因素、个人因素与心理因素...', color:'#d6e4ff', children:[]                  },                  {name:'3、系统掌握消费者市场、产业\n市场、中间商市场与政府市场的...', color:'#d6e4ff', children:[]                  },                  {name:'4、深入理解跨文化消费行为的\n差异逻辑、文化适应理论与营销...', color:'#d6e4ff', children:[]                  },                  {name:'5、熟悉大数据分析、人工智能、\n用户画像、情感计算等现代技术...', color:'#d6e4ff', children:[]                  }                ]                },                {name:'能力目标', color:'#4096ff', collapsed:true, children:[                  {name:'1、能够运用刺激—反应模型与\n影响因素分析框架，对真实消费...', color:'#d6e4ff', children:[]                  },                  {name:'2、能够针对苏州工业园区内不\n同人群——包括白领、外籍人士...', color:'#d6e4ff', children:[]                  },                  {name:'3、能够结合跨文化理论，为企\n业制定兼顾国际化与本地化的协...', color:'#d6e4ff', children:[]                  },                  {name:'4、能够运用基础数据分析工具\n完成消费者行为分析、需求挖掘...', color:'#d6e4ff', children:[]                  },                  {name:'5、能够区分 B2C 与 B2B 购买\n行为的本质差异，为企业客户制...', color:'#d6e4ff', children:[]                  }                ]                },                {name:'素养目标（课程思政）', color:'#4096ff', collapsed:true, children:[                  {name:'1、树立以消费者为中心、诚信\n经营、理性营销的职业价值观，...', color:'#d6e4ff', children:[]                  },                  {name:'2、强化文化自信与文化尊重意\n识，培养跨文化包容能力，尊重...', color:'#d6e4ff', children:[]                  },                  {name:'3、培养理性消费、绿色消费与\n可持续消费理念，自觉践行社会...', color:'#d6e4ff', children:[]                  },                  {name:'4、立足苏州工业园区产业特色，\n树立服务地方经济、赋能实体企...', color:'#d6e4ff', children:[]                  },                  {name:'5、坚守法治意识与契约精神，\n维护消费者合法权益，树立正确...', color:'#d6e4ff', children:[]                  }                ]                }              ]              },              {name:'3.1 消费者购买行为模式', color:'#1677ff', children:[                {name:'> 前置知识提示： 本节是全章\n的理论基础。学习前需了解市场...', color:'#d6e4ff', children:[]                },                {name:'消费者购买行为是市场营销学研\n究的核心议题之一。理解消费者...', color:'#d6e4ff', children:[]                },                {name:'3.1.1 刺激—反应模型（S-R 模\n型）', color:'#4096ff', collapsed:true, children:[                  {name:'3.1.1.1 模型构成要素', color:'#69b1ff', collapsed:true, children:[                    {name:'刺激—反应模型（Stimulus-\nResponse Model，简称 S-R 模...', color:'#d6e4ff', children:[]                    },                    {name:'S-R 模型由三个基本环节构成：\n刺激输入、黑箱过程与反应输出...', color:'#d6e4ff', children:[]                    },                    {name:'（一）刺激输入', color:'#d6e4ff', children:[]                    },                    {name:'刺激是引发消费者心理活动与行\n为反应的起点，是整个模型的驱...', color:'#d6e4ff', children:[]                    },                    {name:'（二）黑箱过程', color:'#d6e4ff', children:[]                    },                    {name:'黑箱是 S-R 模型中最为关键也\n最难以直接观测的环节，指消费...', color:'#d6e4ff', children:[]                    },                    {name:'黑箱过程主要包含两个层面的内\n容：', color:'#d6e4ff', children:[]                    },                    {name:'其一是消费者特征。消费者的文\n化背景、社会阶层、个性特质、...', color:'#d6e4ff', children:[]                    },                    {name:'其二是决策过程。消费者从接收\n刺激到做出购买行为，通常需要...', color:'#d6e4ff', children:[]                    },                    {name:'（三）反应输出', color:'#d6e4ff', children:[]                    },                    {name:'反应输出是黑箱处理后形成的最\n终行为结果，也是企业营销活动...', color:'#d6e4ff', children:[]                    }                  ]                  },                  {name:'3.1.1.2 模型的现代应用：数字\n化时代升级', color:'#69b1ff', collapsed:true, children:[                    {name:'在移动互联网、大数据与人工智\n能全面渗透的当代商业环境中，...', color:'#d6e4ff', children:[]                    },                    {name:'在刺激输入层面，数字化技术极\n大地丰富了刺激的形式与精准度...', color:'#d6e4ff', children:[]                    },                    {name:'在反应输出层面，消费者已从被\n动的信息接收者转变为实时互动...', color:'#d6e4ff', children:[]                    }                  ]                  },                  {name:'3.1.1.3 模型局限性与现代发展', color:'#69b1ff', collapsed:true, children:[                    {name:'尽管 S-R 模型为消费者行为分\n析提供了简洁有力的框架，但其...', color:'#d6e4ff', children:[]                    },                    {name:'首先，该模型倾向于将消费者行\n为简化为理性的信息处理过程，...', color:'#d6e4ff', children:[]                    }                  ]                  }                ]                },                {name:'3.1.2 消费者购买行为类型', color:'#4096ff', collapsed:true, children:[                  {name:'本节从 S-R 模型中"购买者黑箱\n"维度（消费者介入程度）与"刺...', color:'#d6e4ff', children:[]                  },                  {name:'（一）复杂购买行为', color:'#d6e4ff', children:[]                  },                  {name:'（二）化解不协调购买行为', color:'#d6e4ff', children:[]                  },                  {name:'（三）寻求多样化购买行为', color:'#d6e4ff', children:[]                  },                  {name:'（四）习惯性购买行为', color:'#d6e4ff', children:[]                  },                  {name:'当消费者面对价格低廉、品牌差\n异微小且购买频率极高的产品时...', color:'#d6e4ff', children:[]                  },                  {name:'上述四种购买行为类型并非绝对\n固定，同一消费者在不同产品类...', color:'#d6e4ff', children:[]                  },                  {name:'> 即学即练（5分钟）： 请判断\n以下三个购买场景分别属于哪种...', color:'#d6e4ff', children:[]                  },                  {name:'> 本节学习检查点： ①能否画\n出S-R模型的三环节结构并解释...', color:'#d6e4ff', children:[]                  }                ]                }              ]              },              {name:'3.2 影响消费者购买行为的四大\n因素', color:'#1677ff', collapsed:true, children:[                {name:'> 前置知识提示： 本节需要读\n者已掌握3.1节S-R模型的基本构...', color:'#d6e4ff', children:[]                },                {name:'消费者的购买行为并非孤立的个\n体决策，而是受到多重因素交织...', color:'#d6e4ff', children:[]                },                {name:'3.2.1 文化因素', color:'#4096ff', collapsed:true, children:[                  {name:'文化因素是影响消费者行为最为\n底层、最为广泛且最为持久的力...', color:'#d6e4ff', children:[]                  },                  {name:'3.2.1.1 文化与亚文化', color:'#69b1ff', collapsed:true, children:[                    {name:'反文化 是指对主流价值观持批\n判或背离态度的群体所形成的文...', color:'#d6e4ff', children:[]                    }                  ]                  },                  {name:'3.2.1.2 中国文化核心消费特征', color:'#69b1ff', collapsed:true, children:[                    {name:'中国文化具有深厚的历史积淀与\n独特的价值体系，对消费者行为...', color:'#d6e4ff', children:[]                    },                    {name:'面子文化 是中国消费行为中最\n具标识性的文化特征之一。"面...', color:'#d6e4ff', children:[]                    },                    {name:'关系导向 是中国社会运行的基\n本逻辑之一，深刻影响着消费者...', color:'#d6e4ff', children:[]                    },                    {name:'家庭观念 在中国消费决策中占\n据核心地位。家庭是最重要的消...', color:'#d6e4ff', children:[]                    },                    {name:'中庸思想 使中国消费者在购买\n决策中倾向于规避极端选择，偏...', color:'#d6e4ff', children:[]                    },                    {name:'从众倾向 在中国消费市场中表\n现尤为突出。消费者容易受到群...', color:'#d6e4ff', children:[]                    }                  ]                  },                  {name:'3.2.1.3 园区国际化社区文化消\n费特征', color:'#69b1ff', collapsed:true, children:[                    {name:'苏州工业园区（Suzhou \nIndustrial Park，简称 SIP）...', color:'#d6e4ff', children:[]                    },                    {name:'其一，国际化程度高。园区聚集\n了大量外籍人士、海归群体与跨...', color:'#d6e4ff', children:[]                    },                    {name:'其二，高知高收入群体集中。园\n区内高学历、高收入、高科技从...', color:'#d6e4ff', children:[]                    },                    {name:'其三，开放包容的消费心态。园\n区居民对新事物、新品牌与新消...', color:'#d6e4ff', children:[]                    },                    {name:'其四，重视教育、科技与生活品\n质。园区消费者在教育培训、科...', color:'#d6e4ff', children:[]                    }                  ]                  }                ]                },                {name:'3.2.2 社会因素', color:'#4096ff', collapsed:true, children:[                  {name:'社会因素是指消费者所处的社会\n关系网络与群体环境对其购买行...', color:'#d6e4ff', children:[]                  },                  {name:'3.2.2.1 参照群体', color:'#69b1ff', collapsed:true, children:[                    {name:'参照群体是指直接或间接影响消\n费者态度、行为与偏好的个人或...', color:'#d6e4ff', children:[]                    },                    {name:'在数字化时代，参照群体的影响\n机制发生了深刻变化。社交媒体...', color:'#d6e4ff', children:[]                    }                  ]                  },                  {name:'3.2.2.2 家庭影响', color:'#69b1ff', collapsed:true, children:[                    {name:'家庭是消费者行为研究中最重要\n的社会单位。家庭不仅是最基本...', color:'#d6e4ff', children:[]                    },                    {name:'家庭决策模式 因文化背景、家\n庭结构与产品类型的不同而呈现...', color:'#d6e4ff', children:[]                    },                    {name:'代际传递 是家庭影响消费行为\n的另一重要机制。消费习惯、品...', color:'#d6e4ff', children:[]                    }                  ]                  },                  {name:'3.2.2.3 社会阶层', color:'#69b1ff', collapsed:true, children:[                    {name:'社会阶层是由收入水平、教育程\n度、职业声望与社会权力等多重...', color:'#d6e4ff', children:[]                    },                    {name:'上层消费者通常偏好奢侈品、稀\n缺性商品与高端定制服务，消费...', color:'#d6e4ff', children:[]                    },                    {name:'需要指出的是，社会阶层对消费\n行为的影响并非机械决定的。随...', color:'#d6e4ff', children:[]                    }                  ]                  }                ]                },                {name:'3.2.3 个人因素', color:'#4096ff', collapsed:true, children:[                  {name:'个人因素是指消费者自身的人口\n统计特征、生活方式与个性特质...', color:'#d6e4ff', children:[]                  },                  {name:'3.2.3.1 人口统计特征', color:'#69b1ff', collapsed:true, children:[                    {name:'人口统计变量是描述消费者个体\n特征最基础、最直观的指标体系...', color:'#d6e4ff', children:[]                    },                    {name:'性别 差异在消费行为中的表现\n涉及审美偏好、功能需求、信息...', color:'#d6e4ff', children:[]                    },                    {name:'收入水平 直接决定消费者的购\n买力边界，进而影响其价格敏感...', color:'#d6e4ff', children:[]                    },                    {name:'教育程度 影响消费者的信息处\n理能力、理性决策程度与审美品...', color:'#d6e4ff', children:[]                    },                    {name:'职业 决定了消费者的工作场景、\n时间结构与功能需求，进而影响...', color:'#d6e4ff', children:[]                    }                  ]                  },                  {name:'3.2.3.2 生活方式（AIO 模型）', color:'#69b1ff', collapsed:true, children:[                    {name:'生活方式是消费者在日常生活中\n所表现出的活动模式、兴趣取向...', color:'#d6e4ff', children:[]                    },                    {name:'AIO 模型是生活方式研究中最经\n典的分析框架，从三个维度刻画...', color:'#d6e4ff', children:[]                    },                    {name:'活动 维度关注消费者的日常行\n为模式，包括工作方式、运动习...', color:'#d6e4ff', children:[]                    },                    {name:'兴趣 维度关注消费者持续关注\n与投入热情的领域，包括科技、...', color:'#d6e4ff', children:[]                    },                    {name:'意见 维度关注消费者对社会议\n题、家庭关系、消费观念、品牌...', color:'#d6e4ff', children:[]                    },                    {name:'通过 AIO 模型的综合分析，企\n业可以识别出具有相似生活方式...', color:'#d6e4ff', children:[]                    }                  ]                  },                  {name:'3.2.3.3 个性与自我概念', color:'#69b1ff', collapsed:true, children:[                    {name:'自我一致性理论 指出，消费者\n倾向于购买与自我形象一致的品...', color:'#d6e4ff', children:[]                    },                    {name:'延伸自我 概念由消费者行为学\n家拉塞尔·贝尔克提出，认为消...', color:'#d6e4ff', children:[]                    }                  ]                  }                ]                },                {name:'3.2.4 心理因素', color:'#4096ff', collapsed:true, children:[                  {name:'心理因素是消费者购买行为最直\n接的内在驱动力量，包括动机、...', color:'#d6e4ff', children:[]                  },                  {name:'3.2.4.1 动机理论', color:'#69b1ff', collapsed:true, children:[                    {name:'动机是驱使消费者采取行动以满\n足某种需要的内在力量。当需要...', color:'#d6e4ff', children:[]                    },                    {name:'成就动机理论 关注消费者追求\n成功、地位、掌控感与卓越表现...', color:'#d6e4ff', children:[]                    }                  ]                  },                  {name:'3.2.4.2 感知过程', color:'#69b1ff', collapsed:true, children:[                    {name:'感知是消费者选择、组织与解释\n外部信息以形成有意义认知的心...', color:'#d6e4ff', children:[]                    },                    {name:'选择性注意 是指消费者在面对\n海量信息时，仅关注与自身需求...', color:'#d6e4ff', children:[]                    },                    {name:'选择性理解 是指消费者倾向于\n按照自身既有的经验框架、立场...', color:'#d6e4ff', children:[]                    },                    {name:'选择性记忆 是指消费者倾向于\n记住支持自身态度与信念的信息...', color:'#d6e4ff', children:[]                    },                    {name:'感知的选择性机制对营销传播具\n有重要启示：企业的信息传递必...', color:'#d6e4ff', children:[]                    }                  ]                  },                  {name:'3.2.4.3 学习理论', color:'#69b1ff', collapsed:true, children:[                    {name:'学习是消费者通过经验积累而产\n生的行为或认知的持久性改变。...', color:'#d6e4ff', children:[]                    },                    {name:'经典条件反射 理论认为，通过\n将品牌与特定的情绪、符号或场...', color:'#d6e4ff', children:[]                    },                    {name:'操作条件反射 理论强调行为结\n果对后续行为的强化或抑制作用...', color:'#d6e4ff', children:[]                    },                    {name:'社会学习理论 由班杜拉提出，\n强调消费者通过观察他人的行为...', color:'#d6e4ff', children:[]                    }                  ]                  },                  {name:'3.2.4.4 信念与态度', color:'#69b1ff', collapsed:true, children:[                    {name:'信念 是消费者对某一事物所持\n有的描述性认知，可能基于知识...', color:'#d6e4ff', children:[]                    },                    {name:'态度 是消费者对某一对象持续\n性的正面或负面评价、情感倾向...', color:'#d6e4ff', children:[]                    },                    {name:'多属性态度模型 认为，消费者\n对产品的整体态度取决于其对产...', color:'#d6e4ff', children:[]                    },                    {name:'认知失调理论 由费斯廷格提出，\n指出消费者在购买后如果产生与...', color:'#d6e4ff', children:[]                    },                    {name:'态度的形成遵循"认知—情感—\n行为意向"的基本路径：消费者...', color:'#d6e4ff', children:[]                    },                    {name:'> 即学即练（5分钟）： 某奶茶\n品牌推出新品"0卡椰椰拿铁"，...', color:'#d6e4ff', children:[]                    },                    {name:'> 本节学习检查点： ①能否列\n举四大影响因素的层次关系（从...', color:'#d6e4ff', children:[]                    }                  ]                  }                ]                }              ]              },              {name:'3.3 组织市场购买行为', color:'#1677ff', children:[                {name:'> 前置知识提示： 本节需要读\n者已掌握S-R模型与消费者购买...', color:'#d6e4ff', children:[]                },                {name:'3.3.1 产业市场购买行为', color:'#4096ff', collapsed:true, children:[                  {name:'产业市场是指一切为了生产其他\n产品或服务而购买商品与服务的...', color:'#d6e4ff', children:[]                  },                  {name:'3.3.1.1 产业市场特征', color:'#69b1ff', collapsed:true, children:[                    {name:'产业市场在需求特征与购买特征\n两个层面均与消费者市场存在显...', color:'#d6e4ff', children:[]                    },                    {name:'购买特征方面，产业市场同样具\n有鲜明的特点。产业购买通常由...', color:'#d6e4ff', children:[]                    }                  ]                  },                  {name:'3.3.1.2 决策参与者（采购中心）', color:'#69b1ff', collapsed:true, children:[                    {name:'产业购买决策并非由单一个体完\n成，而是由一个非正式的决策群...', color:'#d6e4ff', children:[]                    },                    {name:'理解采购中心的角色构成与权力\n分布，对于产业营销人员制定有...', color:'#d6e4ff', children:[]                    }                  ]                  },                  {name:'3.3.1.3 产业购买决策八阶段', color:'#69b1ff', collapsed:true, children:[                    {name:'完整的产业购买决策过程通常包\n括八个阶段，这一模型由罗宾逊...', color:'#d6e4ff', children:[]                    },                    {name:'需要指出的是，并非所有产业购\n买都会完整经历上述八个阶段。...', color:'#d6e4ff', children:[]                    }                  ]                  },                  {name:'3.3.1.4 购买类型', color:'#69b1ff', collapsed:true, children:[                    {name:'根据购买任务的新颖程度与决策\n复杂性，产业购买可划分为三种...', color:'#d6e4ff', children:[]                    },                    {name:'新任务采购 是指组织首次购买\n某种产品或服务，缺乏相关经验...', color:'#d6e4ff', children:[]                    },                    {name:'修正重购 是指组织对现有采购\n方案进行部分调整，可能涉及产...', color:'#d6e4ff', children:[]                    },                    {name:'直接重购 是指组织按照既定的\n采购方案与供应商关系进行常规...', color:'#d6e4ff', children:[]                    }                  ]                  }                ]                },                {name:'3.3.2 中间商市场购买行为', color:'#4096ff', collapsed:true, children:[                  {name:'中间商市场是指以转售为目的而\n购买商品的组织所构成的市场，...', color:'#d6e4ff', children:[]                  },                  {name:'3.3.2.1 类型与特征', color:'#69b1ff', collapsed:true, children:[                    {name:'批发商 的购买决策主要关注周\n转效率、价格政策、供货稳定性...', color:'#d6e4ff', children:[]                    },                    {name:'零售商 的购买决策则更多地从\n终端消费者需求出发，关注产品...', color:'#d6e4ff', children:[]                    }                  ]                  },                  {name:'3.3.2.2 决策关键因素', color:'#69b1ff', collapsed:true, children:[                    {name:'中间商在选择供应商与商品时，\n通常综合考量以下关键因素：利...', color:'#d6e4ff', children:[]                    }                  ]                  },                  {name:'3.3.2.3 渠道关系管理', color:'#69b1ff', collapsed:true, children:[                    {name:'制造商与中间商之间的关系管理\n是分销策略的核心议题。有效的...', color:'#d6e4ff', children:[]                    }                  ]                  }                ]                },                {name:'3.3.3 政府市场购买行为', color:'#4096ff', collapsed:true, children:[                  {name:'政府市场是指各级政府机构与公\n共部门为履行公共职能而进行采...', color:'#d6e4ff', children:[]                  },                  {name:'3.3.3.1 核心特征', color:'#69b1ff', collapsed:true, children:[                    {name:'政府采购的核心特征可以概括为：\n公开透明，采购信息依法向社会...', color:'#d6e4ff', children:[]                    }                  ]                  },                  {name:'3.3.3.2 采购方式', color:'#69b1ff', children:[]                  },                  {name:'3.3.3.3 营销策略', color:'#69b1ff', collapsed:true, children:[                    {name:'面向政府市场的营销策略应以合\n规为基本前提，重点关注以下方...', color:'#d6e4ff', children:[]                    },                    {name:'> 即学即练（5分钟）： 某园区\n企业向一家汽车制造商供应传感...', color:'#d6e4ff', children:[]                    },                    {name:'> 本节学习检查点： ①能否列\n举组织市场与消费者市场的五个...', color:'#d6e4ff', children:[]                    }                  ]                  }                ]                }              ]              },              {name:'3.4 大数据与数字化消费者洞察', color:'#1677ff', children:[                {name:'> 前置知识提示： 本节是消费\n者行为分析的现代方法论补充。...', color:'#d6e4ff', children:[]                },                {name:'传统的消费者行为分析主要依赖\n问卷调查、焦点小组访谈与市场...', color:'#d6e4ff', children:[]                },                {name:'3.4.1 大数据分析核心维度', color:'#4096ff', collapsed:true, children:[                  {name:'大数据环境下的消费者分析通常\n围绕以下四个核心维度展开：', color:'#d6e4ff', children:[]                  },                  {name:'情感洞察 利用自然语言处理与\n情感计算技术，对消费者在电商...', color:'#d6e4ff', children:[]                  },                  {name:'人群聚类 运用机器学习算法（\n如 K-Means 聚类、层次聚类等...', color:'#d6e4ff', children:[]                  }                ]                },                {name:'3.4.2 园区典型消费者数据特征', color:'#4096ff', collapsed:true, children:[                  {name:'苏州工业园区的消费者群体在数\n据特征层面呈现出鲜明的区域特...', color:'#d6e4ff', children:[]                  },                  {name:'高知、高薪、年轻化 是园区消\n费者的基本画像特征。园区内高...', color:'#d6e4ff', children:[]                  },                  {name:'跨境消费与智能硬件消费突出 \n是园区消费者的行为特征之一。...', color:'#d6e4ff', children:[]                  },                  {name:'健康、文创与体验消费活跃 反\n映了园区消费者对生活品质的追...', color:'#d6e4ff', children:[]                  },                  {name:'外籍与海归群体的双文化消费特\n征 是园区消费数据中的独特维...', color:'#d6e4ff', children:[]                  },                  {name:'企业在利用大数据技术开展消费\n者洞察时，必须严格遵守《中华...', color:'#d6e4ff', children:[]                  },                  {name:'> 本节学习检查点： ①能否说\n出大数据消费者分析的四个核心...', color:'#d6e4ff', children:[]                  }                ]                }              ]              },              {name:'3.5 跨文化消费者行为差异', color:'#1677ff', collapsed:true, children:[                {name:'> 前置知识提示： 本节需要读\n者已掌握文化因素对消费行为的...', color:'#d6e4ff', children:[]                },                {name:'在经济全球化与国际贸易深度发\n展的背景下，企业的市场边界日...', color:'#d6e4ff', children:[]                },                {name:'3.5.1 跨文化理论基础', color:'#4096ff', collapsed:true, children:[                  {name:'3.5.1.1 霍夫斯泰德文化六维度', color:'#69b1ff', collapsed:true, children:[                    {name:'霍夫斯泰德文化维度理论是跨文\n化消费行为分析中应用最为广泛...', color:'#d6e4ff', children:[]                    },                    {name:'在跨文化营销实践中，企业可以\n通过对比目标市场与本土市场在...', color:'#d6e4ff', children:[]                    }                  ]                  },                  {name:'3.5.1.2 跨文化适应过程', color:'#69b1ff', collapsed:true, children:[                    {name:'消费者进入新的文化环境后，其\n消费行为的调整通常经历四个阶...', color:'#d6e4ff', children:[]                    },                    {name:'这一理论对于理解苏州工业园区\n内外籍人士与海归群体的消费行...', color:'#d6e4ff', children:[]                    }                  ]                  }                ]                },                {name:'3.5.2 全球主要文化圈消费特征', color:'#4096ff', collapsed:true, children:[                  {name:'3.5.2.1 东亚文化圈', color:'#69b1ff', collapsed:true, children:[                    {name:'东亚文化圈以儒家文化为共同底\n蕴，但各国在现代化进程中形成...', color:'#d6e4ff', children:[]                    },                    {name:'中国 消费市场的核心特征已在 \n3.2.1.2 节中详述，此处补充其...', color:'#d6e4ff', children:[]                    },                    {name:'日本 消费文化以精致、服务至\n上与细节追求著称。日本消费者...', color:'#d6e4ff', children:[]                    },                    {name:'韩国 消费文化深受流行文化（K\n-Pop、韩剧）与数字化生活方式...', color:'#d6e4ff', children:[]                    }                  ]                  },                  {name:'3.5.2.2 西方文化圈', color:'#69b1ff', collapsed:true, children:[                    {name:'美国 消费文化以个人主义、实\n用主义与创新导向为核心特征。...', color:'#d6e4ff', children:[]                    },                    {name:'欧洲 消费文化在整体上呈现品\n质导向、设计审美与环保意识较...', color:'#d6e4ff', children:[]                    }                  ]                  },                  {name:'3.5.2.3 中东与东南亚', color:'#69b1ff', collapsed:true, children:[                    {name:'中东 消费文化深受伊斯兰教义\n与家庭价值观的影响。清真认证...', color:'#d6e4ff', children:[]                    },                    {name:'东南亚 消费市场具有年轻化、\n移动化与高度多元化的特征。该...', color:'#d6e4ff', children:[]                    }                  ]                  }                ]                },                {name:'3.5.3 跨文化营销策略', color:'#4096ff', collapsed:true, children:[                  {name:'企业在进入异文化市场时，需要\n在标准化与本土化之间寻求适当...', color:'#d6e4ff', children:[]                  },                  {name:'产品策略 方面，企业需要根据\n目标市场的文化特征决定产品的...', color:'#d6e4ff', children:[]                  },                  {name:'促销策略 方面，广告语言、视\n觉符号、情感诉求与叙事方式均...', color:'#d6e4ff', children:[]                  },                  {name:'渠道策略 方面，不同国家与地\n区的零售业态结构、物流基础设...', color:'#d6e4ff', children:[]                  },                  {name:'价格策略 方面，企业需要综合\n考虑目标市场的购买力水平、关...', color:'#d6e4ff', children:[]                  }                ]                },                {name:'3.5.4 跨文化成功与失败案例', color:'#4096ff', collapsed:true, children:[                  {name:'成功案例 方面，星巴克在中国\n市场的本土化策略堪称典范。星...', color:'#d6e4ff', children:[]                  },                  {name:'> 本节学习检查点： ①能否说\n出霍夫斯泰德文化六维度的名称...', color:'#d6e4ff', children:[]                  }                ]                }              ]              },              {name:'3.6 课程思政融入要点', color:'#1677ff', collapsed:true, children:[                {name:'消费者行为分析不仅是一项专业\n技能，更蕴含着深刻的伦理维度...', color:'#d6e4ff', children:[]                },                {name:'诚信营销与消费者权益保护。 \n消费者行为分析的目的是更好地...', color:'#d6e4ff', children:[]                },                {name:'理性消费与绿色消费。 营销从\n业者在引导消费的同时，应当倡...', color:'#d6e4ff', children:[]                },                {name:'文化自信与国货认同。 在跨文\n化消费行为分析中，应当培养对...', color:'#d6e4ff', children:[]                },                {name:'隐私保护与数据伦理。 大数据\n消费者洞察技术的发展为企业提...', color:'#d6e4ff', children:[]                },                {name:'服务地方与社会价值创造。 立\n足苏州工业园区的产业特色与区...', color:'#d6e4ff', children:[]                }              ]              },              {name:'3.7 产教融合实战案例：消费者\n行为分析方法示范', color:'#1677ff', children:[                {name:'本节选取园区内两类代表性人群，\n完整展示消费者行为分析的方法...', color:'#d6e4ff', children:[]                },                {name:'人群一：外籍人士', color:'#4096ff', collapsed:true, children:[                  {name:'基本画像。 园区常住外籍人士\n以跨国企业管理人员、技术专家...', color:'#d6e4ff', children:[]                  },                  {name:'营销建议。 面向外籍人士的营\n销应注重多语言服务能力建设、...', color:'#d6e4ff', children:[]                  }                ]                },                {name:'人群二：科创人才', color:'#4096ff', collapsed:true, children:[                  {name:'基本画像。 园区内生物医药、\n人工智能、纳米技术、集成电路...', color:'#d6e4ff', children:[]                  },                  {name:'营销建议。 面向科创人才的营\n销应以技术实力与产品性能为核...', color:'#d6e4ff', children:[]                  }                ]                }              ]              },              {name:'3.8 实训任务', color:'#1677ff', children:[                {name:'主题', color:'#4096ff', children:[]                },                {name:'任务背景', color:'#4096ff', collapsed:true, children:[                  {name:'园区是中国国际化程度最高的开\n发区之一，区内聚集了来自不同...', color:'#d6e4ff', children:[]                  }                ]                },                {name:'可选研究群体', color:'#4096ff', collapsed:true, children:[                  {name:'本实训提供以下群体供各小组选\n择（3.7节已示范外籍人士与科...', color:'#d6e4ff', children:[]                  },                  {name:'- 海归白领： 具有海外留学或\n工作经历，25—40岁，兼具国际...', color:'#d6e4ff', children:[]                  },                  {name:'- 高校学生： 18—24岁数字原\n生代，消费能力有限但意愿活跃...', color:'#d6e4ff', children:[]                  },                  {name:'- 产业员工： 制造业与服务业\n一线员工，实用性与价格导向为...', color:'#d6e4ff', children:[]                  },                  {name:'- 其他自选群体： 如银发群体、\n新市民家庭等，需经教师审核确...', color:'#d6e4ff', children:[]                  }                ]                },                {name:'任务要求', color:'#4096ff', collapsed:true, children:[                  {name:'本实训任务以小组为单位完成（\n每组 4—5 人），具体要求如下...', color:'#d6e4ff', children:[]                  },                  {name:'第一步：消费者调研（第 1—2 \n周）。 选择园区内一个目标消...', color:'#d6e4ff', children:[]                  },                  {name:'第二步：消费者画像构建（第 3\n 周）。 基于调研数据，运用本...', color:'#d6e4ff', children:[]                  },                  {name:'第三步：营销策略制定（第 4 \n周）。 基于消费者画像分析结...', color:'#d6e4ff', children:[]                  },                  {name:'第四步：成果展示（第 5 周）。\n 各小组以 PPT 形式进行成果汇...', color:'#d6e4ff', children:[]                  }                ]                },                {name:'评分标准', color:'#4096ff', children:[]                }              ]              },              {name:'3.9 本章小结', color:'#1677ff', collapsed:true, children:[                {name:'本章以消费者行为分析为核心主\n题，系统构建了理解与分析消费...', color:'#d6e4ff', children:[]                },                {name:'在市场类型层面，本章将分析视\n野从消费者市场拓展至组织市场...', color:'#d6e4ff', children:[]                },                {name:'在国际化维度，本章以霍夫斯泰\n德文化维度理论为分析工具，系...', color:'#d6e4ff', children:[]                },                {name:'在技术应用层面，本章介绍了大\n数据分析、用户画像、情感计算...', color:'#d6e4ff', children:[]                },                {name:'在实践应用层面，本章以苏州工\n业园区为场景，对外籍人士、海...', color:'#d6e4ff', children:[]                },                {name:'消费者行为分析是市场营销学的\n理论基石。只有深入理解消费者...', color:'#d6e4ff', children:[]                }              ]              },              {name:'3.10 关键术语（中英双语）', color:'#1677ff', children:[]              }            ]            };
+
+showStatus('正在渲染节点...', 'loading');
+
+// ============ CONSTANTS ============
+var NODE_W = 200, NODE_H = 44, H_GAP = 32, V_GAP = 16, CORNER_R = 8;
+var svgEl = document.getElementById('svg');
+var NS = 'http://www.w3.org/2000/svg';
+
+// ============ HELPERS ============
+function isLight(hex){
+  var r=parseInt(hex.slice(1,3),16),g=parseInt(hex.slice(3,5),16),b=parseInt(hex.slice(5,7),16);
+  return(r*299+g*587+b*114)/1000>160;
+}
+function darken(hex,amt){
+  var r=Math.max(0,parseInt(hex.slice(1,3),16)*(1-amt));
+  var g=Math.max(0,parseInt(hex.slice(3,5),16)*(1-amt));
+  var b=Math.max(0,parseInt(hex.slice(5,7),16)*(1-amt));
+  return '#'+[r,g,b].map(function(v){return Math.round(v).toString(16).padStart(2,'0')}).join('');
+}
+
+// ============ LAYOUT ============
+var flatNodes=[], flatLinks=[];
+
+function initCollapsed(d){
+  if(d.collapsed!==undefined)d._collapsed=d.collapsed;
+  else d._collapsed=false;
+  if(d.children)d.children.forEach(initCollapsed);
+}
+
+function layout(){
+  flatNodes=[];flatLinks=[];
+  initCollapsed(treeData);
+  var W=window.innerWidth, H=window.innerHeight;
+  var rootX=120;
+
+  function place(d,depth,yStart,ySpan){
+    var x=rootX+depth*(NODE_W+H_GAP);
+    var nKids=(d.children&&!d._collapsed)?d.children.length:1;
+    var leafSpan=ySpan/nKids;
+    var y=yStart+ySpan/2;
+    var node={
+      id:flatNodes.length, name:d.name, color:d.color||'#595959',
+      emph:!!d.emph, x:x, y:y, w:NODE_W, h:NODE_H, depth:depth,
+      hasKids:!!(d.children&&d.children.length>0), collapsed:!!d._collapsed
+    };
+    d._node=node;
+    flatNodes.push(node);
+    if(d.children&&!d._collapsed){
+      for(var i=0;i<d.children.length;i++){
+        var child=d.children[i];
+        place(child,depth+1,yStart+i*leafSpan,leafSpan);
+        flatLinks.push({s:node.id,t:child._node.id});
+      }
+    }
+  }
+  place(treeData,0,80,H-160);
+
+  // Fix overlaps
+  var byDepth={};
+  flatNodes.forEach(function(n){
+    if(!byDepth[n.depth])byDepth[n.depth]=[];
+    byDepth[n.depth].push(n);
+  });
+  for(var key in byDepth){
+    var arr=byDepth[key];
+    arr.sort(function(a,b){return a.y-b.y});
+    for(var i=1;i<arr.length;i++){
+      if(arr[i].y-arr[i-1].y<NODE_H+V_GAP) arr[i].y=arr[i-1].y+NODE_H+V_GAP;
+    }
+  }
+}
+
+// ============ RENDER ============
+var mainG, linkG, nodeG;
+
+function render(){
+  while(svgEl.firstChild)svgEl.removeChild(svgEl.firstChild);
+
+  var defs=document.createElementNS(NS,'defs');
+  var filter=document.createElementNS(NS,'filter');
+  filter.setAttribute('id','sd');
+  filter.setAttribute('x','-10%');filter.setAttribute('y','-10%');
+  filter.setAttribute('width','130%');filter.setAttribute('height','130%');
+  var fe=document.createElementNS(NS,'feDropShadow');
+  fe.setAttribute('dx','1');fe.setAttribute('dy','2');
+  fe.setAttribute('stdDeviation','3');fe.setAttribute('flood-opacity','0.12');
+  filter.appendChild(fe);defs.appendChild(filter);
+  svgEl.appendChild(defs);
+
+  mainG=document.createElementNS(NS,'g');
+  svgEl.appendChild(mainG);
+
+  linkG=document.createElementNS(NS,'g');
+  linkG.setAttribute('class','links');
+  mainG.appendChild(linkG);
+
+  nodeG=document.createElementNS(NS,'g');
+  nodeG.setAttribute('class','nodes');
+  mainG.appendChild(nodeG);
+
+  // Links
+  var linkSet={};
+  flatLinks.forEach(function(l){linkSet[l.s+'-'+l.t]={s:l.s,t:l.t}});
+  for(var k in linkSet){
+    var l=linkSet[k];
+    var s=flatNodes[l.s], t=flatNodes[l.t];
+    var sx=s.x+NODE_W, sy=s.y+NODE_H/2, ex=t.x, ey=t.y+NODE_H/2;
+    var mx=(sx+ex)/2;
+    var d='M'+sx+','+sy+' C'+mx+','+sy+' '+mx+','+ey+' '+ex+','+ey;
+    var p=document.createElementNS(NS,'path');
+    p.setAttribute('d',d);
+    p.setAttribute('fill','none');
+    p.setAttribute('stroke','#c0c0c0');
+    p.setAttribute('stroke-width','1.5');
+    p.setAttribute('stroke-opacity','0.6');
+    p.setAttribute('data-s',l.s);
+    p.setAttribute('data-t',l.t);
+    linkG.appendChild(p);
+  }
+
+  // Nodes
+  flatNodes.forEach(function(n){
+    var g=document.createElementNS(NS,'g');
+    g.setAttribute('transform','translate('+n.x+','+n.y+')');
+    g.setAttribute('class','node');
+    g.style.cursor=n.hasKids?'pointer':'default';
+    g.setAttribute('data-id',n.id);
+    g.addEventListener('click',function(ev){ev.stopPropagation();toggleNode(n);});
+
+    var rect=document.createElementNS(NS,'rect');
+    rect.setAttribute('width',n.w);
+    rect.setAttribute('height',n.h);
+    rect.setAttribute('rx',CORNER_R);
+    rect.setAttribute('ry',CORNER_R);
+    rect.setAttribute('fill',n.emph?darken(n.color,0.08):n.color);
+    rect.setAttribute('stroke',n.emph?darken(n.color,0.2):'rgba(0,0,0,0.08)');
+    rect.setAttribute('stroke-width',n.emph?'2.5':'1');
+    rect.setAttribute('filter','url(#sd)');
+    g.appendChild(rect);
+
+    // Collapse indicator
+    if(n.hasKids){
+      var cx=n.w-14, cy=n.h/2;
+      var circle=document.createElementNS(NS,'circle');
+      circle.setAttribute('cx',cx);circle.setAttribute('cy',cy);circle.setAttribute('r','8');
+      circle.setAttribute('fill','rgba(255,255,255,0.35)');
+      circle.setAttribute('stroke','rgba(255,255,255,0.6)');
+      circle.setAttribute('stroke-width','1');
+      g.appendChild(circle);
+      var txt=document.createElementNS(NS,'text');
+      txt.setAttribute('x',cx);txt.setAttribute('y',cy);
+      txt.setAttribute('dy','0.35em');
+      txt.setAttribute('text-anchor','middle');
+      txt.setAttribute('fill','#fff');
+      txt.setAttribute('font-size','11');
+      txt.setAttribute('font-weight','bold');
+      txt.textContent=n.collapsed?'+':'−';
+      g.appendChild(txt);
+    }
+
+    // Text
+    var lines=n.name.split('\n');
+    var fs=lines.length>3?10:lines.length>2?11:12;
+    var tc=isLight(n.color)?'#1a1a1a':'#fff';
+    var totalH=lines.length*(fs+3)-3;
+    lines.forEach(function(line,i){
+      var ty=n.h/2-totalH/2+i*(fs+3)+fs*0.35;
+      var txt=document.createElementNS(NS,'text');
+      txt.setAttribute('x',n.hasKids?'14':n.w/2);
+      txt.setAttribute('y',ty);
+      txt.setAttribute('text-anchor',n.hasKids?'start':'middle');
+      txt.setAttribute('fill',tc);
+      txt.setAttribute('font-size',fs);
+      txt.setAttribute('font-weight',n.emph?'bold':'normal');
+      txt.setAttribute('font-family','Microsoft YaHei,PingFang SC,sans-serif');
+      txt.textContent=line;
+      g.appendChild(txt);
+    });
+
+    nodeG.appendChild(g);
+  });
+}
+
+// ============ TREE OPS ============
+function findData(d,id){
+  if(d._node&&d._node.id===id)return d;
+  if(d.children)for(var i=0;i<d.children.length;i++){var r=findData(d.children[i],id);if(r)return r;}
+  return null;
+}
+
+function toggleNode(node){
+  var d=findData(treeData,node.id);
+  if(d&&d.children&&d.children.length>0){
+    d._collapsed=!d._collapsed;
+    layout();render();applyTransform();
+    var q=document.getElementById('searchInput').value.trim();
+    if(q)highlight(q);
+  }
+}
+
+function expandAll(){
+  (function e(d){d._collapsed=false;if(d.children)d.children.forEach(e);})(treeData);
+  layout();render();applyTransform();
+}
+function collapseAll(){
+  (function c(d,dp){if(dp>=2)d._collapsed=true;if(d.children)d.children.forEach(function(ch){c(ch,dp+1)});})(treeData,0);
+  layout();render();applyTransform();
+}
+
+// ============ SEARCH ============
+function highlight(q){
+  q=q.toLowerCase();
+  var match=[];
+  flatNodes.forEach(function(n){if(n.name.toLowerCase().indexOf(q)>=0)match[n.id]=true;});
+  var ng=nodeG.querySelectorAll('.node');
+  for(var i=0;i<ng.length;i++){
+    var id=parseInt(ng[i].getAttribute('data-id'));
+    ng[i].style.opacity=match[id]?'1':'0.15';
+  }
+  var lp=linkG.querySelectorAll('path');
+  for(var i=0;i<lp.length;i++){
+    var s=parseInt(lp[i].getAttribute('data-s'));
+    var t=parseInt(lp[i].getAttribute('data-t'));
+    lp[i].setAttribute('stroke-opacity',(match[s]||match[t])?'0.6':'0.06');
+  }
+}
+function clearHighlight(){
+  var ng=nodeG.querySelectorAll('.node');
+  for(var i=0;i<ng.length;i++)ng[i].style.opacity='1';
+  var lp=linkG.querySelectorAll('path');
+  for(var i=0;i<lp.length;i++)lp[i].setAttribute('stroke-opacity','0.6');
+}
+
+// ============ ZOOM & PAN ============
+var tx=0, ty=0, scale=1;
+
+function applyTransform(){
+  mainG.setAttribute('transform','translate('+tx+','+ty+') scale('+scale+')');
+}
+
+var panning=false, panSX=0, panSY=0, panTX=0, panTY=0;
+
+svgEl.addEventListener('mousedown',function(ev){
+  if(ev.target===svgEl||ev.target.tagName==='svg'||ev.target===mainG){
+    panning=true;panSX=ev.clientX;panSY=ev.clientY;panTX=tx;panTY=ty;
+    svgEl.style.cursor='grabbing';
+  }
+});
+window.addEventListener('mousemove',function(ev){
+  if(!panning)return;
+  tx=panTX+(ev.clientX-panSX);ty=panTY+(ev.clientY-panSY);
+  applyTransform();
+});
+window.addEventListener('mouseup',function(){panning=false;svgEl.style.cursor='';});
+svgEl.addEventListener('wheel',function(ev){
+  ev.preventDefault();
+  var ds=ev.deltaY>0?0.9:1.1;
+  var ns=Math.min(3,Math.max(0.15,scale*ds));
+  var mx=ev.clientX,my=ev.clientY;
+  tx=mx-(mx-tx)*(ns/scale);
+  ty=my-(my-ty)*(ns/scale);
+  scale=ns;
+  applyTransform();
+},{passive:false});
+
+function fitView(){
+  var bb=mainG.getBBox();
+  var W=window.innerWidth,H=window.innerHeight,pad=80;
+  scale=Math.min(W/(bb.width+pad*2),H/(bb.height+pad*2),1.2);
+  tx=(W-bb.width*scale)/2-bb.x*scale;
+  ty=(H-bb.height*scale)/2-bb.y*scale;
+  applyTransform();
+}
+
+// ============ INIT ============
+layout();
+render();
+applyTransform();
+setTimeout(function(){
+  fitView();
+  showStatus('✅ 思维导图已就绪', 'ok');
+  setTimeout(function(){statusEl.style.display='none';},1500);
+},200);
+
+document.getElementById('btnFit').addEventListener('click',fitView);
+document.getElementById('btnExpand').addEventListener('click',expandAll);
+document.getElementById('btnCollapse').addEventListener('click',collapseAll);
+document.getElementById('searchInput').addEventListener('input',function(){
+  var q=this.value.trim();
+  if(q)highlight(q);else clearHighlight();
+});
+
+var rt;
+window.addEventListener('resize',function(){
+  clearTimeout(rt);
+  rt=setTimeout(function(){layout();render();applyTransform();},200);
+});
+
+// Success
+console.log('MindMap: rendered '+flatNodes.length+' nodes, '+flatLinks.length+' links');
+
+}catch(e){
+  showStatus('⚠️ 加载失败: '+e.message, 'err');
+  console.error(e);
+}
+})();
+</script>
+</body>
+</html>

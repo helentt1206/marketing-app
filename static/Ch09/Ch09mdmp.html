@@ -1,0 +1,396 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>第九章 数字化时代的营销创新与未来趋势 — 思维导图</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{
+  font-family:"Microsoft YaHei","PingFang SC",sans-serif;
+  background:#f0f2f5;
+  overflow:hidden;height:100vh;width:100vw;
+  user-select:none;-webkit-user-select:none;
+}
+svg{width:100%;height:100%;position:absolute;top:0;left:0}
+#toolbar{position:fixed;top:16px;right:16px;z-index:100;display:flex;gap:8px}
+#toolbar button{
+  padding:8px 16px;border:1px solid #d9d9d9;background:#fff;
+  border-radius:6px;cursor:pointer;font-size:13px;font-family:inherit;
+  box-shadow:0 1px 4px rgba(0,0,0,.08);transition:all .2s;
+}
+#toolbar button:hover{background:#1677ff;color:#fff;border-color:#1677ff}
+#search{position:fixed;top:16px;left:16px;z-index:100}
+#search input{
+  padding:8px 14px;border:1px solid #d9d9d9;border-radius:20px;
+  width:240px;font-size:13px;font-family:inherit;outline:none;
+  box-shadow:0 1px 4px rgba(0,0,0,.08);transition:border-color .2s;
+}
+#search input:focus{border-color:#1677ff}
+#info{
+  position:fixed;bottom:16px;right:16px;z-index:100;
+  background:#fff;padding:6px 12px;border-radius:6px;
+  box-shadow:0 1px 6px rgba(0,0,0,.1);font-size:11px;color:#888;
+}
+#legend{
+  position:fixed;bottom:16px;left:16px;z-index:100;
+  background:#fff;padding:10px 16px;border-radius:8px;
+  box-shadow:0 1px 6px rgba(0,0,0,.1);font-size:12px;
+  display:flex;gap:14px;flex-wrap:wrap;
+}
+.li{display:flex;align-items:center;gap:6px}
+.ld{width:12px;height:12px;border-radius:50%}
+#status{
+  position:fixed;top:50%;left:50%;transform:translate(-50%,-50%);
+  background:#fff;padding:20px 40px;border-radius:12px;z-index:200;
+  box-shadow:0 4px 20px rgba(0,0,0,.15);font-size:16px;text-align:center;
+}
+#status.ok{color:#52c41a}
+#status.err{color:#f5222d}
+#status.loading{color:#1677ff}
+</style>
+</head>
+<body>
+
+<div id="status" class="loading">正在加载思维导图...</div>
+
+<div id="toolbar">
+  <button id="btnFit">适应画面</button>
+  <button id="btnExpand">全部展开</button>
+  <button id="btnCollapse">全部收起</button>
+</div>
+<div id="search">
+  <input type="text" id="searchInput" placeholder="搜索节点...">
+</div>
+<div id="legend">
+  <span class="li"><span class="ld" style="background:#1677ff"></span>核心概念</span>
+  <span class="li"><span class="ld" style="background:#52c41a"></span>观念演变</span>
+  <span class="li"><span class="ld" style="background:#fa8c16"></span>案例分析</span>
+  <span class="li"><span class="ld" style="background:#722ed1"></span>国际化趋势</span>
+  <span class="li"><span class="ld" style="background:#eb2f96"></span>跨文化营销</span>
+  <span class="li"><span class="ld" style="background:#13c2c2"></span>实训/练习</span>
+</div>
+<div id="info">拖拽平移 · 滚轮缩放 · 点击节点展开/收起</div>
+
+<svg id="svg"></svg>
+
+<script>
+(function(){
+var statusEl = document.getElementById('status');
+function showStatus(msg, cls){
+  statusEl.textContent = msg;
+  statusEl.className = cls;
+}
+try {
+
+// ============ TREE DATA ============
+var treeData = {name:'第九章 数字化时代的营销创新\n与未来趋势', color:'#f5222d', children:[              {name:'学习目标 ', color:'#1677ff', children:[                {name:'知识目标', color:'#91caff', collapsed:true, children:[                  {name:'系统掌握数字化营销的完整演进\n历程、核心理念、底层逻辑与关...', color:'#d6e4ff', children:[]                  },                  {name:'深入理解大数据、云计算、人工\n智能、区块链、元宇宙、AR/VR...', color:'#d6e4ff', children:[]                  },                  {name:'全面掌握用户画像、精准触达、\n智能推荐、营销自动化、全域数...', color:'#d6e4ff', children:[]                  },                  {name:'熟悉直播电商、短视频营销、社\n交电商、内容共创、KOL矩阵、...', color:'#d6e4ff', children:[]                  },                  {name:'理解全渠道、客户体验管理、数\n据合规、隐私计算、伦理营销的...', color:'#d6e4ff', children:[]                  },                  {name:'掌握面向未来的AI营销、无人零\n售、DTC品牌、绿色数字营销、...', color:'#d6e4ff', children:[]                  }                ]                },                {name:'能力目标', color:'#91caff', collapsed:true, children:[                  {name:'能够独立为苏州工业园区企业构\n建数字化营销整体框架，完成数...', color:'#d6e4ff', children:[]                  },                  {name:'能够运用大数据工具完成消费者\n洞察、用户画像、精准细分、预...', color:'#d6e4ff', children:[]                  },                  {name:'能够策划与执行短视频、直播、\n内容营销、私域流量、跨境数字...', color:'#d6e4ff', children:[]                  },                  {name:'能够进行营销数据监测、归因分\n析、ROI核算、数字化转型路径...', color:'#d6e4ff', children:[]                  }                ]                },                {name:'素养目标', color:'#91caff', collapsed:true, children:[                  {name:'能够识别数据安全、隐私合规、\n跨文化传播、危机舆情等风险并...', color:'#d6e4ff', children:[]                  },                  {name:'树立数据向善、科技为民、隐私\n优先、合规先行的数字时代职业...', color:'#d6e4ff', children:[]                  },                  {name:'强化创新精神、工匠精神、长期\n主义、正道成功的数字营销价值...', color:'#d6e4ff', children:[]                  },                  {name:'培养文化自信、国货出海、全球\n传播、正向价值的国际视野与家...', color:'#d6e4ff', children:[]                  },                  {name:'立足苏州工业园区数字经济、高\n端制造、跨境电商、科技创新，...', color:'#d6e4ff', children:[]                  },                  {name:'树立终身学习、拥抱变化、持续\n迭代的数字时代职业素养。', color:'#d6e4ff', children:[]                  }                ]                }              ]              },              {name:'开篇：数字化重构一切——营销\n的范式革命', color:'#1677ff', collapsed:true, children:[                {name:'这是最好的营销时代，也是最复\n杂的营销时代。', color:'#d6e4ff', children:[]                },                {name:'这不再是未来学家的幻想，而是\n每天都在发生的营销现实。从消...', color:'#d6e4ff', children:[]                },                {name:'让我们拉远镜头，看清这一范式\n革命的完整图景。', color:'#d6e4ff', children:[]                },                {name:'对于苏州工业园区这样一个承载\n着中国高端制造升级、科技自主...', color:'#d6e4ff', children:[]                },                {name:'苏州工业园区集聚了以科沃斯、\n追觅科技、添可、同程旅行、企...', color:'#d6e4ff', children:[]                },                {name:'本章将以完整的理论体系、深度\n的技术解析、丰富的园区真实案...', color:'#d6e4ff', children:[]                }              ]              },              {name:'9.1 数字化营销的演进与核心体\n系', color:'#1677ff', children:[                {name:'要理解数字化营销为何能成为这\n个时代的主导营销范式，仅仅知...', color:'#d6e4ff', children:[]                },                {name:'9.1.1 数字化营销的定义与本质', color:'#4096ff', collapsed:true, children:[                  {name:'9.1.1.1 核心定义', color:'#69b1ff', collapsed:true, children:[                    {name:'在展开所有讨论之前，我们需要\n先建立一个清晰的概念锚点。', color:'#d6e4ff', children:[]                    },                    {name:'数字化营销是以数据为核心生产\n资料、以互联网与算法为基础设...', color:'#d6e4ff', children:[]                    },                    {name:'这个定义包含了四个关键要素，\n每一个都不可缺失。', color:'#d6e4ff', children:[]                    },                    {name:'要素一：数据是核心生产资料。\n在工业时代，营销的核心生产资...', color:'#d6e4ff', children:[]                    },                    {name:'要素二：互联网与算法是基础设\n施。就像工业时代的铁路和公路...', color:'#d6e4ff', children:[]                    },                    {name:'要素三：以用户体验为中心。数\n字化赋权了消费者，他们获得了...', color:'#d6e4ff', children:[]                    },                    {name:'要素四：以全链路转化为目标。\n传统营销往往以“曝光”或“触...', color:'#d6e4ff', children:[]                    }                  ]                  },                  {name:'9.1.1.2 本质：三大革命', color:'#69b1ff', collapsed:true, children:[                    {name:'数字化营销的本质可以凝练为三\n大根本性变革。这三大革命不是...', color:'#d6e4ff', children:[]                    },                    {name:'决策革命：从“经验拍脑袋”到\n“数据说话”。', color:'#d6e4ff', children:[]                    },                    {name:'触达革命：从“广撒网”到“精\n准找人”。', color:'#d6e4ff', children:[]                    },                    {name:'传统营销追求的是“覆盖”——\n尽可能多地让人看到广告，然后...', color:'#d6e4ff', children:[]                    },                    {name:'关系革命：从“一锤子买卖”到\n“长期用户价值运营”。', color:'#d6e4ff', children:[]                    },                    {name:'传统营销往往以“成交”为终点。\n产品销售出去之后，品牌与消费...', color:'#d6e4ff', children:[]                    }                  ]                  },                  {name:'9.1.1.3 数字化营销与传统营销\n的对比分析框架', color:'#69b1ff', collapsed:true, children:[                    {name:'在前文中我们将数字化营销的本\n质概括为三大革命。这里，我们...', color:'#d6e4ff', children:[]                    },                    {name:'这个对比框架澄清了一个常见的\n误解：数字化营销并不排斥创意...', color:'#d6e4ff', children:[]                    }                  ]                  }                ]                },                {name:'9.1.2 数字化营销的完整演进历\n程', color:'#4096ff', collapsed:true, children:[                  {name:'理解数字营销的“来龙”，才能\n更好地把握它的“去脉”。数字...', color:'#d6e4ff', children:[]                  },                  {name:'阶段一：传统数字化启蒙期（约\n1995—2008年）', color:'#d6e4ff', children:[]                  },                  {name:'这是数字营销的“史前时代”，\n关键词是在线化——把线下世界...', color:'#d6e4ff', children:[]                  },                  {name:'关键技术突破：搜索引擎的成熟\n与SEM/SEO的诞生', color:'#d6e4ff', children:[]                  },                  {name:'典型代表：企业官网（在线展示\n公司介绍和产品目录）、电子邮...', color:'#d6e4ff', children:[]                  },                  {name:'核心特征：这一阶段的数字营销，\n本质上是用数字技术“复制”传...', color:'#d6e4ff', children:[]                  },                  {name:'历史价值：尽管模式原始，这一\n阶段完成了两个至关重要的基础...', color:'#d6e4ff', children:[]                  },                  {name:'阶段二：社交与移动红利期（约\n2009—2016年）', color:'#d6e4ff', children:[]                  },                  {name:'智能手机的普及和移动互联网的\n爆发，将数字营销推入了全新的...', color:'#d6e4ff', children:[]                  },                  {name:'iPhone的发布（2007年）和安卓\n系统的推广，将互联网从“桌面...', color:'#d6e4ff', children:[]                  },                  {name:'典型代表：微博（品牌开设官微\n与用户互动）、微信公众号（品...', color:'#d6e4ff', children:[]                  },                  {name:'阶段三：数据与智能驱动期（约\n2017—2022年）', color:'#d6e4ff', children:[]                  },                  {name:'云计算成本持续下降、大数据处\n理技术日趋成熟、AI尤其是深度...', color:'#d6e4ff', children:[]                  },                  {name:'核心特征：人、货、场全面数据\n化。营销不再是针对模糊的“人...', color:'#d6e4ff', children:[]                  },                  {name:'深层演进：这一阶段也暴露了数\n据驱动营销的两面性。精准推荐...', color:'#d6e4ff', children:[]                  },                  {name:'阶段四：AI与全域融合期（约\n2023年—未来）', color:'#d6e4ff', children:[]                  },                  {name:'ChatGPT的横空出世和生成式AI\n技术的大规模应用，正在开启数...', color:'#d6e4ff', children:[]                  },                  {name:'ChatGPT、Deepseek等大语言模\n型的出现，可能是自搜索引擎以...', color:'#d6e4ff', children:[]                  },                  {name:'核心特征：数字营销正在从“人\n操作工具”的阶段向“AI自主运...', color:'#d6e4ff', children:[]                  }                ]                },                {name:'9.1.3 数字化营销的五大核心要\n素', color:'#4096ff', collapsed:true, children:[                  {name:'无论技术如何演进，数字化营销\n的底层逻辑可以凝练为五个核心...', color:'#d6e4ff', children:[]                  },                  {name:'核心要素一：数据驱动', color:'#d6e4ff', children:[]                  },                  {name:'需要强调的是，“数据驱动”不\n等于“只看数据”。数据告诉你...', color:'#d6e4ff', children:[]                  },                  {name:'核心要素二：用户中心', color:'#d6e4ff', children:[]                  },                  {name:'追求LTV（用户终身价值，\nLifetime Value）是用户中心思...', color:'#d6e4ff', children:[]                  },                  {name:'核心要素三：全域触达', color:'#d6e4ff', children:[]                  },                  {name:'消费者的注意力分散在无数个数\n字触点上——他们在小红书上搜...', color:'#d6e4ff', children:[]                  },                  {name:'核心要素四：实时互动', color:'#d6e4ff', children:[]                  },                  {name:'数字时代的消费者期待即时的回\n应。他们习惯了发送消息后几秒...', color:'#d6e4ff', children:[]                  },                  {name:'实时互动意味着：即时响应——\n用户的咨询、反馈、投诉在最短...', color:'#d6e4ff', children:[]                  },                  {name:'核心要素五：闭环可测（Closed\n-Loop & Measurable）', color:'#d6e4ff', children:[]                  },                  {name:'“我知道我的广告费有一半是浪\n费的，但我不知道是哪一半”—...', color:'#d6e4ff', children:[]                  },                  {name:'这种可衡量性带来的不仅是预算\n使用效率的提升，更重要的是它...', color:'#d6e4ff', children:[]                  }                ]                }              ]              },              {name:'9.2 大数据与消费者洞察：数字\n营销的“能源核心”', color:'#1677ff', collapsed:true, children:[                {name:'如果说数字营销是一座高效运转\n的智能工厂，那么大数据就是驱...', color:'#d6e4ff', children:[]                },                {name:'9.2.1 大数据的定义、特征与价\n值', color:'#4096ff', collapsed:true, children:[                  {name:'9.2.1.1 什么是大数据', color:'#69b1ff', collapsed:true, children:[                    {name:'大数据并非简单的“数据量比较\n大”的意思。如果只是把100万...', color:'#d6e4ff', children:[]                    },                    {name:'大数据是指那些规模之庞大、类\n型之多样、产生速度之快、对真...', color:'#d6e4ff', children:[]                    },                    {name:'这个定义告诉我们：大数据的“\n大”，不只是数量意义上的大，...', color:'#d6e4ff', children:[]                    }                  ]                  },                  {name:'9.2.1.2 大数据的5V特征', color:'#69b1ff', collapsed:true, children:[                    {name:'业界常用五个以V开头的英文词\n来概括大数据区别于传统数据的...', color:'#d6e4ff', children:[]                    },                    {name:'Volume（海量规模）：数据体量\n远超传统数据库的处理上限。一...', color:'#d6e4ff', children:[]                    },                    {name:'Velocity（高速产生）：数据以\n极快速度生成，并要求实时或准...', color:'#d6e4ff', children:[]                    },                    {name:'Variety（类型多样）：数据不\n再是传统数据库中整整齐齐的结...', color:'#d6e4ff', children:[]                    },                    {name:'Veracity（真实可信）：大数据\n的来源庞杂，数据质量参差不齐...', color:'#d6e4ff', children:[]                    },                    {name:'Value（高价值但低密度）：大\n数据中蕴含价值，但这种价值像...', color:'#d6e4ff', children:[]                    }                  ]                  },                  {name:'9.2.1.3 大数据在营销中的核心\n价值', color:'#69b1ff', collapsed:true, children:[                    {name:'大数据之于营销，可以凝练为三\n项核心能力。', color:'#d6e4ff', children:[]                    },                    {name:'看清市场：大数据分析可以从海\n量交易数据和舆情信息中，实时...', color:'#d6e4ff', children:[]                    },                    {name:'看清效率：营销预算花在了哪里、\n哪个渠道的转化效率最高、哪个...', color:'#d6e4ff', children:[]                    }                  ]                  }                ]                },                {name:'9.2.2 大数据消费者洞察完整体\n系', color:'#4096ff', collapsed:true, children:[                  {name:'消费者洞察是数据驱动营销的核\n心能力。以下框架展示了如何系...', color:'#d6e4ff', children:[]                  },                  {name:'9.2.2.1 数据来源：全域八类数\n据', color:'#69b1ff', collapsed:true, children:[                    {name:'数字营销的消费者洞察建立在八\n类数据的整合利用之上。', color:'#d6e4ff', children:[]                    },                    {name:'行为数据：用户在数字世界中的\n一切操作痕迹——浏览了什么页...', color:'#d6e4ff', children:[]                    },                    {name:'交易数据：订单记录、客单价、\n购买频次、退货率、复购周期、...', color:'#d6e4ff', children:[]                    },                    {name:'互动数据：点赞、评论、转发、\n收藏、私信咨询、参与投票或问...', color:'#d6e4ff', children:[]                    },                    {name:'人口属性数据：年龄、性别、所\n在城市、收入范围、职业、学历...', color:'#d6e4ff', children:[]                    },                    {name:'场景数据：用户当前所处的地理\n位置、使用的设备类型（是手机...', color:'#d6e4ff', children:[]                    },                    {name:'服务数据：售后工单记录、投诉\n内容、满意度评分、客服对话记...', color:'#d6e4ff', children:[]                    },                    {name:'社交数据：用户在社交媒体上关\n注了哪些账号、粉丝群体特征、...', color:'#d6e4ff', children:[]                    },                    {name:'外部数据：行业报告、竞品公开\n信息、舆情监测数据、宏观消费...', color:'#d6e4ff', children:[]                    }                  ]                  },                  {name:'9.2.2.2 消费者360°画像', color:'#69b1ff', collapsed:true, children:[                    {name:'从上述八类数据中提炼出来的消\n费者洞察，可以组织为六个维度...', color:'#d6e4ff', children:[]                    },                    {name:'从人口属性和设备信息中描绘用\n户的基本面貌：他大概的年龄范...', color:'#d6e4ff', children:[]                    },                    {name:'维度2：行为画像——用户做了\n什么？', color:'#d6e4ff', children:[]                    },                    {name:'从用户的行为数据中还原他的数\n字足迹：他最近在关注什么品类...', color:'#d6e4ff', children:[]                    },                    {name:'维度3：需求画像——用户想要\n什么？', color:'#d6e4ff', children:[]                    },                    {name:'从搜索关键词、浏览偏好、咨询\n记录中推断用户的真实需求：他...', color:'#d6e4ff', children:[]                    },                    {name:'维度4：偏好画像——用户喜欢\n什么？', color:'#d6e4ff', children:[]                    },                    {name:'从消费记录和内容互动中识别用\n户的审美偏好和消费口味：他偏...', color:'#d6e4ff', children:[]                    },                    {name:'维度5：价值画像——用户值多\n少钱？', color:'#d6e4ff', children:[]                    },                    {name:'从交易数据和复购行为中计算用\n户的经济价值：他的客单价水平...', color:'#d6e4ff', children:[]                    },                    {name:'维度6：风险画像——用户会流\n失吗？', color:'#d6e4ff', children:[]                    },                    {name:'从近期行为变化和服务记录中预\n警用户风险：最近购买间隔变长...', color:'#d6e4ff', children:[]                    }                  ]                  },                  {name:'9.2.2.3 大数据用户细分方法', color:'#69b1ff', collapsed:true, children:[                    {name:'有了丰富的用户数据后，如何对\n用户群体进行有意义的切分？以...', color:'#d6e4ff', children:[]                    },                    {name:'RFM模型：这是一个经典的基于\n交易行为的用户分层方法，至今...', color:'#d6e4ff', children:[]                    },                    {name:'- R——最近一次消费距今有多\n久？ 昨天刚买过的用户和半年...', color:'#d6e4ff', children:[]                    },                    {name:'- F——在一段时间内消费了多\n少次？ 频繁复购的用户与偶尔...', color:'#d6e4ff', children:[]                    },                    {name:'- M——在一段时间内累计消费\n了多少金额？ 高消费能力的用...', color:'#d6e4ff', children:[]                    },                    {name:'将用户按照R、F、M三个维度的\n得分进行组合，可以将用户划分...', color:'#d6e4ff', children:[]                    },                    {name:'行为细分：根据用户在产品页面\n上的行为模式进行聚类，识别出...', color:'#d6e4ff', children:[]                    },                    {name:'心理细分：基于用户的兴趣标签、\n内容消费偏好、价值观和生活方...', color:'#d6e4ff', children:[]                    },                    {name:'预测细分：利用机器学习模型对\n用户未来行为的概率进行预测，...', color:'#d6e4ff', children:[]                    }                  ]                  },                  {name:'9.2.2.4 用户画像的实战构建流\n程', color:'#69b1ff', collapsed:true, children:[                    {name:'从内部系统（交易记录、客服记\n录、App行为日志）和授权获取...', color:'#d6e4ff', children:[]                    },                    {name:'将清洗后的数据加工为可供分析\n使用的特征变量。例如，不直接...', color:'#d6e4ff', children:[]                    },                    {name:'通过RFM模型、聚类算法（如K-\nmeans聚类）等工具，将用户群...', color:'#d6e4ff', children:[]                    },                    {name:'将构建完成的画像以可视化的方\n式呈现（如用户群体特征看板、...', color:'#d6e4ff', children:[]                    }                  ]                  }                ]                },                {name:'9.2.3 大数据在营销中的实战应\n用', color:'#4096ff', collapsed:true, children:[                  {name:'上面讲的都是理论框架，下面我\n们进入具体的业务场景，看看大...', color:'#d6e4ff', children:[]                  },                  {name:'精准投放：只把广告给最可能买\n的人', color:'#d6e4ff', children:[]                  },                  {name:'精准投放是大数据营销最直观也\n最成熟的应用。其核心原理是：...', color:'#d6e4ff', children:[]                  },                  {name:'以科沃斯的线上广告投放为例：\n在推广某款高端扫拖一体机器人...', color:'#d6e4ff', children:[]                  },                  {name:'智能推荐：“猜你喜欢”背后的\n数据魔法', color:'#d6e4ff', children:[]                  },                  {name:'智能推荐对电商平台销售业绩的\n贡献极大。据公开信息，亚马逊...', color:'#d6e4ff', children:[]                  },                  {name:'需求预测：从“拍脑袋订货”到\n“数据驱动备货”', color:'#d6e4ff', children:[]                  },                  {name:'用户分层运营：高价值用户VIP\n服务，普通用户自动化维护', color:'#d6e4ff', children:[]                  },                  {name:'在资源有限的情况下，品牌需要\n将有限的营销资源优先用于最有...', color:'#d6e4ff', children:[]                  },                  {name:'流失预警与自动挽留：在用户离\n开前就采取行动', color:'#d6e4ff', children:[]                  },                  {name:'大数据分析一个重要的价值是建\n立用户流失的早期预警机制。系...', color:'#d6e4ff', children:[]                  },                  {name:'动态价格优化：根据供需实时调\n整定价', color:'#d6e4ff', children:[]                  },                  {name:'基于实时数据监测市场需求变化、\n竞品价格和库存水位，品牌可以...', color:'#d6e4ff', children:[]                  },                  {name:'内容优化：用数据判断哪种内容\n最有效', color:'#d6e4ff', children:[]                  }                ]                },                {name:'9.2.4 产教融合案例：苏州工业\n园区企业的大数据营销实践', color:'#4096ff', collapsed:true, children:[                  {name:'将理论知识落地到同学们身边的\n真实企业中，才能让学习变得可...', color:'#d6e4ff', children:[]                  },                  {name:'案例一：科沃斯机器人——大数\n据驱动产品迭代与精准营销', color:'#d6e4ff', children:[]                  },                  {name:'科沃斯是国内服务机器人行业的\n领跑者，也是大数据驱动营销的...', color:'#d6e4ff', children:[]                  },                  {name:'第一步，用户洞察，发现真实需\n求。科沃斯的数据团队分析海量...', color:'#d6e4ff', children:[]                  },                  {name:'第二步，数据指导产品迭代。基\n于上述洞察，科沃斯加速推出了...', color:'#d6e4ff', children:[]                  },                  {name:'第三步，精准投放锁定核心人群。\n在推广扫拖一体产品时，科沃斯...', color:'#d6e4ff', children:[]                  },                  {name:'第四步，内容数据化优化。什么\n样的短视频内容最能打动目标用...', color:'#d6e4ff', children:[]                  },                  {name:'第五步，私域复购运营。科沃斯\n通过会员体系和私域渠道向已购...', color:'#d6e4ff', children:[]                  },                  {name:'这整套数据驱动营销的效果是显\n著的：据报道，科沃斯相关产品...', color:'#d6e4ff', children:[]                  },                  {name:'案例二：同程旅行——AI客服与\n用户画像的深度应用', color:'#d6e4ff', children:[]                  },                  {name:'总部同样位于苏州工业园区的同\n程旅行，是国内领先的在线旅游...', color:'#d6e4ff', children:[]                  }                ]                },                {name:'9.2.5 数据驱动营销中的常见误\n区', color:'#4096ff', collapsed:true, children:[                  {name:'在强调数据价值的同时，也有必\n要指出数据驱动营销中几个常见...', color:'#d6e4ff', children:[]                  },                  {name:'误区一：唯数据论——“只看数\n据，不看人”', color:'#d6e4ff', children:[]                  },                  {name:'数据能告诉你“用户做了什么”\n和“部分可能的为什么”，但数...', color:'#d6e4ff', children:[]                  },                  {name:'误区二：数据越多越好——“先\n存着以后有用”', color:'#d6e4ff', children:[]                  },                  {name:'许多企业在数字化转型中容易出\n现“数据囤积”倾向——凡是能...', color:'#d6e4ff', children:[]                  },                  {name:'误区三：只看总量不看结构——\n“平均用户”陷阱', color:'#d6e4ff', children:[]                  },                  {name:'“我们的用户平均客单价是800\n元”——这个平均数字可能掩盖...', color:'#d6e4ff', children:[]                  }                ]                }              ]              },              {name:'9.3 人工智能与智能营销：未来\n已来', color:'#1677ff', children:[                {name:'如果大数据是数字营销的能源，\n那么人工智能就是将这些能源转...', color:'#d6e4ff', children:[]                },                {name:'9.3.1 AI在营销中的完整能力图\n谱', color:'#4096ff', collapsed:true, children:[                  {name:'9.3.1.1 核心技术基础', color:'#69b1ff', collapsed:true, children:[                    {name:'理解AI营销不需要成为算法工程\n师，但了解几项核心技术在营销...', color:'#d6e4ff', children:[]                    },                    {name:'机器学习与深度学习：这是AI大\n厦的地基。机器学习让计算机从...', color:'#d6e4ff', children:[]                    },                    {name:'自然语言处理：让计算机理解、\n生成和处理人类语言的技术。在...', color:'#d6e4ff', children:[]                    },                    {name:'计算机视觉：让计算机理解和分\n析图像与视频内容的技术。在营...', color:'#d6e4ff', children:[]                    },                    {name:'推荐算法、预测算法与归因算法：\n这三类算法构成了数据驱动营销...', color:'#d6e4ff', children:[]                    }                  ]                  },                  {name:'9.3.1.2 AI营销十大核心应用场\n景', color:'#69b1ff', collapsed:true, children:[                    {name:'7×24小时在线、支持多语言切\n换、能理解用户意图而不仅是匹...', color:'#d6e4ff', children:[]                    },                    {name:'让AI自动完成广告出价、自动优\n化投放策略、在效果不达预期时...', color:'#d6e4ff', children:[]                    },                    {name:'“千人千面”的智能推荐早已成\n为主流电商和内容平台的标配。...', color:'#d6e4ff', children:[]                    },                    {name:'AI系统可以实时抓取并分析社交\n媒体、评论区、论坛上关于品牌...', color:'#d6e4ff', children:[]                    },                    {name:'营销自动化是指将用户分群、个\n性化触达、线索跟进、沉睡唤醒...', color:'#d6e4ff', children:[]                    },                    {name:'随着智能音箱和车载语音系统的\n广泛普及，“与品牌对话”正在...', color:'#d6e4ff', children:[]                    },                    {name:'让AI帮助品牌预先判断：哪个区\n域下个季度可能销量下滑需要提...', color:'#d6e4ff', children:[]                    },                    {name:'面向海外市场的多语言翻译、本\n地化内容适配、目标市场法规扫...', color:'#d6e4ff', children:[]                    }                  ]                  },                  {name:'9.3.1.3 主流AI营销工具与平台\n概览', color:'#69b1ff', collapsed:true, children:[                    {name:'前文中我们系统梳理了AI赋能营\n销的四大核心技术和十大应用场...', color:'#d6e4ff', children:[]                    },                    {name:'内容生成类工具：以ChatGPT、\nClaude、文心一言、通义千问等...', color:'#d6e4ff', children:[]                    },                    {name:'图像与视频生成类工具：以\nMidjourney、Stable Diffusion...', color:'#d6e4ff', children:[]                    },                    {name:'智能投放类平台：主流数字广告\n平台（Google Ads、Meta Ads、...', color:'#d6e4ff', children:[]                    },                    {name:'智能客服与对话式AI平台：以企\n业微信内置的智能客服、各大云...', color:'#d6e4ff', children:[]                    },                    {name:'营销自动化平台：HubSpot、\nSalesforce Marketing Cloud、...', color:'#d6e4ff', children:[]                    },                    {name:'数据智能与分析类平台：Google\n Analytics、友盟、GrowingIO...', color:'#d6e4ff', children:[]                    }                  ]                  }                ]                },                {name:'9.3.2 生成式AI带来的营销变革', color:'#4096ff', collapsed:true, children:[                  {name:'如果说之前的AI是“分析型AI”\n——帮你看数据、做预测、找规...', color:'#d6e4ff', children:[]                  },                  {name:'品牌出海最头大的工作之一就是\n多语言内容的制作——为每一个...', color:'#d6e4ff', children:[]                  },                  {name:'变革四：创意人员从重复劳动中\n解放', color:'#d6e4ff', children:[]                  },                  {name:'AI接过了大量重复性的内容生产\n工作之后，设计师、文案策划、...', color:'#d6e4ff', children:[]                  },                  {name:'变革五：数据查询与分析的自然\n语言化', color:'#d6e4ff', children:[]                  },                  {name:'结合以上讨论的生成式AI带来的\n五个变革方向，我们通过一个具...', color:'#d6e4ff', children:[]                  },                  {name:'场景：为一个智能家居新品上市\n生产多版本广告文案', color:'#d6e4ff', children:[]                  },                  {name:'传统工作流通常是：文案策划了\n解产品信息→构思创意方向→撰...', color:'#d6e4ff', children:[]                  },                  {name:'AIGC辅助的工作流可能是：营销\n人员向AI工具输入产品核心信息...', color:'#d6e4ff', children:[]                  },                  {name:'这个流程的核心变化在于：AI大\n幅降低了多版本同时探索的成本...', color:'#d6e4ff', children:[]                  }                ]                },                {name:'9.3.3 AI营销的未来趋势', color:'#4096ff', collapsed:true, children:[                  {name:'站在当前时间节点向前看，AI营\n销将朝着以下几个方向继续演进...', color:'#d6e4ff', children:[]                  },                  {name:'当前AI在营销中的角色主要是“\n助手”——在人做决策之后，AI...', color:'#d6e4ff', children:[]                  },                  {name:'未来AI将更好地打通线上线下、\n公域私域、国内海外的数据和运...', color:'#d6e4ff', children:[]                  },                  {name:'数据安全和用户隐私保护要求日\n益严格，传统的“把数据集中到...', color:'#d6e4ff', children:[]                  },                  {name:'当前的AI客服虽然能理解语义，\n但在情感理解和共情反应方面仍...', color:'#d6e4ff', children:[]                  }                ]                }              ]              },              {name:'9.4 新兴数字营销模式与实战工\n具', color:'#1677ff', children:[                {name:'如果说前面两节讲的是数字营销\n的“底层技术”（大数据和AI）...', color:'#d6e4ff', children:[]                },                {name:'9.4.1 直播电商与短视频营销', color:'#4096ff', collapsed:true, children:[                  {name:'9.4.1.1 直播电商的核心转化逻\n辑', color:'#69b1ff', collapsed:true, children:[                    {name:'直播电商是近年来中国数字营销\n领域最具爆发力的现象级创新。...', color:'#d6e4ff', children:[]                    }                  ]                  },                  {name:'9.4.1.2 短视频营销的核心打法', color:'#69b1ff', collapsed:true, children:[                    {name:'短视频已经成为消费者发现新品\n牌、了解新产品最主要的入口之...', color:'#d6e4ff', children:[]                    },                    {name:'黄金三秒法则：用户滑到你的视\n频时，你有大约三秒钟的时间决...', color:'#d6e4ff', children:[]                    },                    {name:'真实、有用、有情绪、有看点：\n短视频平台本质上是内容平台，...', color:'#d6e4ff', children:[]                    },                    {name:'KOL矩阵组合：品牌通常会搭建\n一个由不同量级和类型的创作者...', color:'#d6e4ff', children:[]                    }                  ]                  },                  {name:'9.4.1.3 苏州工业园区企业直播\n与短视频应用', color:'#69b1ff', collapsed:true, children:[                    {name:'苏州工业园区的智能硬件和消费\n电子类企业在直播和短视频营销...', color:'#d6e4ff', children:[]                    },                    {name:'智能家居产品的直播演示：扫地\n机器人现场演示绕障清扫、洗地...', color:'#d6e4ff', children:[]                    },                    {name:'跨境电商直播：在海外直播间起\n用当地本土主播、使用当地语言...', color:'#d6e4ff', children:[]                    }                  ]                  },                  {name:'9.4.1.4 直播电商的进阶运营策\n略', color:'#69b1ff', collapsed:true, children:[                    {name:'前面我们拆解了直播电商“即时\n演示+即时互动+即时成交”的核...', color:'#d6e4ff', children:[]                    },                    {name:'直播间流量来源主要包括：短视\n频引流（通过发布与直播主题相...', color:'#d6e4ff', children:[]                    },                    {name:'品牌自播（品牌官方账号常态化\n直播）和达人直播（邀请KOL在...', color:'#d6e4ff', children:[]                    }                  ]                  }                ]                },                {name:'9.4.2 社交电商与私域流量运营', color:'#4096ff', collapsed:true, children:[                  {name:'9.4.2.1 社交电商的三大模式', color:'#69b1ff', collapsed:true, children:[                    {name:'社交电商的本质是通过用户在社\n交网络中的关系和互动来实现商...', color:'#d6e4ff', children:[]                    },                    {name:'内容社交电商：在内容社区中通\n过优质内容激发用户的购买兴趣...', color:'#d6e4ff', children:[]                    },                    {name:'关系社交电商：利用用户已有的\n社交关系链进行商品分销和团购...', color:'#d6e4ff', children:[]                    },                    {name:'会员社交电商：品牌将忠实用户\n发展为品牌会员和推广者，通过...', color:'#d6e4ff', children:[]                    }                  ]                  },                  {name:'9.4.2.2 私域流量的完整运营体\n系', color:'#69b1ff', collapsed:true, children:[                    {name:'私域流量是近年来中国数字营销\n领域最重要的战略概念之一。简...', color:'#d6e4ff', children:[]                    },                    {name:'一个完整的私域运营体系通常包\n含以下六个环节。', color:'#d6e4ff', children:[]                    },                    {name:'引流——把公域用户引导到私域\n池：通过电商包裹中附带企微二...', color:'#d6e4ff', children:[]                    },                    {name:'承接——用合适的工具承载私域\n用户：企业微信是目前最主流的...', color:'#d6e4ff', children:[]                    },                    {name:'激活——让加进来的用户愿意留\n下来并互动：新用户加进来之后...', color:'#d6e4ff', children:[]                    },                    {name:'成交——在私域内完成销售转化：\n为用户提供专属价格、会员秒杀...', color:'#d6e4ff', children:[]                    },                    {name:'复购——让买过的用户继续买：\n建立会员积分体系累积消费权益...', color:'#d6e4ff', children:[]                    },                    {name:'裂变——让用户为品牌带来新用\n户：在私域池内设计老带新激励...', color:'#d6e4ff', children:[]                    }                  ]                  },                  {name:'9.4.2.3 私域运营的关键绩效指\n标体系', color:'#69b1ff', collapsed:true, children:[                    {name:'前面我们拆解了私域运营“引流\n—承接—激活—成交—复购—裂...', color:'#d6e4ff', children:[]                    },                    {name:'引流效率指标：公域到私域的引\n流转化率（通过投放和内容触达...', color:'#d6e4ff', children:[]                    },                    {name:'私域活跃度指标：企微消息打开\n率、社群活跃度（日活发言人数...', color:'#d6e4ff', children:[]                    },                    {name:'私域转化指标：私域渠道的销售\n额及占比、客单价、转化率、复...', color:'#d6e4ff', children:[]                    },                    {name:'裂变与口碑指标：推荐率（由私\n域用户推荐带来的新客占比）、...', color:'#d6e4ff', children:[]                    },                    {name:'苏州工业园区某智能家居品牌围\n绕私域用户的全生命周期，建立...', color:'#d6e4ff', children:[]                    }                  ]                  }                ]                },                {name:'9.4.3 AR/VR/元宇宙营销', color:'#4096ff', collapsed:true, children:[                  {name:'增强现实、虚拟现实和元宇宙概\n念正在为数字营销打开新的想象...', color:'#d6e4ff', children:[]                  },                  {name:'对于苏州工业园区的智能家居企\n业而言，AR营销是一个值得高度...', color:'#d6e4ff', children:[]                  }                ]                },                {name:'9.4.4 跨境数字营销：苏州工业\n园区的重要赛道', color:'#4096ff', collapsed:true, children:[                  {name:'苏州工业园区是中国跨境电商和\n品牌出海最为活跃的区域之一。...', color:'#d6e4ff', children:[]                  },                  {name:'9.4.4.1 跨境数字营销的核心渠\n道', color:'#69b1ff', collapsed:true, children:[                    {name:'品牌出海的数字营销渠道矩阵通\n常包括：', color:'#d6e4ff', children:[]                    },                    {name:'- 全球电商平台：亚马逊（全球\n最大电商平台，覆盖欧美日等主...', color:'#d6e4ff', children:[]                    },                    {name:'- 内容与社交平台：TikTok（全\n球短视频平台，提供TikTok ...', color:'#d6e4ff', children:[]                    },                    {name:'- 搜索引擎与独立站：Google \nAds和SEO（搜索引擎仍然是海外...', color:'#d6e4ff', children:[]                    },                    {name:'- 海外直播与达人合作：海外直\n播电商正在增长，本土KOL合作...', color:'#d6e4ff', children:[]                    }                  ]                  },                  {name:'9.4.4.2 跨境数字营销的核心能\n力要求', color:'#69b1ff', collapsed:true, children:[                    {name:'多语言内容能力：为目标市场提\n供母语级别的产品信息和营销内...', color:'#d6e4ff', children:[]                    },                    {name:'本地化合规能力：不同国家和地\n区在产品认证、广告法规、消费...', color:'#d6e4ff', children:[]                    },                    {name:'跨境物流与支付整合能力：营销\n的承诺必须与履约能力匹配。跨...', color:'#d6e4ff', children:[]                    },                    {name:'数据合规与隐私保护能力：GDPR\n（欧盟通用数据保护条例）等法...', color:'#d6e4ff', children:[]                    }                  ]                  },                  {name:'9.4.4.3 园区企业的出海数字化\n优势', color:'#69b1ff', collapsed:true, children:[                    {name:'苏州工业园区企业出海拥有独特\n的生态优势：高端制造业基础为...', color:'#d6e4ff', children:[]                    }                  ]                  }                ]                }              ]              },              {name:'9.5 全渠道营销与客户体验管理', color:'#1677ff', children:[                {name:'本节内容与第七章“分销渠道策\n略”中的全渠道和数字化渠道部...', color:'#d6e4ff', children:[]                },                {name:'9.5.1 全渠道营销的真正内涵', color:'#4096ff', collapsed:true, children:[                  {name:'全渠道不是“多渠道”。这种区\n别不是文字游戏，而是两种本质...', color:'#d6e4ff', children:[]                  },                  {name:'“多渠道”指的是品牌开设了多\n个销售渠道——有天猫店、有京...', color:'#d6e4ff', children:[]                  },                  {name:'“全渠道”的核心在于一体化—\n—不是开了多少个渠道，而是这...', color:'#d6e4ff', children:[]                  },                  {name:'商品一体化：同一个产品在线上\n线下所有渠道保持同款、同价、...', color:'#d6e4ff', children:[]                  },                  {name:'会员一体化：消费者不管在哪个\n渠道消费，会员身份、积分余额...', color:'#d6e4ff', children:[]                  },                  {name:'订单一体化：消费者可以选择在\n线上下单、门店自提，也可以选...', color:'#d6e4ff', children:[]                  },                  {name:'服务一体化：售前咨询服务、售\n中购买体验、售后保障标准在所...', color:'#d6e4ff', children:[]                  },                  {name:'数据一体化：一个用户在不同渠\n道的行为数据被整合到一个统一...', color:'#d6e4ff', children:[]                  }                ]                },                {name:'9.5.2 客户体验管理', color:'#4096ff', collapsed:true, children:[                  {name:'客户体验管理（Customer \nExperience Management，CEM）...', color:'#d6e4ff', children:[]                  },                  {name:'9.5.2.1 客户旅程的五个阶段', color:'#69b1ff', collapsed:true, children:[                    {name:'客户旅程是指消费者从第一次接\n触品牌到成为忠实用户乃至品牌...', color:'#d6e4ff', children:[]                    },                    {name:'感知阶段：消费者如何第一次听\n说或注意到品牌？可能是看到社...', color:'#d6e4ff', children:[]                    },                    {name:'考虑阶段：消费者产生了兴趣，\n开始主动搜集更多信息来评估产...', color:'#d6e4ff', children:[]                    },                    {name:'购买阶段：消费者决定下单。购\n买流程是否顺畅、支付方式是否...', color:'#d6e4ff', children:[]                    },                    {name:'使用阶段：消费者收到产品并开\n始使用。产品使用体验本身是客...', color:'#d6e4ff', children:[]                    },                    {name:'售后阶段：产品使用中遇到问题\n时能否方便地获得帮助、退换货...', color:'#d6e4ff', children:[]                    }                  ]                  },                  {name:'9.5.2.2 客户体验度量的核心指\n标', color:'#69b1ff', collapsed:true, children:[                    {name:'NPS（净推荐值，Net Promoter \nScore）：通过一个问题“你有...', color:'#d6e4ff', children:[]                    },                    {name:'CSAT（客户满意度，Customer \nSatisfaction Score）：针对某...', color:'#d6e4ff', children:[]                    },                    {name:'CES（客户费力度，Customer \nEffort Score）：衡量客户为了...', color:'#d6e4ff', children:[]                    }                  ]                  },                  {name:'9.5.2.3 客户旅程地图的绘制方\n法与实践', color:'#69b1ff', collapsed:true, children:[                    {name:'将理论上的五个阶段转化为一张\n可指导行动的地图，中间差着“...', color:'#d6e4ff', children:[]                    },                    {name:'一张完整的客户旅程地图通常包\n含以下要素：旅程阶段、用户在...', color:'#d6e4ff', children:[]                    }                  ]                  }                ]                },                {name:'9.5.3 全渠道体验案例：苏州某\n智能家电品牌', color:'#4096ff', collapsed:true, children:[                  {name:'苏州某智能家电品牌的全渠道体\n验设计提供了一个可参考的范本...', color:'#d6e4ff', children:[]                  },                  {name:'这套全渠道体验设计带来的效果\n是：消费者在所有触点上获得的...', color:'#d6e4ff', children:[]                  }                ]                }              ]              },              {name:'9.6 数字化转型：挑战、路径与\n实施框架', color:'#1677ff', children:[                {name:'数字化转型是一个宏大的命题，\n本节聚焦于营销职能领域的数字...', color:'#d6e4ff', children:[]                },                {name:'9.6.1 企业数字化转型四大典型\n挑战', color:'#4096ff', collapsed:true, children:[                  {name:'传统的IT架构通常是为稳态业务\n流程设计的，不够灵活、扩展性...', color:'#d6e4ff', children:[]                  },                  {name:'数字化营销需要的是复合型人才\n——既要懂营销业务，又要理解...', color:'#d6e4ff', children:[]                  },                  {name:'也许是最难克服的挑战。传统经\n验主义的思维惯性——习惯于靠...', color:'#d6e4ff', children:[]                  }                ]                },                {name:'9.6.2 企业数字化转型四步路径', color:'#4096ff', collapsed:true, children:[                  {name:'以下四步路径为营销数字化转型\n提供了一个可以参考的框架。但...', color:'#d6e4ff', children:[]                  },                  {name:'将核心业务流程——订单处理、\n客户信息管理、服务工单流转、...', color:'#d6e4ff', children:[]                  },                  {name:'打通不同系统之间的数据壁垒，\n统一用户身份识别体系，实现跨...', color:'#d6e4ff', children:[]                  },                  {name:'在数据贯通的基础之上引入AI和\n自动化工具，实现智能广告投放...', color:'#d6e4ff', children:[]                  },                  {name:'将数字化能力从内部运营延伸至\n覆盖全渠道、全链路、全生命周...', color:'#d6e4ff', children:[]                  }                ]                },                {name:'9.6.3 数字化转型成功关键', color:'#4096ff', collapsed:true, children:[                  {name:'数字化转型的路径看似清晰，但\n真正走通的企业并不多。那些成...', color:'#d6e4ff', children:[]                  }                ]                }              ]              },              {name:'9.7 数据合规与伦理', color:'#1677ff', children:[                {name:'在数字营销的任何环节中，一个\n基本原则决不能忘记：科技向善...', color:'#d6e4ff', children:[]                },                {name:'9.7.1 核心法律法规体系', color:'#4096ff', collapsed:true, children:[                  {name:'从事数字营销工作，以下法律法\n规是必须了解的基本准绳。', color:'#d6e4ff', children:[]                  },                  {name:'《中华人民共和国网络安全法》：\n对网络运营者的安全保护义务提...', color:'#d6e4ff', children:[]                  },                  {name:'《中华人民共和国数据安全法》：\n建立了数据分类分级保护制度，...', color:'#d6e4ff', children:[]                  },                  {name:'《中华人民共和国个人信息保护\n法》（简称《个保法》）：这是...', color:'#d6e4ff', children:[]                  },                  {name:'《中华人民共和国广告法》与《\n反不正当竞争法》：对广告内容...', color:'#d6e4ff', children:[]                  },                  {name:'GDPR（欧盟《通用数据保护条例》）：\n被认为是全球最严格的数据保护...', color:'#d6e4ff', children:[]                  },                  {name:'CCPA/CPRA（美国加州消费者隐\n私法案及其修正案）：赋予加州...', color:'#d6e4ff', children:[]                  }                ]                },                {name:'9.7.2 数字营销合规十条铁律', color:'#4096ff', collapsed:true, children:[                  {name:'结合上述法律法规要求，数字营\n销从业者需要将以下准则内化于...', color:'#d6e4ff', children:[]                  },                  {name:'必须获得用户明确授权才能收集\n个人信息。不能靠默认勾选、隐...', color:'#d6e4ff', children:[]                  },                  {name:'禁止采用强制性、诱导性或者欺\n骗性方式获取用户信息。', color:'#d6e4ff', children:[]                  },                  {name:'禁止大数据杀熟、算法歧视和不\n正当价格竞争。', color:'#d6e4ff', children:[]                  },                  {name:'禁止虚假宣传、流量造假和刷单\n炒信。', color:'#d6e4ff', children:[]                  },                  {name:'禁止过度收集个人信息、超出授\n权范围使用数据以及非法买卖用...', color:'#d6e4ff', children:[]                  },                  {name:'必须为个人用户提供便捷的撤回\n同意、注销账户和删除数据的途...', color:'#d6e4ff', children:[]                  },                  {name:'必须采取充分的技术和管理措施\n保障用户数据的安全性，防止数...', color:'#d6e4ff', children:[]                  },                  {name:'跨境数据传输必须通过法定的安\n全评估或认证程序，不得擅自将...', color:'#d6e4ff', children:[]                  },                  {name:'所有以广告形式发布的内容必须\n在显著位置标注“广告”标识，...', color:'#d6e4ff', children:[]                  },                  {name:'禁止对用户进行骚扰性营销，包\n括但不限于骚扰性质的营销电话...', color:'#d6e4ff', children:[]                  },                  {name:'这里，我们选取其中与营销日常\n工作最紧密相关的几条，通过具...', color:'#d6e4ff', children:[]                  },                  {name:'关于“必须获得用户明确授权才\n能收集信息”', color:'#d6e4ff', children:[]                  },                  {name:'在营销实践中常见的问题是：什\n么是“明确授权”？APP安装后...', color:'#d6e4ff', children:[]                  },                  {name:'这在短视频营销和内容种草中尤\n其需要注意。KOL在制作含有品...', color:'#d6e4ff', children:[]                  }                ]                },                {name:'9.7.3 数字时代的营销伦理', color:'#4096ff', collapsed:true, children:[                  {name:'技术是中性的，但使用技术的人\n必须有自己的价值底线。在数字...', color:'#d6e4ff', children:[]                  },                  {name:'数据向善，技术为民：数字化技\n术应当服务于人，为消费者创造...', color:'#d6e4ff', children:[]                  },                  {name:'诚信为本，真实宣传：数字营销\n追求效率，但绝不能以牺牲真实...', color:'#d6e4ff', children:[]                  },                  {name:'用户至上，尊重权利：尊重用户\n的隐私，尊重用户的选择，尊重...', color:'#d6e4ff', children:[]                  },                  {name:'正道成功，拒绝捷径：拒绝参与\n数据黑灰产产业链、拒绝刷量作...', color:'#d6e4ff', children:[]                  },                  {name:'文化自信，讲好中国品牌故事：\n中国品牌走向全球，不仅要卖出...', color:'#d6e4ff', children:[]                  },                  {name:'绿色数字营销，关注可持续发展：\n数字营销活动也应当关注低碳节...', color:'#d6e4ff', children:[]                  },                  {name:'AI在营销中的深度应用带来了一\n系列新的伦理议题。在追求效率...', color:'#d6e4ff', children:[]                  },                  {name:'算法公平性：AI是否在某一群体\n上犯了系统性错误？', color:'#d6e4ff', children:[]                  },                  {name:'当AI系统通过历史行为数据学习\n用户偏好和转化概率时，有可能...', color:'#d6e4ff', children:[]                  },                  {name:'AI透明度与可解释性：用户有权\n知道与他对话的是人还是AI', color:'#d6e4ff', children:[]                  },                  {name:'消费者应当被明确告知他们是在\n与人类还是在与自动化系统进行...', color:'#d6e4ff', children:[]                  },                  {name:'AI内容标识：AI生成的内容是否\n被标注了？', color:'#d6e4ff', children:[]                  },                  {name:'AI生成的营销内容——如AI撰写\n的产品推荐文案、AI合成的模特...', color:'#d6e4ff', children:[]                  },                  {name:'人类最终负责：AI不能替人承担\n道德和法律责任', color:'#d6e4ff', children:[]                  },                  {name:'无论营销中使用的AI系统有多先\n进，最终对AI决策和内容承担法...', color:'#d6e4ff', children:[]                  }                ]                }              ]              },              {name:'9.8 未来10年营销终极趋势', color:'#1677ff', children:[                {name:'站在当下瞻望未来，数字营销的\n演进方向正在以下维度上变得越...', color:'#d6e4ff', children:[]                },                {name:'9.8.1 技术趋势', color:'#4096ff', collapsed:true, children:[                  {name:'生成式AI全面渗透营销链：内容\n生成、广告投放、客服应答、视...', color:'#d6e4ff', children:[]                  },                  {name:'全域AI Agent自主运营：在设定\n好的目标和约束条件下，AI ...', color:'#d6e4ff', children:[]                  },                  {name:'隐私计算广泛普及：联邦学习、\n差分隐私、可信执行环境等技术...', color:'#d6e4ff', children:[]                  },                  {name:'AR/VR成为日常营销标配：随着\n硬件设备成本持续下降和内容生...', color:'#d6e4ff', children:[]                  },                  {name:'区块链支撑可信营销：广告投放\n的可溯源验证、数据采集的消费...', color:'#d6e4ff', children:[]                  },                  {name:'无人零售与智能门店持续渗透：\n全天候无人值守零售终端、基于...', color:'#d6e4ff', children:[]                  }                ]                },                {name:'9.8.2 模式趋势', color:'#4096ff', collapsed:true, children:[                  {name:'DTC品牌持续崛起：越来越多品\n牌将选择绕过传统中间商，通过...', color:'#d6e4ff', children:[]                  },                  {name:'品牌加速人格化：消费者越来越\n倾向于与“有温度、有情感、有...', color:'#d6e4ff', children:[]                  },                  {name:'内容即交易，体验即品牌：内容\n不再只是吸引流量的前奏，内容...', color:'#d6e4ff', children:[]                  },                  {name:'用户深度参与价值共创：用户不\n仅是消费者，还参与到产品研发...', color:'#d6e4ff', children:[]                  },                  {name:'可持续营销从加分项变为准入门\n槛：ESG实践和可持续消费理念...', color:'#d6e4ff', children:[]                  }                ]                },                {name:'9.8.3 全球趋势', color:'#4096ff', collapsed:true, children:[                  {name:'跨境数字营销走向深度一体化：\n全球一盘货（统一产品规划）、...', color:'#d6e4ff', children:[]                  },                  {name:'本地化智能深度演进：AI不仅要\n做到多语言翻译，更要适配本地...', color:'#d6e4ff', children:[]                  },                  {name:'合规全球化成为基石能力：面向\n多国市场运营的品牌需要同时满...', color:'#d6e4ff', children:[]                  }                ]                },                {name:'9.8.4 未来营销人才能力要求：\n从“做什么”到“成为什么样的...', color:'#4096ff', collapsed:true, children:[                  {name:'前文中我们讨论了技术、模式和\n全球趋势。最后，我们回到人才...', color:'#d6e4ff', children:[]                  },                  {name:'理解技术的能力但不一定从事技\n术开发：未来的营销人才不需要...', color:'#d6e4ff', children:[]                  },                  {name:'在数据中看到人的能力：数据素\n养的真正高阶状态不是会操作多...', color:'#d6e4ff', children:[]                  },                  {name:'在快节奏中坚守长期价值的能力：\n数字化让营销可以追求极致的短...', color:'#d6e4ff', children:[]                  },                  {name:'不懂就问、持续学习的能力：数\n字营销的工具、平台算法、法规...', color:'#d6e4ff', children:[]                  }                ]                }              ]              },              {name:'9.9 实训任务', color:'#1677ff', children:[                {name:'Mini Project：Global Digital\n Marketing Growth Plan（全球...', color:'#4096ff', collapsed:true, children:[                  {name:'项目背景', color:'#69b1ff', collapsed:true, children:[                    {name:'你所在的项目团队受一家苏州工\n业园区智能硬件企业委托，为其...', color:'#d6e4ff', children:[]                    },                    {name:'Meta生态（Facebook与\nInstagram）', color:'#d6e4ff', children:[]                    },                    {name:'Meta旗下的Facebook和\nInstagram是欧美市场主流的社...', color:'#d6e4ff', children:[]                    },                    {name:'TikTok在欧美年轻人中的渗透率\n极高，是品牌触达年轻消费者的...', color:'#d6e4ff', children:[]                    },                    {name:'亚马逊不仅是销售平台，也是欧\n美消费者主动搜索产品的入口之...', color:'#d6e4ff', children:[]                    },                    {name:'通过Shopify等建站工具搭建的\n品牌独立站，是DTC品牌绕过平...', color:'#d6e4ff', children:[]                    }                  ]                  },                  {name:'项目任务', color:'#69b1ff', collapsed:true, children:[                    {name:'用户洞察：通过公开数据、行业\n报告和平台工具，分析欧美目标...', color:'#d6e4ff', children:[]                    },                    {name:'数据策略：规划在合规前提下的\n用户数据采集方案、分析框架和...', color:'#d6e4ff', children:[]                    },                    {name:'渠道矩阵：设计覆盖独立站、\nTikTok、Instagram、Google、...', color:'#d6e4ff', children:[]                    },                    {name:'内容策略：规划AIGC辅助的多语\n言内容生产流程，设计短视频、...', color:'#d6e4ff', children:[]                    },                    {name:'技术架构：提出所需的AI投放工\n具、营销自动化平台、私域用户...', color:'#d6e4ff', children:[]                    },                    {name:'合规方案：系统梳理GDPR合规要\n求、当地广告法规、隐私政策和...', color:'#d6e4ff', children:[]                    },                    {name:'预算分配：按照广告投放、内容\n生产、技术工具、团队人员和营...', color:'#d6e4ff', children:[]                    },                    {name:'KPI体系：建立覆盖品牌曝光、\n用户点击、首单转化、用户复购...', color:'#d6e4ff', children:[]                    },                    {name:'完整数字化营销增长方案（中英\n双语）', color:'#d6e4ff', children:[]                    },                    {name:'30天、60天、90天执行路线图', color:'#d6e4ff', children:[]                    }                  ]                  },                  {name:'评分标准', color:'#69b1ff', children:[]                  }                ]                }              ]              },              {name:'课程思政融入要点', color:'#1677ff', children:[                {name:'溯源发展历程，厚植家国情怀', color:'#4096ff', collapsed:true, children:[                  {name:'在理论溯源环节，系统梳理我国\n相关领域从跟跑到并跑再到领跑...', color:'#d6e4ff', children:[]                  }                ]                },                {name:'讲述榜样故事，强化责任担当', color:'#4096ff', collapsed:true, children:[                  {name:'在案例研讨环节引入国内行业领\n军人物攻坚克难、自主创新的真...', color:'#d6e4ff', children:[]                  }                ]                },                {name:'探讨现实议题，树立正确价值观', color:'#4096ff', collapsed:true, children:[                  {name:'结合行业发展现实议题，组织学\n生开展“科技自立自强与职业发...', color:'#d6e4ff', children:[]                  }                ]                },                {name:'聚焦民生需求，践行服务宗旨', color:'#4096ff', collapsed:true, children:[                  {name:'在实践探究环节，引导学生深入\n基层调研，关注民生领域的实际...', color:'#d6e4ff', children:[]                  }                ]                }              ]              },              {name:'本章小结', color:'#1677ff', children:[                {name:'本章系统构建了数字化营销从底\n层逻辑、技术支撑、模式创新、...', color:'#d6e4ff', children:[]                },                {name:'本章深度结合苏州工业园区数字\n经济、高端制造、跨境电商、科...', color:'#d6e4ff', children:[]                },                {name:'数字化不是一道选择题，而是一\n道生存必答题。在数字经济浪潮...', color:'#d6e4ff', children:[]                },                {name:'数字化时代充满不确定性，但有\n两件事是确定的：用户对美好生...', color:'#d6e4ff', children:[]                }              ]              },              {name:'关键术语（中英双语）', color:'#1677ff', children:[]              },              {name:'思考与练习', color:'#1677ff', collapsed:true, children:[                {name:'1. 概念辨析：论述数字化营销\n与传统营销在决策方式、触达逻...', color:'#d6e4ff', children:[]                },                {name:'2. 大数据应用：结合具体场景，\n解释大数据如何帮助营销实现从...', color:'#d6e4ff', children:[]                },                {name:'3. 案例拓展：查阅科沃斯的最\n新资料，补充说明数据驱动在科...', color:'#d6e4ff', children:[]                },                {name:'4. AI影响分析：生成式AI将在\n哪些具体方面改变营销工作者的...', color:'#d6e4ff', children:[]                },                {name:'5. 私域运营：私域流量的核心\n价值是什么？为什么在公域流量...', color:'#d6e4ff', children:[]                },                {name:'6. 全渠道理解：全渠道营销的\n“一体化”究竟体现在哪些具体...', color:'#d6e4ff', children:[]                },                {name:'7. 转型障碍：一家传统制造企\n业进行营销数字化转型时通常会...', color:'#d6e4ff', children:[]                },                {name:'8. 法规应用：《个人信息保护\n法》对营销从业者的日常工作提...', color:'#d6e4ff', children:[]                },                {name:'9. 伦理思考：什么是“大数据\n杀熟”？为什么这种行为在商业...', color:'#d6e4ff', children:[]                },                {name:'10. 区域优势：苏州工业园区企\n业在品牌出海方面拥有哪些独特...', color:'#d6e4ff', children:[]                },                {name:'11. 直播电商：直播电商转化的\n核心逻辑是什么？从“人—货—...', color:'#d6e4ff', children:[]                },                {name:'12. 技术应用：AR或VR技术如何\n提升消费者在购买前的决策信心...', color:'#d6e4ff', children:[]                },                {name:'13. 体验管理：请简述客户旅程\n的五个阶段，并针对每个阶段分...', color:'#d6e4ff', children:[]                },                {name:'14. 效率工具：营销自动化具体\n可以解决营销工作中的哪些效率...', color:'#d6e4ff', children:[]                },                {name:'15. 国际合规：跨境数字营销中\n需要注意哪些主要的合规风险？...', color:'#d6e4ff', children:[]                },                {name:'16. 职业前景：展望未来五年，\n你认为数字营销领域哪些岗位最...', color:'#d6e4ff', children:[]                },                {name:'17. 资产观念：为什么说“用户\n资产”已经成为数字时代企业最...', color:'#d6e4ff', children:[]                },                {name:'18. 思政思考：结合课程思政内\n容，用你自己的话阐述数字时代...', color:'#d6e4ff', children:[]                },                {name:'19. 实操练习——短视频脚本设\n计：为苏州工业园区某智能清洁...', color:'#d6e4ff', children:[]                },                {name:'20. 实操练习——用户画像报告\n设计：假设你是一家智能家居品...', color:'#d6e4ff', children:[]                }              ]              }            ]            };
+
+showStatus('正在渲染节点...', 'loading');
+
+// ============ CONSTANTS ============
+var NODE_W = 200, NODE_H = 44, H_GAP = 32, V_GAP = 16, CORNER_R = 8;
+var svgEl = document.getElementById('svg');
+var NS = 'http://www.w3.org/2000/svg';
+
+// ============ HELPERS ============
+function isLight(hex){
+  var r=parseInt(hex.slice(1,3),16),g=parseInt(hex.slice(3,5),16),b=parseInt(hex.slice(5,7),16);
+  return(r*299+g*587+b*114)/1000>160;
+}
+function darken(hex,amt){
+  var r=Math.max(0,parseInt(hex.slice(1,3),16)*(1-amt));
+  var g=Math.max(0,parseInt(hex.slice(3,5),16)*(1-amt));
+  var b=Math.max(0,parseInt(hex.slice(5,7),16)*(1-amt));
+  return '#'+[r,g,b].map(function(v){return Math.round(v).toString(16).padStart(2,'0')}).join('');
+}
+
+// ============ LAYOUT ============
+var flatNodes=[], flatLinks=[];
+
+function initCollapsed(d){
+  if(d.collapsed!==undefined)d._collapsed=d.collapsed;
+  else d._collapsed=false;
+  if(d.children)d.children.forEach(initCollapsed);
+}
+
+function layout(){
+  flatNodes=[];flatLinks=[];
+  initCollapsed(treeData);
+  var W=window.innerWidth, H=window.innerHeight;
+  var rootX=120;
+
+  function place(d,depth,yStart,ySpan){
+    var x=rootX+depth*(NODE_W+H_GAP);
+    var nKids=(d.children&&!d._collapsed)?d.children.length:1;
+    var leafSpan=ySpan/nKids;
+    var y=yStart+ySpan/2;
+    var node={
+      id:flatNodes.length, name:d.name, color:d.color||'#595959',
+      emph:!!d.emph, x:x, y:y, w:NODE_W, h:NODE_H, depth:depth,
+      hasKids:!!(d.children&&d.children.length>0), collapsed:!!d._collapsed
+    };
+    d._node=node;
+    flatNodes.push(node);
+    if(d.children&&!d._collapsed){
+      for(var i=0;i<d.children.length;i++){
+        var child=d.children[i];
+        place(child,depth+1,yStart+i*leafSpan,leafSpan);
+        flatLinks.push({s:node.id,t:child._node.id});
+      }
+    }
+  }
+  place(treeData,0,80,H-160);
+
+  // Fix overlaps
+  var byDepth={};
+  flatNodes.forEach(function(n){
+    if(!byDepth[n.depth])byDepth[n.depth]=[];
+    byDepth[n.depth].push(n);
+  });
+  for(var key in byDepth){
+    var arr=byDepth[key];
+    arr.sort(function(a,b){return a.y-b.y});
+    for(var i=1;i<arr.length;i++){
+      if(arr[i].y-arr[i-1].y<NODE_H+V_GAP) arr[i].y=arr[i-1].y+NODE_H+V_GAP;
+    }
+  }
+}
+
+// ============ RENDER ============
+var mainG, linkG, nodeG;
+
+function render(){
+  while(svgEl.firstChild)svgEl.removeChild(svgEl.firstChild);
+
+  var defs=document.createElementNS(NS,'defs');
+  var filter=document.createElementNS(NS,'filter');
+  filter.setAttribute('id','sd');
+  filter.setAttribute('x','-10%');filter.setAttribute('y','-10%');
+  filter.setAttribute('width','130%');filter.setAttribute('height','130%');
+  var fe=document.createElementNS(NS,'feDropShadow');
+  fe.setAttribute('dx','1');fe.setAttribute('dy','2');
+  fe.setAttribute('stdDeviation','3');fe.setAttribute('flood-opacity','0.12');
+  filter.appendChild(fe);defs.appendChild(filter);
+  svgEl.appendChild(defs);
+
+  mainG=document.createElementNS(NS,'g');
+  svgEl.appendChild(mainG);
+
+  linkG=document.createElementNS(NS,'g');
+  linkG.setAttribute('class','links');
+  mainG.appendChild(linkG);
+
+  nodeG=document.createElementNS(NS,'g');
+  nodeG.setAttribute('class','nodes');
+  mainG.appendChild(nodeG);
+
+  // Links
+  var linkSet={};
+  flatLinks.forEach(function(l){linkSet[l.s+'-'+l.t]={s:l.s,t:l.t}});
+  for(var k in linkSet){
+    var l=linkSet[k];
+    var s=flatNodes[l.s], t=flatNodes[l.t];
+    var sx=s.x+NODE_W, sy=s.y+NODE_H/2, ex=t.x, ey=t.y+NODE_H/2;
+    var mx=(sx+ex)/2;
+    var d='M'+sx+','+sy+' C'+mx+','+sy+' '+mx+','+ey+' '+ex+','+ey;
+    var p=document.createElementNS(NS,'path');
+    p.setAttribute('d',d);
+    p.setAttribute('fill','none');
+    p.setAttribute('stroke','#c0c0c0');
+    p.setAttribute('stroke-width','1.5');
+    p.setAttribute('stroke-opacity','0.6');
+    p.setAttribute('data-s',l.s);
+    p.setAttribute('data-t',l.t);
+    linkG.appendChild(p);
+  }
+
+  // Nodes
+  flatNodes.forEach(function(n){
+    var g=document.createElementNS(NS,'g');
+    g.setAttribute('transform','translate('+n.x+','+n.y+')');
+    g.setAttribute('class','node');
+    g.style.cursor=n.hasKids?'pointer':'default';
+    g.setAttribute('data-id',n.id);
+    g.addEventListener('click',function(ev){ev.stopPropagation();toggleNode(n);});
+
+    var rect=document.createElementNS(NS,'rect');
+    rect.setAttribute('width',n.w);
+    rect.setAttribute('height',n.h);
+    rect.setAttribute('rx',CORNER_R);
+    rect.setAttribute('ry',CORNER_R);
+    rect.setAttribute('fill',n.emph?darken(n.color,0.08):n.color);
+    rect.setAttribute('stroke',n.emph?darken(n.color,0.2):'rgba(0,0,0,0.08)');
+    rect.setAttribute('stroke-width',n.emph?'2.5':'1');
+    rect.setAttribute('filter','url(#sd)');
+    g.appendChild(rect);
+
+    // Collapse indicator
+    if(n.hasKids){
+      var cx=n.w-14, cy=n.h/2;
+      var circle=document.createElementNS(NS,'circle');
+      circle.setAttribute('cx',cx);circle.setAttribute('cy',cy);circle.setAttribute('r','8');
+      circle.setAttribute('fill','rgba(255,255,255,0.35)');
+      circle.setAttribute('stroke','rgba(255,255,255,0.6)');
+      circle.setAttribute('stroke-width','1');
+      g.appendChild(circle);
+      var txt=document.createElementNS(NS,'text');
+      txt.setAttribute('x',cx);txt.setAttribute('y',cy);
+      txt.setAttribute('dy','0.35em');
+      txt.setAttribute('text-anchor','middle');
+      txt.setAttribute('fill','#fff');
+      txt.setAttribute('font-size','11');
+      txt.setAttribute('font-weight','bold');
+      txt.textContent=n.collapsed?'+':'−';
+      g.appendChild(txt);
+    }
+
+    // Text
+    var lines=n.name.split('\n');
+    var fs=lines.length>3?10:lines.length>2?11:12;
+    var tc=isLight(n.color)?'#1a1a1a':'#fff';
+    var totalH=lines.length*(fs+3)-3;
+    lines.forEach(function(line,i){
+      var ty=n.h/2-totalH/2+i*(fs+3)+fs*0.35;
+      var txt=document.createElementNS(NS,'text');
+      txt.setAttribute('x',n.hasKids?'14':n.w/2);
+      txt.setAttribute('y',ty);
+      txt.setAttribute('text-anchor',n.hasKids?'start':'middle');
+      txt.setAttribute('fill',tc);
+      txt.setAttribute('font-size',fs);
+      txt.setAttribute('font-weight',n.emph?'bold':'normal');
+      txt.setAttribute('font-family','Microsoft YaHei,PingFang SC,sans-serif');
+      txt.textContent=line;
+      g.appendChild(txt);
+    });
+
+    nodeG.appendChild(g);
+  });
+}
+
+// ============ TREE OPS ============
+function findData(d,id){
+  if(d._node&&d._node.id===id)return d;
+  if(d.children)for(var i=0;i<d.children.length;i++){var r=findData(d.children[i],id);if(r)return r;}
+  return null;
+}
+
+function toggleNode(node){
+  var d=findData(treeData,node.id);
+  if(d&&d.children&&d.children.length>0){
+    d._collapsed=!d._collapsed;
+    layout();render();applyTransform();
+    var q=document.getElementById('searchInput').value.trim();
+    if(q)highlight(q);
+  }
+}
+
+function expandAll(){
+  (function e(d){d._collapsed=false;if(d.children)d.children.forEach(e);})(treeData);
+  layout();render();applyTransform();
+}
+function collapseAll(){
+  (function c(d,dp){if(dp>=2)d._collapsed=true;if(d.children)d.children.forEach(function(ch){c(ch,dp+1)});})(treeData,0);
+  layout();render();applyTransform();
+}
+
+// ============ SEARCH ============
+function highlight(q){
+  q=q.toLowerCase();
+  var match=[];
+  flatNodes.forEach(function(n){if(n.name.toLowerCase().indexOf(q)>=0)match[n.id]=true;});
+  var ng=nodeG.querySelectorAll('.node');
+  for(var i=0;i<ng.length;i++){
+    var id=parseInt(ng[i].getAttribute('data-id'));
+    ng[i].style.opacity=match[id]?'1':'0.15';
+  }
+  var lp=linkG.querySelectorAll('path');
+  for(var i=0;i<lp.length;i++){
+    var s=parseInt(lp[i].getAttribute('data-s'));
+    var t=parseInt(lp[i].getAttribute('data-t'));
+    lp[i].setAttribute('stroke-opacity',(match[s]||match[t])?'0.6':'0.06');
+  }
+}
+function clearHighlight(){
+  var ng=nodeG.querySelectorAll('.node');
+  for(var i=0;i<ng.length;i++)ng[i].style.opacity='1';
+  var lp=linkG.querySelectorAll('path');
+  for(var i=0;i<lp.length;i++)lp[i].setAttribute('stroke-opacity','0.6');
+}
+
+// ============ ZOOM & PAN ============
+var tx=0, ty=0, scale=1;
+
+function applyTransform(){
+  mainG.setAttribute('transform','translate('+tx+','+ty+') scale('+scale+')');
+}
+
+var panning=false, panSX=0, panSY=0, panTX=0, panTY=0;
+
+svgEl.addEventListener('mousedown',function(ev){
+  if(ev.target===svgEl||ev.target.tagName==='svg'||ev.target===mainG){
+    panning=true;panSX=ev.clientX;panSY=ev.clientY;panTX=tx;panTY=ty;
+    svgEl.style.cursor='grabbing';
+  }
+});
+window.addEventListener('mousemove',function(ev){
+  if(!panning)return;
+  tx=panTX+(ev.clientX-panSX);ty=panTY+(ev.clientY-panSY);
+  applyTransform();
+});
+window.addEventListener('mouseup',function(){panning=false;svgEl.style.cursor='';});
+svgEl.addEventListener('wheel',function(ev){
+  ev.preventDefault();
+  var ds=ev.deltaY>0?0.9:1.1;
+  var ns=Math.min(3,Math.max(0.15,scale*ds));
+  var mx=ev.clientX,my=ev.clientY;
+  tx=mx-(mx-tx)*(ns/scale);
+  ty=my-(my-ty)*(ns/scale);
+  scale=ns;
+  applyTransform();
+},{passive:false});
+
+function fitView(){
+  var bb=mainG.getBBox();
+  var W=window.innerWidth,H=window.innerHeight,pad=80;
+  scale=Math.min(W/(bb.width+pad*2),H/(bb.height+pad*2),1.2);
+  tx=(W-bb.width*scale)/2-bb.x*scale;
+  ty=(H-bb.height*scale)/2-bb.y*scale;
+  applyTransform();
+}
+
+// ============ INIT ============
+layout();
+render();
+applyTransform();
+setTimeout(function(){
+  fitView();
+  showStatus('✅ 思维导图已就绪', 'ok');
+  setTimeout(function(){statusEl.style.display='none';},1500);
+},200);
+
+document.getElementById('btnFit').addEventListener('click',fitView);
+document.getElementById('btnExpand').addEventListener('click',expandAll);
+document.getElementById('btnCollapse').addEventListener('click',collapseAll);
+document.getElementById('searchInput').addEventListener('input',function(){
+  var q=this.value.trim();
+  if(q)highlight(q);else clearHighlight();
+});
+
+var rt;
+window.addEventListener('resize',function(){
+  clearTimeout(rt);
+  rt=setTimeout(function(){layout();render();applyTransform();},200);
+});
+
+// Success
+console.log('MindMap: rendered '+flatNodes.length+' nodes, '+flatLinks.length+' links');
+
+}catch(e){
+  showStatus('⚠️ 加载失败: '+e.message, 'err');
+  console.error(e);
+}
+})();
+</script>
+</body>
+</html>

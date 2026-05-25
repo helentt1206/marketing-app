@@ -1,0 +1,396 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>第七章 分销渠道策略：设计与管理 — 思维导图</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{
+  font-family:"Microsoft YaHei","PingFang SC",sans-serif;
+  background:#f0f2f5;
+  overflow:hidden;height:100vh;width:100vw;
+  user-select:none;-webkit-user-select:none;
+}
+svg{width:100%;height:100%;position:absolute;top:0;left:0}
+#toolbar{position:fixed;top:16px;right:16px;z-index:100;display:flex;gap:8px}
+#toolbar button{
+  padding:8px 16px;border:1px solid #d9d9d9;background:#fff;
+  border-radius:6px;cursor:pointer;font-size:13px;font-family:inherit;
+  box-shadow:0 1px 4px rgba(0,0,0,.08);transition:all .2s;
+}
+#toolbar button:hover{background:#1677ff;color:#fff;border-color:#1677ff}
+#search{position:fixed;top:16px;left:16px;z-index:100}
+#search input{
+  padding:8px 14px;border:1px solid #d9d9d9;border-radius:20px;
+  width:240px;font-size:13px;font-family:inherit;outline:none;
+  box-shadow:0 1px 4px rgba(0,0,0,.08);transition:border-color .2s;
+}
+#search input:focus{border-color:#1677ff}
+#info{
+  position:fixed;bottom:16px;right:16px;z-index:100;
+  background:#fff;padding:6px 12px;border-radius:6px;
+  box-shadow:0 1px 6px rgba(0,0,0,.1);font-size:11px;color:#888;
+}
+#legend{
+  position:fixed;bottom:16px;left:16px;z-index:100;
+  background:#fff;padding:10px 16px;border-radius:8px;
+  box-shadow:0 1px 6px rgba(0,0,0,.1);font-size:12px;
+  display:flex;gap:14px;flex-wrap:wrap;
+}
+.li{display:flex;align-items:center;gap:6px}
+.ld{width:12px;height:12px;border-radius:50%}
+#status{
+  position:fixed;top:50%;left:50%;transform:translate(-50%,-50%);
+  background:#fff;padding:20px 40px;border-radius:12px;z-index:200;
+  box-shadow:0 4px 20px rgba(0,0,0,.15);font-size:16px;text-align:center;
+}
+#status.ok{color:#52c41a}
+#status.err{color:#f5222d}
+#status.loading{color:#1677ff}
+</style>
+</head>
+<body>
+
+<div id="status" class="loading">正在加载思维导图...</div>
+
+<div id="toolbar">
+  <button id="btnFit">适应画面</button>
+  <button id="btnExpand">全部展开</button>
+  <button id="btnCollapse">全部收起</button>
+</div>
+<div id="search">
+  <input type="text" id="searchInput" placeholder="搜索节点...">
+</div>
+<div id="legend">
+  <span class="li"><span class="ld" style="background:#1677ff"></span>核心概念</span>
+  <span class="li"><span class="ld" style="background:#52c41a"></span>观念演变</span>
+  <span class="li"><span class="ld" style="background:#fa8c16"></span>案例分析</span>
+  <span class="li"><span class="ld" style="background:#722ed1"></span>国际化趋势</span>
+  <span class="li"><span class="ld" style="background:#eb2f96"></span>跨文化营销</span>
+  <span class="li"><span class="ld" style="background:#13c2c2"></span>实训/练习</span>
+</div>
+<div id="info">拖拽平移 · 滚轮缩放 · 点击节点展开/收起</div>
+
+<svg id="svg"></svg>
+
+<script>
+(function(){
+var statusEl = document.getElementById('status');
+function showStatus(msg, cls){
+  statusEl.textContent = msg;
+  statusEl.className = cls;
+}
+try {
+
+// ============ TREE DATA ============
+var treeData = {name:'第七章 分销渠道策略：设计与\n管理', color:'#f5222d', children:[              {name:'学习目标 ', color:'#1677ff', children:[                {name:'知识目标', color:'#91caff', collapsed:true, children:[                  {name:'理解分销渠道的内涵、战略价值\n与五大核心流程，掌握渠道长度...', color:'#d6e4ff', children:[]                  },                  {name:'熟练掌握渠道设计五步法，能够\n区分密集分销、选择分销、独家...', color:'#d6e4ff', children:[]                  },                  {name:'掌握中间商功能、渠道激励、渠\n道控制、渠道冲突管理的核心理...', color:'#d6e4ff', children:[]                  },                  {name:'理解现代物流、供应链管理、跨\n境渠道、海外仓、全渠道零售的...', color:'#d6e4ff', children:[]                  },                  {name:'熟悉大数据、DMS、CRM、全域会\n员等数字化工具在渠道管理中的...', color:'#d6e4ff', children:[]                  }                ]                },                {name:'能力目标', color:'#91caff', collapsed:true, children:[                  {name:'能够为智能家居、高端制造、跨\n境电商类企业设计全渠道、可落...', color:'#d6e4ff', children:[]                  },                  {name:'能够诊断渠道冲突、窜货、乱价、\n服务不一致等问题，并提出解决...', color:'#d6e4ff', children:[]                  },                  {name:'能够结合企业实际，构建线上线\n下融合、国内外双循环、利益共...', color:'#d6e4ff', children:[]                  },                  {name:'能够运用数字化工具提升渠道效\n率、管控价格、优化库存与服务...', color:'#d6e4ff', children:[]                  }                ]                },                {name:'素养目标', color:'#91caff', collapsed:true, children:[                  {name:'树立契约精神、诚信经营、合作\n共赢的渠道伦理观，摒弃恶性竞...', color:'#d6e4ff', children:[]                  },                  {name:'强化供应链安全、自主可控、品\n牌自立意识，理解渠道对产业安...', color:'#d6e4ff', children:[]                  },                  {name:'培养开放包容、跨文化适应、合\n规经营的国际视野，尊重全球市...', color:'#d6e4ff', children:[]                  },                  {name:'立足苏州工业园区产业定位，强\n化服务地方、赋能实体、国货自...', color:'#d6e4ff', children:[]                  },                  {name:'能够为苏州本土企业出海设计跨\n境电商与本地渠道的复合进入策...', color:'#d6e4ff', children:[]                  }                ]                }              ]              },              {name:'前言：为何分销渠道是市场战略\n的“任督二脉”？', color:'#1677ff', children:[                {name:'在全球经济一体化与数字化新零\n售的双重浪潮下，产品从工厂到...', color:'#d6e4ff', children:[]                }              ]              },              {name:'7.1 分销渠道概述：重新认识商\n业的“通路”价值', color:'#1677ff', children:[                {name:'分销渠道不是简单的 “送货管\n道”，而是承载产品、资金、信...', color:'#d6e4ff', children:[]                },                {name:'7.1.1 分销渠道的定义与核心价\n值', color:'#4096ff', collapsed:true, children:[                  {name:'在商业社会中，很少有一个产品\n是由生产者直接交付到最终消费...', color:'#d6e4ff', children:[]                  },                  {name:'7.1.1.1 深度定义', color:'#69b1ff', collapsed:true, children:[                    {name:'分销渠道是由一系列相互依存、\n分工协作、风险共担的组织与个...', color:'#d6e4ff', children:[]                    },                    {name:'第一层：相互依存的生态关系。\n渠道参与者——无论是厂家、批...', color:'#d6e4ff', children:[]                    },                    {name:'第二层：弥合生产与消费的五大\n分离。经济学告诉我们，生产与...', color:'#d6e4ff', children:[]                    },                    {name:'第三层：以最低交易成本实现最\n优体验。交易成本理论认为，企...', color:'#d6e4ff', children:[]                    }                  ]                  },                  {name:'7.1.1.2 渠道的六大战略价值', color:'#69b1ff', collapsed:true, children:[                    {name:'许多初次接触市场营销的学生容\n易将渠道简单理解为“物流”或...', color:'#d6e4ff', children:[]                    },                    {name:'全触角市场渗透（Market \nPenetration & Coverage）', color:'#d6e4ff', children:[]                    },                    {name:'专业化效率革命（\nSpecialization & Efficiency...', color:'#d6e4ff', children:[]                    },                    {name:'亚当·斯密在《国富论》中早已\n阐明分工创造效率的经济学原理...', color:'#d6e4ff', children:[]                    },                    {name:'风险分散与缓冲（Risk Sharing\n & Buffering）', color:'#d6e4ff', children:[]                    },                    {name:'本地化价值共创（Localization\n & Co-Creation）', color:'#d6e4ff', children:[]                    },                    {name:'数据驱动的市场传感器（Market\n Sensing & Intelligence）', color:'#d6e4ff', children:[]                    },                    {name:'终端体验的“最后一米”', color:'#d6e4ff', children:[]                    },                    {name:'【案例链接：小米的渠道战略演\n进】', color:'#d6e4ff', children:[]                    }                  ]                  },                  {name:'7.1.1.3 分销渠道的经济学解释：\n交易成本理论的深度解析', color:'#69b1ff', collapsed:true, children:[                    {name:'在前文中我们给出了分销渠道的\n定义，后文中我们将继续探讨中...', color:'#d6e4ff', children:[]                    },                    {name:'任何一次市场交易都伴随着成本，\n这些成本远不止商品本身的价格...', color:'#d6e4ff', children:[]                    },                    {name:'在没有中间商的直接交易模式中，\n每一个制造商都要独立承担与成...', color:'#d6e4ff', children:[]                    },                    {name:'威廉姆森提出的“资产专用性”\n概念，对于理解企业选择自建渠...', color:'#d6e4ff', children:[]                    },                    {name:'这解释了为什么高端智能家居品\n牌倾向于选择分销和深度合作，...', color:'#d6e4ff', children:[]                    }                  ]                  }                ]                },                {name:'7.1.2 分销渠道的五大核心流程', color:'#4096ff', collapsed:true, children:[                  {name:'渠道的顺畅运行依赖五大流程协\n同运转，任何环节的断裂都会导...', color:'#d6e4ff', children:[]                  },                  {name:'实物流', color:'#d6e4ff', children:[]                  },                  {name:'所有权流', color:'#d6e4ff', children:[]                  },                  {name:'所有权流指的是货物所有权从制\n造商经过各级渠道商最终转移到...', color:'#d6e4ff', children:[]                  },                  {name:'谈判流', color:'#d6e4ff', children:[]                  },                  {name:'谈判流是渠道各成员之间就交易\n条件进行协商与达成共识的过程...', color:'#d6e4ff', children:[]                  },                  {name:'资金流', color:'#d6e4ff', children:[]                  },                  {name:'资金流是货款、预付款、保证金、\n返利、补贴等在渠道体系内双向...', color:'#d6e4ff', children:[]                  },                  {name:'信息流', color:'#d6e4ff', children:[]                  },                  {name:'信息流是市场需求、销售数据、\n库存水位、竞品动态、客户评价...', color:'#d6e4ff', children:[]                  },                  {name:'这五大流程并非各自独立，而是\n相互嵌套、动态耦合的有机整体...', color:'#d6e4ff', children:[]                  },                  {name:'【五大流程的深度展开：信息流\n中的“牛鞭效应”】', color:'#d6e4ff', children:[]                  },                  {name:'“牛鞭效应”是指：在供应链中，\n终端消费者需求的微小波动，在...', color:'#d6e4ff', children:[]                  }                ]                },                {name:'7.1.3 分销渠道的结构化选择', color:'#4096ff', collapsed:true, children:[                  {name:'渠道结构决定企业对市场的覆盖\n能力、控制力度与运营成本。渠...', color:'#d6e4ff', children:[]                  },                  {name:'7.1.3.1 按层级长度划分', color:'#69b1ff', collapsed:true, children:[                    {name:'层级长度指的是产品从制造商到\n最终消费者之间经过的中间环节...', color:'#d6e4ff', children:[]                    },                    {name:'零级渠道（Direct Channel / \nZero-Level Channel）', color:'#d6e4ff', children:[]                    },                    {name:'零级渠道即直销模式，制造商不\n经过任何中间商，直接向最终用...', color:'#d6e4ff', children:[]                    },                    {name:'零级渠道的突出优势是厂商对价\n格、品牌形象、用户数据和终端...', color:'#d6e4ff', children:[]                    },                    {name:'零级渠道特别适用于以下场景：\n高客单价、强服务需求、重体验...', color:'#d6e4ff', children:[]                    },                    {name:'一级渠道', color:'#d6e4ff', children:[]                    },                    {name:'一级渠道即制造商→零售商→消\n费者的三级结构，只经过一个中...', color:'#d6e4ff', children:[]                    },                    {name:'一级渠道的零售伙伴通常具有较\n强的品牌背书能力和终端客流优...', color:'#d6e4ff', children:[]                    },                    {name:'一级渠道尤其适用于家电、消费\n电子、家居、服装、美妆等标准...', color:'#d6e4ff', children:[]                    },                    {name:'二级渠道', color:'#d6e4ff', children:[]                    },                    {name:'二级渠道即制造商→批发商→零\n售商→消费者的四层结构。批发...', color:'#d6e4ff', children:[]                    },                    {name:'二级渠道广泛存在于快消品（饮\n料、零食、日化）、五金建材、...', color:'#d6e4ff', children:[]                    },                    {name:'三级渠道', color:'#d6e4ff', children:[]                    },                    {name:'三级渠道在二级渠道基础上再增\n加一层总代理或全国经销商，形...', color:'#d6e4ff', children:[]                    },                    {name:'层级越长的渠道，其管理难度呈\n指数级上升，品牌方对终端市场...', color:'#d6e4ff', children:[]                    }                  ]                  },                  {name:'7.1.3.2 按渠道密度划分', color:'#69b1ff', collapsed:true, children:[                    {name:'渠道密度指的是品牌在同一市场\n区域内使用同类中间商的数量，...', color:'#d6e4ff', children:[]                    },                    {name:'密集分销', color:'#d6e4ff', children:[]                    },                    {name:'选择分销', color:'#d6e4ff', children:[]                    },                    {name:'选择分销是在一个市场区域内精\n选少数符合标准的渠道伙伴，而...', color:'#d6e4ff', children:[]                    },                    {name:'独家分销', color:'#d6e4ff', children:[]                    },                    {name:'【深度辨析：选择分销还是密集\n分销——渠道策略的决策框架】', color:'#d6e4ff', children:[]                    },                    {name:'企业在密集分销与选择分销之间\n的权衡，本质上是“市场覆盖率...', color:'#d6e4ff', children:[]                    },                    {name:'产品复杂度：产品是否需要专业\n演示、安装指导或售后维护？如...', color:'#d6e4ff', children:[]                    },                    {name:'品牌定位：品牌是否追求溢价？\n是否依赖稀缺感和格调维持竞争...', color:'#d6e4ff', children:[]                    },                    {name:'消费者购买介入度：消费者购买\n时是“随手拿了就走”（低介入...', color:'#d6e4ff', children:[]                    },                    {name:'售后依赖度：产品是否有持续的\n售后服务需求？耗材更换、定期...', color:'#d6e4ff', children:[]                    }                  ]                  }                ]                }              ]              },              {name:'7.2 中间商的进化：从“赚差价”\n到“价值共创伙伴”', color:'#1677ff', children:[                {name:'7.2.1 中间商存在的经济学逻辑', color:'#4096ff', collapsed:true, children:[                  {name:'许多初学者有一个朴素的疑问：\n中间商赚差价，凭什么？为何不...', color:'#d6e4ff', children:[]                  },                  {name:'这个疑问源于对市场交易成本的\n误解。中间商之所以存在，是因...', color:'#d6e4ff', children:[]                  },                  {name:'假设一个市场中有M个制造商和N\n个消费者，在没有中间商的情况...', color:'#d6e4ff', children:[]                  },                  {name:'不仅如此，中间商还通过批量采\n购、专业仓储、统一配送创造了...', color:'#d6e4ff', children:[]                  }                ]                },                {name:'7.2.2 传统中间商的角色局限', color:'#4096ff', collapsed:true, children:[                  {name:'在相当长一段历史时期内，中间\n商的商业模式确实比较简单：低...', color:'#d6e4ff', children:[]                  },                  {name:'第一，信息不对称导致信任缺失。\n厂家不掌握终端动销数据，不知...', color:'#d6e4ff', children:[]                  },                  {name:'第二，同质化竞争压缩利润空间。\n当中间商只承担“转手”功能时...', color:'#d6e4ff', children:[]                  },                  {name:'第三，消费者主权崛起的冲击。\n随着电商平台的兴起，价格透明...', color:'#d6e4ff', children:[]                  }                ]                },                {name:'7.2.3 现代中间商的四大角色转\n型', color:'#4096ff', collapsed:true, children:[                  {name:'面对挑战，优秀的中间商并未消\n失，而是完成了根本性的角色进...', color:'#d6e4ff', children:[]                  },                  {name:'批发商：从“囤货卖货”到“区\n域物流中心+资金服务商+小B赋...', color:'#d6e4ff', children:[]                  },                  {name:'零售商：从“卖产品的货架”到\n“体验中心+服务中心+流量入口...', color:'#d6e4ff', children:[]                  },                  {name:'经销商/代理商：从“压货收款”\n到“用户运营商+市场开拓者+技...', color:'#d6e4ff', children:[]                  },                  {name:'跨境服务商/平台：品牌出海的\n“新基建”', color:'#d6e4ff', children:[]                  },                  {name:'【深度观察：平台型中间商的崛\n起——一场静悄悄的渠道革命】', color:'#d6e4ff', children:[]                  }                ]                },                {name:'7.2.4 中间商未来的演变趋势', color:'#4096ff', collapsed:true, children:[                  {name:'前文中我们讨论了现代中间商的\n四大角色转型。在此，我们进一...', color:'#d6e4ff', children:[]                  },                  {name:'趋势一：从“分销商”到“用户\n运营商”', color:'#d6e4ff', children:[]                  },                  {name:'未来，越是优秀的中间商，越不\n会把自己定位为“卖货的”，而...', color:'#d6e4ff', children:[]                  },                  {name:'数字化工具的普及正在加大中间\n商之间的能力分化。能够主动拥...', color:'#d6e4ff', children:[]                  },                  {name:'趋势三：平台与中间商的边界模\n糊化', color:'#d6e4ff', children:[]                  },                  {name:'当大型经销商开始自建数字化订\n货平台、自研仓储管理系统、甚...', color:'#d6e4ff', children:[]                  }                ]                }              ]              },              {name:'7.3 分销渠道设计五步法：从战\n略蓝图到落地执行', color:'#1677ff', collapsed:true, children:[                {name:'以下五步法正是围绕这五个问题\n构建的一套结构化路径，它将渠...', color:'#d6e4ff', children:[]                },                {name:'7.3.1 步骤1：深度解构顾客购\n买行为', color:'#4096ff', collapsed:true, children:[                  {name:'渠道设计的第一步不是向外看竞\n争，而是向内看顾客。渠道是服...', color:'#d6e4ff', children:[]                  },                  {name:'核心问题是：我们的目标顾客到\n底想怎么买？', color:'#d6e4ff', children:[]                  },                  {name:'信息获取路径：顾客在决定购买\n前从哪些渠道了解产品信息？是...', color:'#d6e4ff', children:[]                  },                  {name:'决策场景偏好：顾客的最终购买\n决策发生在什么场景下？是在线...', color:'#d6e4ff', children:[]                  },                  {name:'服务需求类型：购买后需要什么\n样的服务支持？是否需要上门安...', color:'#d6e4ff', children:[]                  },                  {name:'便利性诉求：对配送时效、自提、\n退换货便利性有什么期望？是一...', color:'#d6e4ff', children:[]                  },                  {name:'工具一：顾客购买决策旅程地图', color:'#d6e4ff', children:[]                  },                  {name:'绘制一张目标顾客从“产生需求”\n到“完成购买并分享体验”的完...', color:'#d6e4ff', children:[]                  },                  {name:'从两个维度对顾客购买行为进行\n分类：购买介入度（高/低）和...', color:'#d6e4ff', children:[]                  },                  {name:'- 高介入度、高服务需求（如高\n端智能家居）：需要重体验的线...', color:'#d6e4ff', children:[]                  },                  {name:'- 高介入度、低服务需求（如高\n端服装）：消费者自驱力强，但...', color:'#d6e4ff', children:[]                  },                  {name:'- 低介入度、高服务需求（如常\n用药品）：消费者决策快，但需...', color:'#d6e4ff', children:[]                  },                  {name:'- 低介入度、低服务需求（如日\n用快消品）：尽可能地密集铺货...', color:'#d6e4ff', children:[]                  },                  {name:'将产品所需的服务支持拆解为售\n前、售中、售后三个阶段的详细...', color:'#d6e4ff', children:[]                  }                ]                },                {name:'7.3.2 步骤2：设定渠道目标与\n约束条件', color:'#4096ff', collapsed:true, children:[                  {name:'明确了顾客购买行为特征之后，\n渠道设计的第二步是将战略意图...', color:'#d6e4ff', children:[]                  },                  {name:'渠道目标设定（遵循SMART原则）', color:'#d6e4ff', children:[]                  },                  {name:'渠道目标的设定不能停留在“我\n们要把渠道做好”这样笼统的口...', color:'#d6e4ff', children:[]                  },                  {name:'具体明确意味着目标不能模棱两\n可。例如，与其说“我们要大力...', color:'#d6e4ff', children:[]                  },                  {name:'可衡量要求每一个目标都能用数\n据和事实来检验是否达成——“...', color:'#d6e4ff', children:[]                  },                  {name:'可达成强调目标应当具有挑战性\n但不至于脱离实际，一家年营收...', color:'#d6e4ff', children:[]                  },                  {name:'相关性要求渠道目标与企业整体\n战略和品牌定位保持一致——如...', color:'#d6e4ff', children:[]                  },                  {name:'有时间限定则为每一个目标设定\n了明确的完成期限——是三个月...', color:'#d6e4ff', children:[]                  },                  {name:'再宏大的渠道目标也必须服从于\n现实的约束。忽视约束条件的渠...', color:'#d6e4ff', children:[]                  },                  {name:'企业资源约束是一道不容回避的\n现实考题。可用于渠道建设的资...', color:'#d6e4ff', children:[]                  },                  {name:'市场特征约束要求渠道设计必须\n贴合目标市场的实际情况。目标...', color:'#d6e4ff', children:[]                  },                  {name:'竞争格局约束为渠道设计提供了\n重要的参照系。主要竞品采用了...', color:'#d6e4ff', children:[]                  },                  {name:'目标设定与约束分析的关系，本\n质上是在“想要什么”和“能做...', color:'#d6e4ff', children:[]                  }                ]                },                {name:'7.3.3 步骤3：构思备选渠道方\n案', color:'#4096ff', collapsed:true, children:[                  {name:'在明确了渠道目标和现实约束之\n后，团队进入方案构思阶段。这...', color:'#d6e4ff', children:[]                  },                  {name:'常见的渠道方案可以沿以下四个\n轴线系统展开。', color:'#d6e4ff', children:[]                  },                  {name:'国内与海外维度：品牌需要从地\n理维度审视渠道布局的广度。是...', color:'#d6e4ff', children:[]                  },                  {name:'创新组合维度：在传统渠道之外，\n越来越多品牌开始尝试突破性的...', color:'#d6e4ff', children:[]                  },                  {name:'将上述四个轴线交叉组合，团队\n可以生成一个丰富的渠道方案矩...', color:'#d6e4ff', children:[]                  }                ]                },                {name:'7.3.4 步骤4：三大标准评估最\n优方案', color:'#4096ff', collapsed:true, children:[                  {name:'有了备选方案集合，接下来要用\n三个核心标准进行系统评估。', color:'#d6e4ff', children:[]                  },                  {name:'核心标准一：经济性', color:'#d6e4ff', children:[]                  },                  {name:'每个渠道方案的成本是多少？预\n期带来多少收益？投资回报周期...', color:'#d6e4ff', children:[]                  },                  {name:'具体需要估算的指标包括：渠道\n建设一次性投入（开店、装修、...', color:'#d6e4ff', children:[]                  },                  {name:'核心标准二：控制性', color:'#d6e4ff', children:[]                  },                  {name:'采用这个方案后，品牌方对价格\n体系、服务水平、库存状况、用...', color:'#d6e4ff', children:[]                  },                  {name:'自营渠道控制力最强但投入最大，\n经销商渠道投入较小但控制力相...', color:'#d6e4ff', children:[]                  },                  {name:'核心标准三：适应性', color:'#d6e4ff', children:[]                  },                  {name:'这个方案能否适应不同区域的市\n场特征、文化差异和法规要求？...', color:'#d6e4ff', children:[]                  },                  {name:'如果一个渠道方案只能在一二线\n城市跑通但无法适配下沉市场，...', color:'#d6e4ff', children:[]                  },                  {name:'【经济性补充：渠道成本收益对\n比分析】', color:'#d6e4ff', children:[]                  },                  {name:'对于每一个备选渠道方案，可以\n构建一个简化的经济性评估模型...', color:'#d6e4ff', children:[]                  },                  {name:'- 估算该渠道的年预期销售收入：\n预期该渠道覆盖的目标消费者数...', color:'#d6e4ff', children:[]                  },                  {name:'- 估算该渠道的年度总成本：一\n次性建设投入（按使用年限摊销...', color:'#d6e4ff', children:[]                  },                  {name:'- 计算该渠道的预期年度利润贡\n献，并与同样投入其他渠道方案...', color:'#d6e4ff', children:[]                  },                  {name:'- 进一步计算该渠道的投入产出\n比和盈亏平衡时间。', color:'#d6e4ff', children:[]                  },                  {name:'需要注意的是，经济性评估不应\n只看第一年的数据，而应该做3-...', color:'#d6e4ff', children:[]                  },                  {name:'在做渠道投资决策时，还需要引\n入机会成本的概念。同样一笔资...', color:'#d6e4ff', children:[]                  }                ]                },                {name:'7.3.5 步骤5：精细化落地执行', color:'#4096ff', collapsed:true, children:[                  {name:'方案选定了，最后一步是把蓝图\n变成可以逐项执行的任务清单。', color:'#d6e4ff', children:[]                  },                  {name:'区域授权与边界划定：明确各经\n销商的地理经营范围，用合同条...', color:'#d6e4ff', children:[]                  },                  {name:'价格体系与返利政策：制定统一\n零售价、各级批发价、促销折扣...', color:'#d6e4ff', children:[]                  },                  {name:'服务标准（SLA，Service Level\n Agreement）：定义从下单到发...', color:'#d6e4ff', children:[]                  },                  {name:'考核与退出机制：建立关键绩效\n指标考核体系（销售额达成率、...', color:'#d6e4ff', children:[]                  },                  {name:'数字化工具部署：为渠道商统一\n提供经销商管理系统、终端零售...', color:'#d6e4ff', children:[]                  }                ]                }              ]              },              {name:'7.4 产教融合实战案例：科沃斯\n机器人的全球渠道进击之路', color:'#1677ff', children:[                {name:'7.4.1 企业背景：从苏州走向世\n界', color:'#4096ff', collapsed:true, children:[                  {name:'科沃斯机器人是一家总部位于苏\n州工业园区的全球领先家用服务...', color:'#d6e4ff', children:[]                  },                  {name:'以下关键信息勾勒出科沃斯的发\n展脉络：', color:'#d6e4ff', children:[]                  },                  {name:'- 1998年：创始人钱东奇在苏州\n创立泰怡凯电器，最初为国际知...', color:'#d6e4ff', children:[]                  },                  {name:'- 2006年：正式创立自有品牌“\n科沃斯”，推出第一款自有品牌...', color:'#d6e4ff', children:[]                  },                  {name:'- 2018年：在上海证券交易所上\n市，成为“家用服务机器人第一...', color:'#d6e4ff', children:[]                  },                  {name:'- 截至目前：产品销往全球超过\n140个国家和地区，在扫地机器...', color:'#d6e4ff', children:[]                  }                ]                },                {name:'7.4.2 科沃斯渠道战略三阶段演\n进', color:'#4096ff', collapsed:true, children:[                  {name:'阶段一：OEM代工时代——渠道\n不可控之痛', color:'#d6e4ff', children:[]                  },                  {name:'2006年之前，科沃斯前身泰怡凯\n主要为欧美、日本品牌贴牌生产...', color:'#d6e4ff', children:[]                  },                  {name:'这一阶段的渠道特点可以概括为\n三个“无”：无自主品牌（渠道...', color:'#d6e4ff', children:[]                  },                  {name:'泰怡凯的利润率长期被压在个位\n数，而贴牌的品牌方在海外市场...', color:'#d6e4ff', children:[]                  },                  {name:'这段经历的核心启示是：渠道权\n就是市场权，没有自主渠道，就...', color:'#d6e4ff', children:[]                  },                  {name:'阶段二：自主品牌起步——线上\n与线下双轮驱动', color:'#d6e4ff', children:[]                  },                  {name:'2006年科沃斯自有品牌诞生后，\n面临的首要挑战就是：怎么让消...', color:'#d6e4ff', children:[]                  },                  {name:'线下渠道布局：选择分销，借力\n主流零售终端', color:'#d6e4ff', children:[]                  },                  {name:'科沃斯选择了进入苏宁、国美等\n头部家电连锁卖场。在当时，这...', color:'#d6e4ff', children:[]                  },                  {name:'科沃斯在这一时期逐步形成了清\n晰的渠道分工逻辑：线上做流量...', color:'#d6e4ff', children:[]                  },                  {name:'迈向全球化市场后，科沃斯的渠\n道体系进一步成熟，形成了中国...', color:'#d6e4ff', children:[]                  },                  {name:'科沃斯在中国市场建立起多渠道\n高度协同的运营体系：', color:'#d6e4ff', children:[]                  },                  {name:'线下：在核心城市设立品牌旗舰\n店，在主流卖场（苏宁、山姆会...', color:'#d6e4ff', children:[]                  },                  {name:'线上：全面覆盖天猫、京东等货\n架电商平台，布局抖音、快手等...', color:'#d6e4ff', children:[]                  },                  {name:'打通融合：科沃斯全渠道融合的\n一个关键机制是“利益共享”—...', color:'#d6e4ff', children:[]                  },                  {name:'数字化底座支撑：DMS系统实时\n监控经销商库存与动销数据，全...', color:'#d6e4ff', children:[]                  },                  {name:'科沃斯的海外渠道策略可以用“\n双轨并行”来概括。', color:'#d6e4ff', children:[]                  },                  {name:'轨一：跨境电商 + 独立站 + 海\n外仓。通过亚马逊、速卖通等全...', color:'#d6e4ff', children:[]                  }                ]                },                {name:'7.4.3 科沃斯渠道管理的四条“\n金规玉律”', color:'#4096ff', collapsed:true, children:[                  {name:'从科沃斯的渠道管理实践中，可\n以提炼出四条具有普遍借鉴价值...', color:'#d6e4ff', children:[]                  },                  {name:'价格体系是渠道生态的生命线，\n价格一乱，渠道必乱。科沃斯执...', color:'#d6e4ff', children:[]                  },                  {name:'渠道数字化不是可有可无的辅助\n工具，而是现代渠道管理的底层...', color:'#d6e4ff', children:[]                  },                  {name:'渠道冲突治不如防，事后的冲突\n处理成本远高于事前的制度设计...', color:'#d6e4ff', children:[]                  }                ]                },                {name:'7.4.4 案例启示', color:'#4096ff', collapsed:true, children:[                  {name:'科沃斯渠道战略的演进过程蕴含\n多条值得深思的战略启示：', color:'#d6e4ff', children:[]                  },                  {name:'从OEM代工到自主品牌，最本质\n的变化不是产品的变化——产品...', color:'#d6e4ff', children:[]                  },                  {name:'高端品牌必须选择分销，拒绝粗\n放铺货', color:'#d6e4ff', children:[]                  },                  {name:'“铺满全国”听起来很诱人，但\n高端品牌的天敌不是货铺得不够...', color:'#d6e4ff', children:[]                  },                  {name:'全渠道不是多渠道，本质是融合\n与利益共享', color:'#d6e4ff', children:[]                  },                  {name:'很多企业把全渠道简单理解为“\n多开几个渠道”，结果线上线下...', color:'#d6e4ff', children:[]                  },                  {name:'全球化必须“跨境电商 + 本地\n渠道”双轨并行', color:'#d6e4ff', children:[]                  },                  {name:'单一依赖跨境电商，能卖货但建\n不起品牌认知和用户信任；单一...', color:'#d6e4ff', children:[]                  }                ]                },                {name:'7.4.5 案例对比分析：科沃斯、\n追觅科技与戴森的渠道策略比较', color:'#4096ff', collapsed:true, children:[                  {name:'为了更立体地理解渠道策略的决\n策逻辑，这里引入两个对比案例...', color:'#d6e4ff', children:[]                  },                  {name:'科沃斯 vs 追觅科技：两种渠道\n拓展节奏', color:'#d6e4ff', children:[]                  },                  {name:'追觅科技同样是起家于苏州的智\n能清洁品牌，与科沃斯同台竞技...', color:'#d6e4ff', children:[]                  },                  {name:'科沃斯 vs 戴森：高端品牌的渠\n道共性', color:'#d6e4ff', children:[]                  },                  {name:'科沃斯和戴森的共同经验表明：\n高端品牌必须用选择分销维护渠...', color:'#d6e4ff', children:[]                  }                ]                }              ]              },              {name:'7.5 渠道动态管理：激励、控制\n与冲突化解', color:'#1677ff', children:[                {name:'渠道不是设好了就能自动运转的\n机器。经销商有自己的利益诉求...', color:'#d6e4ff', children:[]                },                {name:'7.5.1 渠道激励：从“给钱”到\n“共生”', color:'#4096ff', collapsed:true, children:[                  {name:'激励是渠道管理的动力系统。但\n“激励”这个词很容易被简单化...', color:'#d6e4ff', children:[]                  },                  {name:'现代渠道激励应当从单一的经济\n激励走向多元化的价值供给。', color:'#d6e4ff', children:[]                  },                  {name:'经济激励是渠道合作的底层基石，\n没有合理的利润空间，任何合作...', color:'#d6e4ff', children:[]                  },                  {name:'这里需要特别强调“阶梯返利”\n设计中的微妙性：返利的门槛如...', color:'#d6e4ff', children:[]                  },                  {name:'包括持续的产品知识与销售技巧\n培训、充足的样机与演示物料支...', color:'#d6e4ff', children:[]                  },                  {name:'包括明确的区域保护承诺与授权\n背书、年度优秀经销商表彰与荣...', color:'#d6e4ff', children:[]                  },                  {name:'包括联合制定区域市场发展规划\n与年度增长目标、数据共享（品...', color:'#d6e4ff', children:[]                  },                  {name:'一是“只奖不罚导致懈怠”，正\n面激励需要与负向约束配合使用...', color:'#d6e4ff', children:[]                  }                ]                },                {name:'7.5.2 渠道控制：用规则与技术\n保障秩序', color:'#4096ff', collapsed:true, children:[                  {name:'控制不是束缚渠道商的手脚，而\n是建立和维护所有人共同遵守的...', color:'#d6e4ff', children:[]                  },                  {name:'价格体系是渠道生态的基石。无\n论采用统一零售价还是最低限价...', color:'#d6e4ff', children:[]                  },                  {name:'窜货——即经销商超越授权区域\n销售产品——是渠道管理中的顽...', color:'#d6e4ff', children:[]                  },                  {name:'品牌方应制定并下发统一的服务\n标准，对安装规范、售后响应时...', color:'#d6e4ff', children:[]                  },                  {name:'要求授权渠道商使用统一的DMS\n系统或接口上报销售和库存数据...', color:'#d6e4ff', children:[]                  },                  {name:'现代渠道控制越来越依赖数字化\n工具而非人工巡查。常见的工具...', color:'#d6e4ff', children:[]                  },                  {name:'DMS在价格和区域控制中的核心\n价值', color:'#d6e4ff', children:[]                  }                ]                },                {name:'7.5.3 渠道冲突：类型、成因与\n解决方案', color:'#4096ff', collapsed:true, children:[                  {name:'渠道冲突是渠道管理中不可避免\n的问题。有利益的地方就有分歧...', color:'#d6e4ff', children:[]                  },                  {name:'7.5.3.1 渠道冲突的三大类型', color:'#69b1ff', collapsed:true, children:[                    {name:'水平冲突：同一层级渠道商之间\n的冲突。典型表现是相邻区域的...', color:'#d6e4ff', children:[]                    },                    {name:'垂直冲突：上下游渠道成员之间\n的冲突。典型表现是经销商认为...', color:'#d6e4ff', children:[]                    },                    {name:'多渠道冲突：不同渠道类型之间\n的冲突，尤以线上与线下冲突最...', color:'#d6e4ff', children:[]                    }                  ]                  },                  {name:'7.5.3.2 冲突的根源分析', color:'#69b1ff', collapsed:true, children:[                    {name:'渠道冲突不是凭空产生的，追溯\n根源主要有以下几种情况：', color:'#d6e4ff', children:[]                    },                    {name:'目标分歧：品牌方想要市场份额\n最大化，经销商想要自身利润最...', color:'#d6e4ff', children:[]                    },                    {name:'角色模糊：区域边界不清晰、线\n上订单归属规则不明确，经销商...', color:'#d6e4ff', children:[]                    },                    {name:'利益分配失衡：返利政策不公平，\n大经销商拿到的条件远优于中小...', color:'#d6e4ff', children:[]                    },                    {name:'沟通不畅：品牌方调整渠道政策\n时沟通不充分，经销商从第三方...', color:'#d6e4ff', children:[]                    },                    {name:'认知差异：品牌方认为是“正常\n的营销节奏调整”，经销商解读...', color:'#d6e4ff', children:[]                    }                  ]                  },                  {name:'7.5.3.3 渠道冲突的解决策略', color:'#69b1ff', collapsed:true, children:[                    {name:'水平冲突的解决：核心是划清边\n界、落实惩戒。明确区域经营范...', color:'#d6e4ff', children:[]                    },                    {name:'垂直冲突的解决：核心是合同先\n行、强化沟通、利益共享。在合...', color:'#d6e4ff', children:[]                    },                    {name:'多渠道冲突的解决——也是当前\n最受关注的一类冲突：核心是统...', color:'#d6e4ff', children:[]                    },                    {name:'【补充案例：某智能家居品牌渠\n道冲突调解】', color:'#d6e4ff', children:[]                    }                  ]                  },                  {name:'7.5.3.4 渠道冲突的预防性治理\n机制', color:'#69b1ff', collapsed:true, children:[                    {name:'前文中我们讨论了三类渠道冲突\n的类型、成因和解决方案。这里...', color:'#d6e4ff', children:[]                    },                    {name:'在渠道规模较大的品牌中，设立\n由核心经销商代表和品牌方管理...', color:'#d6e4ff', children:[]                    }                  ]                  }                ]                }              ]              },              {name:'7.6 物流与供应链管理：渠道的\n“血脉系统”', color:'#1677ff', collapsed:true, children:[                {name:'如果说渠道结构是骨架，渠道关\n系是肌肉，那么物流与供应链就...', color:'#d6e4ff', children:[]                },                {name:'7.6.1 现代物流管理的核心目标', color:'#4096ff', children:[]                },                {name:'7.6.2 主要物流模式', color:'#4096ff', collapsed:true, children:[                  {name:'干线运输 + 区域分仓 + 末端配\n送：这是最经典的网络式物流结...', color:'#d6e4ff', children:[]                  },                  {name:'第三方物流：将仓储和运输业务\n整体外包给专业的第三方物流服...', color:'#d6e4ff', children:[]                  },                  {name:'前置仓与即时配送：伴随“小时\n达”“半小时达”等即时零售模...', color:'#d6e4ff', children:[]                  },                  {name:'门店发货（店配）：全渠道融合\n趋势下，线下门店同时也是线上...', color:'#d6e4ff', children:[]                  }                ]                },                {name:'7.6.3 跨境物流的四种关键模式', color:'#4096ff', collapsed:true, children:[                  {name:'对于品牌出海而言，跨境物流的\n复杂度远超国内物流，是必须认...', color:'#d6e4ff', children:[]                  },                  {name:'国际快递直邮：通过DHL、FedEx、\nUPS等国际快递公司直接将商品...', color:'#d6e4ff', children:[]                  },                  {name:'专线物流：物流公司开通特定国\n家的专门线路，通过批量处理、...', color:'#d6e4ff', children:[]                  }                ]                },                {name:'7.6.4 智慧物流发展趋势', color:'#4096ff', collapsed:true, children:[                  {name:'物流行业正在经历一轮深刻的智\n能化变革，以下趋势值得持续关...', color:'#d6e4ff', children:[]                  },                  {name:'AGV无人搬运机器人与自动分拣\n系统：在大型仓库中替代人工完...', color:'#d6e4ff', children:[]                  },                  {name:'WMS与TMS系统升级：仓储管理系\n统与运输管理系统功能日趋智能...', color:'#d6e4ff', children:[]                  },                  {name:'绿色物流与碳减排：新能源物流\n车替代燃油车、可循环包装材料...', color:'#d6e4ff', children:[]                  },                  {name:'供应链韧性与弹性设计：经过近\n年全球供应链剧烈波动的压力测...', color:'#d6e4ff', children:[]                  }                ]                },                {name:'7.6.5 供应链韧性的深度解析', color:'#4096ff', collapsed:true, children:[                  {name:'2020年至2022年全球供应链经历\n了极端压力测试，供应链韧性从...', color:'#d6e4ff', children:[]                  }                ]                },                {name:'7.6.6 绿色物流与ESG责任', color:'#4096ff', collapsed:true, children:[                  {name:'近年来，ESG（环境、社会和治\n理）成为企业战略的重要组成部...', color:'#d6e4ff', children:[]                  },                  {name:'在绿色物流方面的实践趋势包括：\n仓储环节采用屋顶光伏发电、智...', color:'#d6e4ff', children:[]                  },                  {name:'对于品牌营销而言，将自身在绿\n色物流和供应链ESG方面扎实的...', color:'#d6e4ff', children:[]                  }                ]                }              ]              },              {name:'7.7 国际分销与跨境渠道：品牌\n出海的通路战略', color:'#1677ff', children:[                {name:'对于苏州工业园区的众多制造和\n科技企业而言，国内市场是根基...', color:'#d6e4ff', children:[]                },                {name:'7.7.1 国际渠道的四种主要模式', color:'#4096ff', collapsed:true, children:[                  {name:'模式四：海外分公司 + 直营 + \n本地渠道', color:'#d6e4ff', children:[]                  },                  {name:'在目标市场设立全资海外分公司，\n组建本地化业务团队，管理当地...', color:'#d6e4ff', children:[]                  },                  {name:'- 对于年出口额较小、以贸易试\n水为主的中小微企业，建议重点...', color:'#d6e4ff', children:[]                  },                  {name:'- 对于年出口额达到一定规模、\n已在部分市场形成品牌认知的企...', color:'#d6e4ff', children:[]                  },                  {name:'- 对于已在海外市场建立稳定业\n务基础、希望进一步深耕的企业...', color:'#d6e4ff', children:[]                  }                ]                },                {name:'7.7.2 国际渠道面临的五大风险', color:'#4096ff', collapsed:true, children:[                  {name:'国际市场的诱惑与风险并存，以\n下是出海企业必须正视的关键风...', color:'#d6e4ff', children:[]                  },                  {name:'关税政策的变化可能让一个原本\n利润可观的出口市场瞬间变得无...', color:'#d6e4ff', children:[]                  },                  {name:'当结算货币（通常是美元或欧元）\n相对于人民币大幅贬值时，以人...', color:'#d6e4ff', children:[]                  },                  {name:'2020年至2022年的全球航运危机\n充分暴露了国际物流的脆弱性：...', color:'#d6e4ff', children:[]                  },                  {name:'在中国市场经受住考验的营销文\n案和产品设计照搬到海外可能引...', color:'#d6e4ff', children:[]                  },                  {name:'海外经销商如果同时代理多家品\n牌，很可能谁给的政策好就主推...', color:'#d6e4ff', children:[]                  }                ]                },                {name:'7.7.3 构建弹性供应链', color:'#4096ff', collapsed:true, children:[                  {name:'面对上述风险，出海企业需要构\n建有弹性的供应链体系。', color:'#d6e4ff', children:[]                  },                  {name:'多源采购：对于核心零部件，不\n依赖单一供应商，至少储备两个...', color:'#d6e4ff', children:[]                  },                  {name:'多区域仓储布局：在多个关键市\n场设置海外仓或区域分拨中心，...', color:'#d6e4ff', children:[]                  },                  {name:'多物流线路：与多家物流服务商\n保持合作，某条线路拥堵或某家...', color:'#d6e4ff', children:[]                  },                  {name:'安全库存机制：根据历史销售数\n据与需求预测设定合理的安全库...', color:'#d6e4ff', children:[]                  },                  {name:'“中国+1”生产布局：一些全球\n化程度较深的企业在保留中国作...', color:'#d6e4ff', children:[]                  }                ]                }              ]              },              {name:'7.8 数字化渠道变革：全渠道与\n新零售', color:'#1677ff', children:[                {name:'数字化技术正在从底层重构分销\n渠道的运作方式。全渠道不是一...', color:'#d6e4ff', children:[]                },                {name:'7.8.1 全渠道的核心特征', color:'#4096ff', collapsed:true, children:[                  {name:'全渠道区别于“多渠道”的关键\n在于一个“全”字——不是渠道...', color:'#d6e4ff', children:[]                  },                  {name:'商品一体化：线上线下同款、同\n价、同促销、同库存共享。消费...', color:'#d6e4ff', children:[]                  },                  {name:'订单全域可履约：消费者可以选\n择快递配送到家，也可以选择到...', color:'#d6e4ff', children:[]                  },                  {name:'会员全渠道通：消费者的会员身\n份、积分余额、优惠券礼包、历...', color:'#d6e4ff', children:[]                  },                  {name:'营销全域协同：在社交媒体上“\n种草”兴趣，在线下门店完成体...', color:'#d6e4ff', children:[]                  }                ]                },                {name:'7.8.2 数字化渠道管理工具', color:'#4096ff', collapsed:true, children:[                  {name:'数字化工具是支撑全渠道运营的\n底层基础设施。以下是渠道管理...', color:'#d6e4ff', children:[]                  },                  {name:'DMS（经销商管理系统，Dealer \nManagement System）：管理经...', color:'#d6e4ff', children:[]                  },                  {name:'CRM（客户关系管理系统，\nCustomer Relationship ...', color:'#d6e4ff', children:[]                  },                  {name:'WMS（仓储管理系统，Warehouse\n Management System）：实现仓...', color:'#d6e4ff', children:[]                  },                  {name:'SCM（供应链管理系统，Supply \nChain Management）：协同管理...', color:'#d6e4ff', children:[]                  },                  {name:'小程序、企业微信、直播工具、\n导购助手：这些工具构成了品牌...', color:'#d6e4ff', children:[]                  },                  {name:'【场景：一个智能家居品牌的全\n渠道履约协同】', color:'#d6e4ff', children:[]                  },                  {name:'这一场景的背后，是该品牌的全\n渠道数字化系统在协同工作：体...', color:'#d6e4ff', children:[]                  }                ]                },                {name:'7.8.3 苏州工业园区企业典型数\n字化渠道应用', color:'#4096ff', collapsed:true, children:[                  {name:'结合园区产业实际，以下是三种\n典型的数字化渠道应用场景。', color:'#d6e4ff', children:[]                  },                  {name:'跨境电商企业：采用多平台ERP\n系统对接亚马逊、速卖通、...', color:'#d6e4ff', children:[]                  },                  {name:'智能家居企业：典型模式为线上\n获取流量和兴趣→门店提供沉浸...', color:'#d6e4ff', children:[]                  },                  {name:'高端制造企业：典型模式为线上\n展示技术方案与行业案例吸引企...', color:'#d6e4ff', children:[]                  }                ]                }              ]              },              {name:'7.9 实训任务', color:'#1677ff', children:[                {name:'Mini Project：Global Channel\n Strategy for Smart Home ...', color:'#4096ff', collapsed:true, children:[                  {name:'项目背景', color:'#69b1ff', collapsed:true, children:[                    {name:'你所在的项目团队受一家苏州工\n业园区智能家居品牌委托，为其...', color:'#d6e4ff', children:[]                    },                    {name:'东南亚的物流基础设施发展不均\n衡，同城配送在新加坡、曼谷等...', color:'#d6e4ff', children:[]                    },                    {name:'东南亚总面积不大但文化多样性\n极高。印度尼西亚和马来西亚有...', color:'#d6e4ff', children:[]                    }                  ]                  },                  {name:'项目任务', color:'#69b1ff', collapsed:true, children:[                    {name:' 渠道模式选择：分析东南亚市\n场的零售格局与消费者特征，论...', color:'#d6e4ff', children:[]                    },                    {name:'物流方案设计：对比直邮、海外\n仓、平台仓（如Shopee本地仓/ ...', color:'#d6e4ff', children:[]                    },                    {name:'本地化适配方案：分析目标市场\n在文化习俗、宗教禁忌、语言偏...', color:'#d6e4ff', children:[]                    },                    {name:'渠道冲突预防机制：提出线下与\n线上之间、不同经销商之间的价...', color:'#d6e4ff', children:[]                    },                    {name:'- 东南亚渠道结构图（标注各渠\n道的关系与货物流向）', color:'#d6e4ff', children:[]                    },                    {name:'- 物流网络示意图（标注仓储节\n点与配送路径）', color:'#d6e4ff', children:[]                    },                    {name:'- 首年预算分配表（按渠道建设、\n物流仓储、本地化运营和营销推...', color:'#d6e4ff', children:[]                    }                  ]                  },                  {name:'评分标准', color:'#69b1ff', children:[]                  }                ]                }              ]              },              {name:'课程思政融入要点', color:'#1677ff', collapsed:true, children:[                {name:'营销教育不仅要教会学生如何做\n渠道，更要引导学生思考应该做...', color:'#d6e4ff', children:[]                },                {name:'契约精神与诚信经营', color:'#4096ff', collapsed:true, children:[                  {name:'渠道关系的基石是契约。合同的\n签订是承诺，合同的履行是信誉...', color:'#d6e4ff', children:[]                  }                ]                },                {name:'协同共赢与长期主义', color:'#4096ff', collapsed:true, children:[                  {name:'渠道是一个利益共生的生态系统，\n不是零和博弈的角力场。压榨渠...', color:'#d6e4ff', children:[]                  }                ]                },                {name:'供应链安全与自主可控', color:'#4096ff', collapsed:true, children:[                  {name:'渠道自主不只是商业问题，在某\n些情境下也关乎产业安全与经济...', color:'#d6e4ff', children:[]                  }                ]                },                {name:'合规经营与全球责任', color:'#4096ff', collapsed:true, children:[                  {name:'遵守各国法律法规、税务制度、\n产品认证标准和环保与劳工权益...', color:'#d6e4ff', children:[]                  }                ]                },                {name:'国货自强与品牌自信', color:'#4096ff', collapsed:true, children:[                  {name:'科沃斯从OEM代工到全球品牌、\n从“做别人品牌的打工人”到“...', color:'#d6e4ff', children:[]                  },                  {name:'作为中国高端制造和科技创新的\n高地，苏州工业园区培养的市场...', color:'#d6e4ff', children:[]                  }                ]                }              ]              },              {name:'本章小结', color:'#1677ff', collapsed:true, children:[                {name:'分销渠道是企业的生命线与护城\n河，是连接产品价值与用户价值...', color:'#d6e4ff', children:[]                },                {name:'本章以苏州工业园区标杆企业科\n沃斯机器人为贯穿案例，系统构...', color:'#d6e4ff', children:[]                },                {name:'本土化：以科沃斯、追觅等苏州\n本土品牌和苏州工业园区产业生...', color:'#d6e4ff', children:[]                },                {name:'数字化：专设数字化渠道变革章\n节，系统介绍DMS、CRM、WMS、...', color:'#d6e4ff', children:[]                },                {name:'国际化：系统讲解跨境渠道模式、\n国际物流方案、跨境风险防控和...', color:'#d6e4ff', children:[]                },                {name:'实战化：通过产教融合案例深度\n拆解、国际化实践项目模拟训练...', color:'#d6e4ff', children:[]                },                {name:'课程思政：在契约精神、协同共\n赢、供应链安全、国货自强、合...', color:'#d6e4ff', children:[]                },                {name:'希望同学们通过本章的学习，真\n正理解并认同一个核心判断：', color:'#d6e4ff', children:[]                },                {name:'成功的渠道，不是买卖关系，是\n生态；不是压迫控制，是协同；...', color:'#d6e4ff', children:[]                },                {name:'掌握渠道策略，意味着掌握市场\n覆盖的能力、效率提升的密码、...', color:'#d6e4ff', children:[]                }              ]              },              {name:'关键术语（中英双语）', color:'#1677ff', children:[]              },              {name:'思考与练习', color:'#1677ff', collapsed:true, children:[                {name:'1. 渠道结构分析题：结合科沃\n斯案例，说明为什么高端智能家...', color:'#d6e4ff', children:[]                },                {name:'2. 渠道冲突解决题：某智能家\n电品牌同时在天猫旗舰店和线下...', color:'#d6e4ff', children:[]                },                {name:'3. 国际渠道策略题：品牌出海\n为什么要采用“跨境电商+本地...', color:'#d6e4ff', children:[]                },                {name:'4. 数字化工具应用题：简述DMS\n系统和CRM系统在渠道管控中分...', color:'#d6e4ff', children:[]                },                {name:'5. 课程思政思考题：从科沃斯\n从代工走向自主品牌的历程出发...', color:'#d6e4ff', children:[]                },                {name:'6. 渠道设计实战题：假如你是\n苏州工业园区某智能家居品牌的...', color:'#d6e4ff', children:[]                },                {name:'7. 渠道冲突诊断题：某品牌发\n现华东区域部分经销商的货出现...', color:'#d6e4ff', children:[]                },                {name:'8. 跨境物流规划题：一家苏州\n智能小家电企业计划开拓德国市...', color:'#d6e4ff', children:[]                },                {name:'9. 渠道绩效评估题：某智能家\n居企业在全国布局了50家经销商...', color:'#d6e4ff', children:[]                },                {name:'10. 社交电商渠道题：新兴品牌\n如何利用抖音小店、小红书商城...', color:'#d6e4ff', children:[]                },                {name:'11. 全渠道整合题：某家电品牌\n计划实现“线上下单、线下门店...', color:'#d6e4ff', children:[]                },                {name:'12. 渠道激励设计题：针对年销\n售额超千万的经销商，除了返点...', color:'#d6e4ff', children:[]                },                {name:'13. 新兴市场渠道题：进入东南\n亚市场时，面对当地复杂的分销...', color:'#d6e4ff', children:[]                },                {name:'14. 数据驱动渠道题：如何利用\n销售数据（如区域渗透率、SKU...', color:'#d6e4ff', children:[]                },                {name:'15. 绿色渠道策略题：在欧盟碳\n关税政策下，跨境电商企业如何...', color:'#d6e4ff', children:[]                },                {name:'16. 渠道合作模式题：对比“经\n销商代理”与“品牌直营”两种...', color:'#d6e4ff', children:[]                },                {name:'17. 渠道风险防控题：当核心经\n销商突然终止合作时，企业应如...', color:'#d6e4ff', children:[]                },                {name:'18. 下沉市场渠道题：针对三四\n线城市及乡镇市场，智能家电品...', color:'#d6e4ff', children:[]                },                {name:'19. 渠道数字化转型题：传统制\n造企业在渠道数字化过程中，常...', color:'#d6e4ff', children:[]                },                {name:'20. 渠道伦理思考题：当经销商\n为完成销售指标而向未成年人销...', color:'#d6e4ff', children:[]                }              ]              }            ]            };
+
+showStatus('正在渲染节点...', 'loading');
+
+// ============ CONSTANTS ============
+var NODE_W = 200, NODE_H = 44, H_GAP = 32, V_GAP = 16, CORNER_R = 8;
+var svgEl = document.getElementById('svg');
+var NS = 'http://www.w3.org/2000/svg';
+
+// ============ HELPERS ============
+function isLight(hex){
+  var r=parseInt(hex.slice(1,3),16),g=parseInt(hex.slice(3,5),16),b=parseInt(hex.slice(5,7),16);
+  return(r*299+g*587+b*114)/1000>160;
+}
+function darken(hex,amt){
+  var r=Math.max(0,parseInt(hex.slice(1,3),16)*(1-amt));
+  var g=Math.max(0,parseInt(hex.slice(3,5),16)*(1-amt));
+  var b=Math.max(0,parseInt(hex.slice(5,7),16)*(1-amt));
+  return '#'+[r,g,b].map(function(v){return Math.round(v).toString(16).padStart(2,'0')}).join('');
+}
+
+// ============ LAYOUT ============
+var flatNodes=[], flatLinks=[];
+
+function initCollapsed(d){
+  if(d.collapsed!==undefined)d._collapsed=d.collapsed;
+  else d._collapsed=false;
+  if(d.children)d.children.forEach(initCollapsed);
+}
+
+function layout(){
+  flatNodes=[];flatLinks=[];
+  initCollapsed(treeData);
+  var W=window.innerWidth, H=window.innerHeight;
+  var rootX=120;
+
+  function place(d,depth,yStart,ySpan){
+    var x=rootX+depth*(NODE_W+H_GAP);
+    var nKids=(d.children&&!d._collapsed)?d.children.length:1;
+    var leafSpan=ySpan/nKids;
+    var y=yStart+ySpan/2;
+    var node={
+      id:flatNodes.length, name:d.name, color:d.color||'#595959',
+      emph:!!d.emph, x:x, y:y, w:NODE_W, h:NODE_H, depth:depth,
+      hasKids:!!(d.children&&d.children.length>0), collapsed:!!d._collapsed
+    };
+    d._node=node;
+    flatNodes.push(node);
+    if(d.children&&!d._collapsed){
+      for(var i=0;i<d.children.length;i++){
+        var child=d.children[i];
+        place(child,depth+1,yStart+i*leafSpan,leafSpan);
+        flatLinks.push({s:node.id,t:child._node.id});
+      }
+    }
+  }
+  place(treeData,0,80,H-160);
+
+  // Fix overlaps
+  var byDepth={};
+  flatNodes.forEach(function(n){
+    if(!byDepth[n.depth])byDepth[n.depth]=[];
+    byDepth[n.depth].push(n);
+  });
+  for(var key in byDepth){
+    var arr=byDepth[key];
+    arr.sort(function(a,b){return a.y-b.y});
+    for(var i=1;i<arr.length;i++){
+      if(arr[i].y-arr[i-1].y<NODE_H+V_GAP) arr[i].y=arr[i-1].y+NODE_H+V_GAP;
+    }
+  }
+}
+
+// ============ RENDER ============
+var mainG, linkG, nodeG;
+
+function render(){
+  while(svgEl.firstChild)svgEl.removeChild(svgEl.firstChild);
+
+  var defs=document.createElementNS(NS,'defs');
+  var filter=document.createElementNS(NS,'filter');
+  filter.setAttribute('id','sd');
+  filter.setAttribute('x','-10%');filter.setAttribute('y','-10%');
+  filter.setAttribute('width','130%');filter.setAttribute('height','130%');
+  var fe=document.createElementNS(NS,'feDropShadow');
+  fe.setAttribute('dx','1');fe.setAttribute('dy','2');
+  fe.setAttribute('stdDeviation','3');fe.setAttribute('flood-opacity','0.12');
+  filter.appendChild(fe);defs.appendChild(filter);
+  svgEl.appendChild(defs);
+
+  mainG=document.createElementNS(NS,'g');
+  svgEl.appendChild(mainG);
+
+  linkG=document.createElementNS(NS,'g');
+  linkG.setAttribute('class','links');
+  mainG.appendChild(linkG);
+
+  nodeG=document.createElementNS(NS,'g');
+  nodeG.setAttribute('class','nodes');
+  mainG.appendChild(nodeG);
+
+  // Links
+  var linkSet={};
+  flatLinks.forEach(function(l){linkSet[l.s+'-'+l.t]={s:l.s,t:l.t}});
+  for(var k in linkSet){
+    var l=linkSet[k];
+    var s=flatNodes[l.s], t=flatNodes[l.t];
+    var sx=s.x+NODE_W, sy=s.y+NODE_H/2, ex=t.x, ey=t.y+NODE_H/2;
+    var mx=(sx+ex)/2;
+    var d='M'+sx+','+sy+' C'+mx+','+sy+' '+mx+','+ey+' '+ex+','+ey;
+    var p=document.createElementNS(NS,'path');
+    p.setAttribute('d',d);
+    p.setAttribute('fill','none');
+    p.setAttribute('stroke','#c0c0c0');
+    p.setAttribute('stroke-width','1.5');
+    p.setAttribute('stroke-opacity','0.6');
+    p.setAttribute('data-s',l.s);
+    p.setAttribute('data-t',l.t);
+    linkG.appendChild(p);
+  }
+
+  // Nodes
+  flatNodes.forEach(function(n){
+    var g=document.createElementNS(NS,'g');
+    g.setAttribute('transform','translate('+n.x+','+n.y+')');
+    g.setAttribute('class','node');
+    g.style.cursor=n.hasKids?'pointer':'default';
+    g.setAttribute('data-id',n.id);
+    g.addEventListener('click',function(ev){ev.stopPropagation();toggleNode(n);});
+
+    var rect=document.createElementNS(NS,'rect');
+    rect.setAttribute('width',n.w);
+    rect.setAttribute('height',n.h);
+    rect.setAttribute('rx',CORNER_R);
+    rect.setAttribute('ry',CORNER_R);
+    rect.setAttribute('fill',n.emph?darken(n.color,0.08):n.color);
+    rect.setAttribute('stroke',n.emph?darken(n.color,0.2):'rgba(0,0,0,0.08)');
+    rect.setAttribute('stroke-width',n.emph?'2.5':'1');
+    rect.setAttribute('filter','url(#sd)');
+    g.appendChild(rect);
+
+    // Collapse indicator
+    if(n.hasKids){
+      var cx=n.w-14, cy=n.h/2;
+      var circle=document.createElementNS(NS,'circle');
+      circle.setAttribute('cx',cx);circle.setAttribute('cy',cy);circle.setAttribute('r','8');
+      circle.setAttribute('fill','rgba(255,255,255,0.35)');
+      circle.setAttribute('stroke','rgba(255,255,255,0.6)');
+      circle.setAttribute('stroke-width','1');
+      g.appendChild(circle);
+      var txt=document.createElementNS(NS,'text');
+      txt.setAttribute('x',cx);txt.setAttribute('y',cy);
+      txt.setAttribute('dy','0.35em');
+      txt.setAttribute('text-anchor','middle');
+      txt.setAttribute('fill','#fff');
+      txt.setAttribute('font-size','11');
+      txt.setAttribute('font-weight','bold');
+      txt.textContent=n.collapsed?'+':'−';
+      g.appendChild(txt);
+    }
+
+    // Text
+    var lines=n.name.split('\n');
+    var fs=lines.length>3?10:lines.length>2?11:12;
+    var tc=isLight(n.color)?'#1a1a1a':'#fff';
+    var totalH=lines.length*(fs+3)-3;
+    lines.forEach(function(line,i){
+      var ty=n.h/2-totalH/2+i*(fs+3)+fs*0.35;
+      var txt=document.createElementNS(NS,'text');
+      txt.setAttribute('x',n.hasKids?'14':n.w/2);
+      txt.setAttribute('y',ty);
+      txt.setAttribute('text-anchor',n.hasKids?'start':'middle');
+      txt.setAttribute('fill',tc);
+      txt.setAttribute('font-size',fs);
+      txt.setAttribute('font-weight',n.emph?'bold':'normal');
+      txt.setAttribute('font-family','Microsoft YaHei,PingFang SC,sans-serif');
+      txt.textContent=line;
+      g.appendChild(txt);
+    });
+
+    nodeG.appendChild(g);
+  });
+}
+
+// ============ TREE OPS ============
+function findData(d,id){
+  if(d._node&&d._node.id===id)return d;
+  if(d.children)for(var i=0;i<d.children.length;i++){var r=findData(d.children[i],id);if(r)return r;}
+  return null;
+}
+
+function toggleNode(node){
+  var d=findData(treeData,node.id);
+  if(d&&d.children&&d.children.length>0){
+    d._collapsed=!d._collapsed;
+    layout();render();applyTransform();
+    var q=document.getElementById('searchInput').value.trim();
+    if(q)highlight(q);
+  }
+}
+
+function expandAll(){
+  (function e(d){d._collapsed=false;if(d.children)d.children.forEach(e);})(treeData);
+  layout();render();applyTransform();
+}
+function collapseAll(){
+  (function c(d,dp){if(dp>=2)d._collapsed=true;if(d.children)d.children.forEach(function(ch){c(ch,dp+1)});})(treeData,0);
+  layout();render();applyTransform();
+}
+
+// ============ SEARCH ============
+function highlight(q){
+  q=q.toLowerCase();
+  var match=[];
+  flatNodes.forEach(function(n){if(n.name.toLowerCase().indexOf(q)>=0)match[n.id]=true;});
+  var ng=nodeG.querySelectorAll('.node');
+  for(var i=0;i<ng.length;i++){
+    var id=parseInt(ng[i].getAttribute('data-id'));
+    ng[i].style.opacity=match[id]?'1':'0.15';
+  }
+  var lp=linkG.querySelectorAll('path');
+  for(var i=0;i<lp.length;i++){
+    var s=parseInt(lp[i].getAttribute('data-s'));
+    var t=parseInt(lp[i].getAttribute('data-t'));
+    lp[i].setAttribute('stroke-opacity',(match[s]||match[t])?'0.6':'0.06');
+  }
+}
+function clearHighlight(){
+  var ng=nodeG.querySelectorAll('.node');
+  for(var i=0;i<ng.length;i++)ng[i].style.opacity='1';
+  var lp=linkG.querySelectorAll('path');
+  for(var i=0;i<lp.length;i++)lp[i].setAttribute('stroke-opacity','0.6');
+}
+
+// ============ ZOOM & PAN ============
+var tx=0, ty=0, scale=1;
+
+function applyTransform(){
+  mainG.setAttribute('transform','translate('+tx+','+ty+') scale('+scale+')');
+}
+
+var panning=false, panSX=0, panSY=0, panTX=0, panTY=0;
+
+svgEl.addEventListener('mousedown',function(ev){
+  if(ev.target===svgEl||ev.target.tagName==='svg'||ev.target===mainG){
+    panning=true;panSX=ev.clientX;panSY=ev.clientY;panTX=tx;panTY=ty;
+    svgEl.style.cursor='grabbing';
+  }
+});
+window.addEventListener('mousemove',function(ev){
+  if(!panning)return;
+  tx=panTX+(ev.clientX-panSX);ty=panTY+(ev.clientY-panSY);
+  applyTransform();
+});
+window.addEventListener('mouseup',function(){panning=false;svgEl.style.cursor='';});
+svgEl.addEventListener('wheel',function(ev){
+  ev.preventDefault();
+  var ds=ev.deltaY>0?0.9:1.1;
+  var ns=Math.min(3,Math.max(0.15,scale*ds));
+  var mx=ev.clientX,my=ev.clientY;
+  tx=mx-(mx-tx)*(ns/scale);
+  ty=my-(my-ty)*(ns/scale);
+  scale=ns;
+  applyTransform();
+},{passive:false});
+
+function fitView(){
+  var bb=mainG.getBBox();
+  var W=window.innerWidth,H=window.innerHeight,pad=80;
+  scale=Math.min(W/(bb.width+pad*2),H/(bb.height+pad*2),1.2);
+  tx=(W-bb.width*scale)/2-bb.x*scale;
+  ty=(H-bb.height*scale)/2-bb.y*scale;
+  applyTransform();
+}
+
+// ============ INIT ============
+layout();
+render();
+applyTransform();
+setTimeout(function(){
+  fitView();
+  showStatus('✅ 思维导图已就绪', 'ok');
+  setTimeout(function(){statusEl.style.display='none';},1500);
+},200);
+
+document.getElementById('btnFit').addEventListener('click',fitView);
+document.getElementById('btnExpand').addEventListener('click',expandAll);
+document.getElementById('btnCollapse').addEventListener('click',collapseAll);
+document.getElementById('searchInput').addEventListener('input',function(){
+  var q=this.value.trim();
+  if(q)highlight(q);else clearHighlight();
+});
+
+var rt;
+window.addEventListener('resize',function(){
+  clearTimeout(rt);
+  rt=setTimeout(function(){layout();render();applyTransform();},200);
+});
+
+// Success
+console.log('MindMap: rendered '+flatNodes.length+' nodes, '+flatLinks.length+' links');
+
+}catch(e){
+  showStatus('⚠️ 加载失败: '+e.message, 'err');
+  console.error(e);
+}
+})();
+</script>
+</body>
+</html>
